@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact &amp; Clinical Appointments — Curevo Women's Health Center</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Immediate Scroll & 404 Position Restorer -->
+    <script>
+        (function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            function restoreScrollPosition() {
+                var isReturningFrom404 = sessionStorage.getItem('curevo_returning_from_404') === '1';
+                if (isReturningFrom404) {
+                    var savedPos = sessionStorage.getItem('curevo_scroll_pos');
+                    if (savedPos !== null) {
+                        var targetY = parseInt(savedPos, 10);
+                        if (!isNaN(targetY) && targetY >= 0) {
+                            window.scrollTo({ top: targetY, left: 0, behavior: 'instant' });
+                            document.querySelectorAll('[data-reveal]').forEach(function(el) {
+                                var rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight + 500) {
+                                    el.classList.add('revealed');
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+            }
+
+            restoreScrollPosition();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+                setTimeout(restoreScrollPosition, 150);
+                setTimeout(restoreScrollPosition, 300);
+            });
+
+            window.addEventListener('load', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 100);
+                setTimeout(function() {
+                    restoreScrollPosition();
+                    setTimeout(function() {
+                        sessionStorage.removeItem('curevo_returning_from_404');
+                        sessionStorage.removeItem('curevo_scroll_pos');
+                        sessionStorage.removeItem('curevo_from_url');
+                    }, 600);
+                }, 300);
+            });
+
+            window.addEventListener('pageshow', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Interactive Ambient Glow Layers -->
+    <div class="ambient-glow ambient-glow-1"></div>
+    <div class="ambient-glow ambient-glow-2"></div>
+    <div class="ambient-glow ambient-glow-3"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="header-container" id="mainHeader">
+        <nav class="nav-glass-capsule">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" aria-label="Curevo Home">
+                <img src="images/logo.webp" alt="Curevo Women's Health Center" class="header-logo-img">
+            </a>
+
+            <!-- Navigation Links (Full Screen on Mobile) -->
+            <div class="nav-menu" id="navMenu">
+                <!-- Mobile Menu Header with Logo & Close Button -->
+                <div class="mobile-menu-header">
+                    <a href="index.html" class="mobile-menu-logo" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="mobile-logo-img">
+                    </a>
+                    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+
+                <ul class="nav-links-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="service.html" class="nav-link">Service</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link login-link">Login</a></li>
+                </ul>
+
+                <!-- Mobile Menu Bottom CTA & Location Info -->
+                <div class="mobile-menu-footer">
+                    <a href="404.html" class="mobile-cta-btn">
+                        <span>Book an appointment</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <p class="mobile-loc-text">MMR complex, salem, tamilnadu</p>
+                </div>
+            </div>
+
+            <!-- Header Action CTA -->
+            <div class="nav-actions">
+                <a href="404.html" class="btn-appointment" aria-label="Book an appointment">
+                    <span class="btn-text">Book an appointment</span>
+                    <span class="btn-arrow-circle">
+                        <i class="ri-arrow-right-line"></i>
+                    </span>
+                </a>
+                
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================================================
+         SECTION 1: ANIMATED & INTERACTIVE HERO SECTION
+         ========================================================================== -->
+    <main class="contact-hero-wrapper" id="home">
+        <!-- Hero Background Layer -->
+        <div class="contact-hero-bg">
+            <img src="images/h4.webp" alt="Curevo Women's Health Consultation Desk" class="contact-hero-bg-img">
+            <div class="contact-hero-overlay"></div>
+        </div>
+
+        <div class="contact-hero-container">
+            <div class="contact-hero-grid">
+                <!-- Left Hero Content -->
+                <div class="contact-hero-left" data-reveal="fade-up" data-delay="50">
+                    <div class="hero-live-status-bar">
+                        <span class="live-beacon"></span>
+                        <span class="live-beacon-text">Salem OPD &bull; Open &amp; Accepting Consultations</span>
+                    </div>
+
+                    <h1 class="contact-hero-heading">
+                        Compassionate connection, <br>
+                        <em class="italic-highlight" style="color: var(--color-primary-lime, #8ef062); font-style: italic;">Unrivaled</em> care in Salem
+                    </h1>
+
+                    <p class="contact-hero-desc">
+                        Whether you require immediate maternal triage, advanced fertility guidance, a high-definition 4D ultrasound scan, or proactive gynecological wellness, our dedicated care navigators and medical teams are here for you 24 hours a day.
+                    </p>
+
+                    <!-- Clinical Status Metrics -->
+                    <div class="contact-hero-stats">
+                        <div class="stat-pill">
+                            <span class="stat-num">15+</span>
+                            <span class="stat-label">Specialists On Duty</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-num">&lt; 8 Mins</span>
+                            <span class="stat-label">Direct Triage Response</span>
+                        </div>
+                        <div class="stat-pill">
+                            <span class="stat-num">24/7</span>
+                            <span class="stat-label">Maternity Emergency</span>
+                        </div>
+                    </div>
+
+                    <!-- Direct Action Buttons -->
+                    <div class="hero-contact-actions">
+                        <a href="404.html" class="btn-primary-lime">
+                            <span>Book Consultation</span>
+                            <i class="ri-calendar-check-line"></i>
+                        </a>
+                        <a href="404.html" class="btn-glass-hollow">
+                            <span>Emergency Hotlines</span>
+                            <i class="ri-phone-fill"></i>
+                        </a>
+                        <a href="404.html" class="btn-glass-hollow">
+                            <span>Campus Directions</span>
+                            <i class="ri-map-pin-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Hero Floating Live Status Card -->
+                <div class="contact-hero-right" data-reveal="fade-up" data-delay="150">
+                    <div class="contact-hero-card" id="heroLiveCard">
+                        <div class="card-glowing-edge"></div>
+                        
+                        <div class="hero-card-header">
+                            <div class="card-header-badge">
+                                <i class="ri-shield-check-fill"></i>
+                                <span>Priority Care Navigator</span>
+                            </div>
+                            <span class="card-header-status">Live Desk</span>
+                        </div>
+
+                        <div class="hero-status-rows">
+                            <div class="status-info-item">
+                                <div class="status-info-icon">
+                                    <i class="ri-hospital-line"></i>
+                                </div>
+                                <div class="status-info-text">
+                                    <span class="status-info-label">Main Facility Location</span>
+                                    <span class="status-info-val">MMR Complex, Omalur Main Rd, Salem</span>
+                                </div>
+                            </div>
+
+                            <div class="status-info-item">
+                                <div class="status-info-icon">
+                                    <i class="ri-user-star-line"></i>
+                                </div>
+                                <div class="status-info-text">
+                                    <span class="status-info-label">On-Duty Emergency Lead</span>
+                                    <span class="status-info-val">Dr. Priya Radhakrishnan, MD, DGO</span>
+                                </div>
+                            </div>
+
+                            <div class="status-info-item">
+                                <div class="status-info-icon">
+                                    <i class="ri-time-line"></i>
+                                </div>
+                                <div class="status-info-text">
+                                    <span class="status-info-label">Next Walk-In OPD Slot</span>
+                                    <span class="status-info-val">Today at 10:30 AM (Est. Wait &lt; 10m)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-card-footer-btns">
+                            <a href="404.html" class="btn-card-action btn-card-call">
+                                <i class="ri-phone-line"></i>
+                                <span>Call Fast-Lane</span>
+                            </a>
+                            <a href="404.html" class="btn-card-action btn-card-chat">
+                                <i class="ri-whatsapp-line"></i>
+                                <span>WhatsApp Care</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         SECTION 2: INTERACTIVE MULTI-STEP CLINICAL APPOINTMENT BOOKING HUB
+         ========================================================================== -->
+    <section class="booking-hub-section" id="appointmentHub">
+        <div class="contact-hero-container">
+            <div class="text-center" data-reveal="fade-up">
+                <span class="section-tag-pill">
+                    <i class="ri-calendar-2-line"></i> Clinical Scheduling Suite
+                </span>
+                <h2 class="section-grand-title">Reserve Your Consultation</h2>
+                <p class="section-sub-desc mx-auto">
+                    Select your clinical department, choose your preferred specialist physician, and book an in-person OPD or secure telemedicine appointment in under 60 seconds.
+                </p>
+            </div>
+
+            <div class="booking-wizard-card" data-reveal="fade-up" data-delay="100">
+                <!-- Step Navigation Indicators -->
+                <div class="booking-steps-bar">
+                    <div class="step-item active" data-step="1" id="stepIndicator1">
+                        <div class="step-circle">1</div>
+                        <span class="step-name">1. Care Specialty</span>
+                    </div>
+                    <div class="step-item" data-step="2" id="stepIndicator2">
+                        <div class="step-circle">2</div>
+                        <span class="step-name">2. Select Doctor</span>
+                    </div>
+                    <div class="step-item" data-step="3" id="stepIndicator3">
+                        <div class="step-circle">3</div>
+                        <span class="step-name">3. Date &amp; Time</span>
+                    </div>
+                    <div class="step-item" data-step="4" id="stepIndicator4">
+                        <div class="step-circle">4</div>
+                        <span class="step-name">4. Patient Info</span>
+                    </div>
+                </div>
+
+                <!-- STEP 1: Care Specialty -->
+                <div class="wizard-step-pane active" id="wizardStep1">
+                    <h3 class="step-header-text">Select Required Clinical Specialty</h3>
+                    <p class="step-sub-text">Choose the department matching your current healthcare requirement:</p>
+
+                    <div class="specialty-cards-grid">
+                        <div class="specialty-tile selected" data-specialty="Obstetrics & High-Risk Pregnancy">
+                            <div class="specialty-tile-icon"><i class="ri-heart-pulse-line"></i></div>
+                            <div>
+                                <h4 class="specialty-tile-title">Obstetrics &amp; Maternity</h4>
+                                <p class="specialty-tile-desc">High-risk pregnancy, prenatal care &amp; painless delivery suites.</p>
+                            </div>
+                        </div>
+
+                        <div class="specialty-tile" data-specialty="Advanced Gynecology & Laparoscopy">
+                            <div class="specialty-tile-icon"><i class="ri-women-line"></i></div>
+                            <div>
+                                <h4 class="specialty-tile-title">Advanced Gynecology</h4>
+                                <p class="specialty-tile-desc">PCOS, fibroids, endometriosis &amp; keyhole laparoscopic surgery.</p>
+                            </div>
+                        </div>
+
+                        <div class="specialty-tile" data-specialty="Fertility & IVF Counseling">
+                            <div class="specialty-tile-icon"><i class="ri-microscope-line"></i></div>
+                            <div>
+                                <h4 class="specialty-tile-title">Fertility &amp; IVF</h4>
+                                <p class="specialty-tile-desc">Ovulation induction, IUI/IVF protocols &amp; genetic screening.</p>
+                            </div>
+                        </div>
+
+                        <div class="specialty-tile" data-specialty="4D Fetal Ultrasound & Radiology">
+                            <div class="specialty-tile-icon"><i class="ri-scan-2-line"></i></div>
+                            <div>
+                                <h4 class="specialty-tile-title">4D Fetal Scan &amp; Imaging</h4>
+                                <p class="specialty-tile-desc">Nuchal scan, anomaly screening &amp; high-res fetal echocardiography.</p>
+                            </div>
+                        </div>
+
+                        <div class="specialty-tile" data-specialty="Breast Wellness & Mammography">
+                            <div class="specialty-tile-icon"><i class="ri-shield-cross-line"></i></div>
+                            <div>
+                                <h4 class="specialty-tile-title">Breast Wellness &amp; Oncology</h4>
+                                <p class="specialty-tile-desc">Low-dose digital mammograms &amp; benign lump assessment.</p>
+                            </div>
+                        </div>
+
+                        <div class="specialty-tile" data-specialty="Menopause & Hormonal Balance">
+                            <div class="specialty-tile-icon"><i class="ri-pulse-line"></i></div>
+                            <div>
+                                <h4 class="specialty-tile-title">Hormonal &amp; Menopause</h4>
+                                <p class="specialty-tile-desc">Bioidentical hormone therapy, bone density &amp; thyroid care.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wizard-nav-btns">
+                        <div></div>
+                        <button type="button" class="btn-primary-lime" onclick="goToBookingStep(2)">
+                            <span>Continue to Doctor Selection</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Choose Doctor -->
+                <div class="wizard-step-pane" id="wizardStep2">
+                    <h3 class="step-header-text">Choose Specialist Lead</h3>
+                    <p class="step-sub-text">Select your preferred consultant or allow our triage system to allocate the first available doctor:</p>
+
+                    <div class="doctor-cards-grid">
+                        <div class="doctor-tile selected" data-doctor="Dr. Priya Radhakrishnan, MD">
+                            <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Priya Radhakrishnan" class="doctor-tile-img">
+                            <div class="doctor-tile-info">
+                                <span class="doctor-tile-name">Dr. Priya Radhakrishnan, MD</span>
+                                <span class="doctor-tile-role">Chief Obstetrician &amp; Fetal Specialist</span>
+                                <span class="doctor-tile-exp">18+ Years Clinical Experience</span>
+                            </div>
+                        </div>
+
+                        <div class="doctor-tile" data-doctor="Dr. Ananya Sharma, MS">
+                            <img src="images/download (11).webp" alt="Dr. Ananya Sharma" class="doctor-tile-img">
+                            <div class="doctor-tile-info">
+                                <span class="doctor-tile-name">Dr. Ananya Sharma, MS</span>
+                                <span class="doctor-tile-role">Senior Gynecological Laparoscopic Surgeon</span>
+                                <span class="doctor-tile-exp">14+ Years Clinical Experience</span>
+                            </div>
+                        </div>
+
+                        <div class="doctor-tile" data-doctor="Dr. Meera Nambiar, DNB">
+                            <img src="images/h3.webp" alt="Dr. Meera Nambiar" class="doctor-tile-img">
+                            <div class="doctor-tile-info">
+                                <span class="doctor-tile-name">Dr. Meera Nambiar, DNB</span>
+                                <span class="doctor-tile-role">Reproductive Medicine &amp; IVF Lead</span>
+                                <span class="doctor-tile-exp">12+ Years Clinical Experience</span>
+                            </div>
+                        </div>
+
+                        <div class="doctor-tile" data-doctor="Next Available Senior Specialist">
+                            <div class="doctor-tile-img" style="background: rgba(142,240,98,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: #8ef062;">
+                                <i class="ri-user-shared-line"></i>
+                            </div>
+                            <div class="doctor-tile-info">
+                                <span class="doctor-tile-name">Next Available Specialist</span>
+                                <span class="doctor-tile-role">Immediate Allocation (Shortest Wait Time)</span>
+                                <span class="doctor-tile-exp">Assigned by Clinical Triage Desk</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="wizard-nav-btns">
+                        <button type="button" class="btn-glass-hollow" onclick="goToBookingStep(1)">
+                            <i class="ri-arrow-left-line"></i>
+                            <span>Back to Specialty</span>
+                        </button>
+                        <button type="button" class="btn-primary-lime" onclick="goToBookingStep(3)">
+                            <span>Continue to Schedule</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Date & Time -->
+                <div class="wizard-step-pane" id="wizardStep3">
+                    <h3 class="step-header-text">Select Preferred Date &amp; Consultation Mode</h3>
+                    <p class="step-sub-text">Choose in-person visit or video tele-consultation alongside your preferred time:</p>
+
+                    <div class="slot-select-row">
+                        <div class="form-group-luxury">
+                            <label class="form-label-luxury" for="consultMode">Consultation Mode</label>
+                            <select id="consultMode" class="input-luxury">
+                                <option value="In-Person OPD Clinic Visit (Salem Center)">In-Person OPD Clinic Visit (Salem Center)</option>
+                                <option value="Encrypted HD Tele-Health Video Consult">Encrypted HD Tele-Health Video Consult</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-luxury">
+                            <label class="form-label-luxury" for="appointmentDate">Preferred Consultation Date</label>
+                            <input type="date" id="appointmentDate" class="input-luxury" value="2026-10-05" min="2026-10-02">
+                        </div>
+                    </div>
+
+                    <div class="form-group-luxury" style="margin-bottom: 24px;">
+                        <label class="form-label-luxury">Available Time Slots</label>
+                        <div class="time-pills-row">
+                            <button type="button" class="time-pill-btn selected">10:00 AM</button>
+                            <button type="button" class="time-pill-btn">10:45 AM</button>
+                            <button type="button" class="time-pill-btn">11:30 AM</button>
+                            <button type="button" class="time-pill-btn">02:15 PM</button>
+                            <button type="button" class="time-pill-btn">03:00 PM</button>
+                            <button type="button" class="time-pill-btn">04:30 PM</button>
+                            <button type="button" class="time-pill-btn">05:45 PM</button>
+                            <button type="button" class="time-pill-btn">06:30 PM</button>
+                        </div>
+                    </div>
+
+                    <div class="wizard-nav-btns">
+                        <button type="button" class="btn-glass-hollow" onclick="goToBookingStep(2)">
+                            <i class="ri-arrow-left-line"></i>
+                            <span>Back to Doctor</span>
+                        </button>
+                        <button type="button" class="btn-primary-lime" onclick="goToBookingStep(4)">
+                            <span>Continue to Patient Details</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Patient Details -->
+                <div class="wizard-step-pane" id="wizardStep4">
+                    <h3 class="step-header-text">Patient Information &amp; Confidential Medical Notes</h3>
+                    <p class="step-sub-text">Your medical records and consultation inquiries are strictly protected under clinical privacy standards:</p>
+
+                    <form id="bookingFinalForm" onsubmit="event.preventDefault(); submitBookingAppointment();">
+                        <div class="patient-fields-grid">
+                            <div class="form-group-luxury">
+                                <label class="form-label-luxury" for="patientFullName">Patient Full Name *</label>
+                                <input type="text" id="patientFullName" class="input-luxury" placeholder="e.g. Kavitha Ramanathan" required>
+                            </div>
+
+                            <div class="form-group-luxury">
+                                <label class="form-label-luxury" for="patientPhone">Mobile Phone Number (10 Digits) *</label>
+                                <input type="tel" id="patientPhone" class="input-luxury" placeholder="e.g. 9842154321" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                            </div>
+
+                            <div class="form-group-luxury">
+                                <label class="form-label-luxury" for="patientEmail">Email Address *</label>
+                                <input type="email" id="patientEmail" class="input-luxury" placeholder="name@domain.com" required>
+                            </div>
+
+                            <div class="form-group-luxury">
+                                <label class="form-label-luxury" for="patientAge">Patient Age (Years) *</label>
+                                <input type="text" id="patientAge" class="input-luxury" placeholder="e.g. 29" maxlength="3" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                            </div>
+
+                            <div class="form-group-luxury full-span">
+                                <label class="form-label-luxury" for="patientNotes">Brief Medical Symptoms / Reason for Visit</label>
+                                <textarea id="patientNotes" class="input-luxury" rows="3" placeholder="Describe any relevant symptoms, prior scan dates, or specific questions for the physician..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="wizard-nav-btns">
+                            <button type="button" class="btn-glass-hollow" onclick="goToBookingStep(3)">
+                                <i class="ri-arrow-left-line"></i>
+                                <span>Back to Schedule</span>
+                            </button>
+                            <button type="submit" class="btn-primary-lime">
+                                <span>Confirm &amp; Book Appointment</span>
+                                <i class="ri-check-double-line"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: DEDICATED CLINICAL DEPARTMENT HOTLINES & DIRECT DESKS
+         ========================================================================== -->
+    <section class="hotlines-section" id="departmentHotlines">
+        <div class="contact-hero-container">
+            <div class="text-center" data-reveal="fade-up">
+                <span class="section-tag-pill">
+                    <i class="ri-phone-lock-line"></i> Direct Clinical Wings
+                </span>
+                <h2 class="section-grand-title">Dedicated Department Hotlines</h2>
+                <p class="section-sub-desc mx-auto">
+                    Bypass general call centers and connect straight to our specialized department coordinators, emergency labor triage desks, and radiology imaging suites.
+                </p>
+            </div>
+
+            <div class="hotlines-grid">
+                <!-- Card 1: Emergency Triage -->
+                <div class="hotline-card emergency-card" data-reveal="fade-up" data-delay="50">
+                    <div>
+                        <div class="hotline-card-top">
+                            <div class="hotline-icon-box">
+                                <i class="ri-alarm-warning-fill"></i>
+                            </div>
+                            <div>
+                                <h3 class="hotline-dept-title">24/7 Labor &amp; Maternity Triage</h3>
+                                <span class="hotline-status-text">Instant Emergency Response</span>
+                            </div>
+                        </div>
+                        <p class="hotline-desc">
+                            Direct line to on-duty obstetricians, neonatal resuscitation teams, and rapid ambulance dispatch for urgent labor pains or pregnancy complications.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="hotline-phone-row">
+                            <span class="hotline-phone-number">+91 427 8899 101</span>
+                            <span class="badge-active" style="background: rgba(255,107,107,0.2); color: #ff6b6b; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">24/7 Active</span>
+                        </div>
+                        <a href="404.html" class="hotline-action-btn">
+                            <i class="ri-phone-fill"></i>
+                            <span>Call Emergency Hotline</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2: Fertility & IVF -->
+                <div class="hotline-card" data-reveal="fade-up" data-delay="100">
+                    <div>
+                        <div class="hotline-card-top">
+                            <div class="hotline-icon-box">
+                                <i class="ri-microscope-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="hotline-dept-title">Fertility &amp; IVF Guidance Desk</h3>
+                                <span class="hotline-status-text">Confidential Counseling</span>
+                            </div>
+                        </div>
+                        <p class="hotline-desc">
+                            Inquire about IVF cycles, fertility assessments, genetic carrier screening, and schedule private one-on-one doctor consultations.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="hotline-phone-row">
+                            <span class="hotline-phone-number">+91 427 8899 102</span>
+                            <span style="font-size: 0.78rem; color: #8da494;">09:00 AM - 07:00 PM</span>
+                        </div>
+                        <a href="404.html" class="hotline-action-btn">
+                            <i class="ri-phone-line"></i>
+                            <span>Connect with IVF Team</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3: Radiology & 4D Ultrasound -->
+                <div class="hotline-card" data-reveal="fade-up" data-delay="150">
+                    <div>
+                        <div class="hotline-card-top">
+                            <div class="hotline-icon-box">
+                                <i class="ri-scan-2-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="hotline-dept-title">Radiology &amp; 4D Ultrasound Desk</h3>
+                                <span class="hotline-status-text">Digital Imaging Appointments</span>
+                            </div>
+                        </div>
+                        <p class="hotline-desc">
+                            Direct booking for high-definition anomaly scans, fetal Doppler blood flow studies, pelvic scans, and digital mammograms.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="hotline-phone-row">
+                            <span class="hotline-phone-number">+91 427 8899 103</span>
+                            <span style="font-size: 0.78rem; color: #8da494;">08:30 AM - 08:00 PM</span>
+                        </div>
+                        <a href="404.html" class="hotline-action-btn">
+                            <i class="ri-calendar-line"></i>
+                            <span>Check Scan Availability</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Special Care Nursery & Pediatrics -->
+                <div class="hotline-card" data-reveal="fade-up" data-delay="200">
+                    <div>
+                        <div class="hotline-card-top">
+                            <div class="hotline-icon-box">
+                                <i class="ri-nurse-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="hotline-dept-title">Special Care Nursery &amp; Pediatrics</h3>
+                                <span class="hotline-status-text">Level III NICU Coordinator</span>
+                            </div>
+                        </div>
+                        <p class="hotline-desc">
+                            Direct communication with neonatal intensive care coordinators, lactation specialists, and routine pediatric vaccination desks.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="hotline-phone-row">
+                            <span class="hotline-phone-number">+91 427 8899 104</span>
+                            <span class="badge-active" style="background: rgba(142,240,98,0.2); color: #8ef062; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px;">24/7 Ward Desk</span>
+                        </div>
+                        <a href="404.html" class="hotline-action-btn">
+                            <i class="ri-phone-line"></i>
+                            <span>Contact Nursery Desk</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 5: Cashless Insurance & TPA -->
+                <div class="hotline-card" data-reveal="fade-up" data-delay="250">
+                    <div>
+                        <div class="hotline-card-top">
+                            <div class="hotline-icon-box">
+                                <i class="ri-bank-card-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="hotline-dept-title">Cashless Insurance &amp; TPA Desk</h3>
+                                <span class="hotline-status-text">Instant Pre-Authorization</span>
+                            </div>
+                        </div>
+                        <p class="hotline-desc">
+                            Empaneled with over 35+ major insurance TPAs and corporate health schemes for zero out-of-pocket maternity and surgery admissions.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="hotline-phone-row">
+                            <span class="hotline-phone-number">+91 427 8899 105</span>
+                            <span style="font-size: 0.78rem; color: #8da494;">10:00 AM - 06:00 PM</span>
+                        </div>
+                        <a href="404.html" class="hotline-action-btn">
+                            <i class="ri-file-shield-line"></i>
+                            <span>Verify Insurance Coverage</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 6: Confidential Adolescent & PCOS Line -->
+                <div class="hotline-card" data-reveal="fade-up" data-delay="300">
+                    <div>
+                        <div class="hotline-card-top">
+                            <div class="hotline-icon-box">
+                                <i class="ri-mental-health-line"></i>
+                            </div>
+                            <div>
+                                <h3 class="hotline-dept-title">Confidential PCOS &amp; Teen Line</h3>
+                                <span class="hotline-status-text">Private Medical Advice</span>
+                            </div>
+                        </div>
+                        <p class="hotline-desc">
+                            Comfortable, private consultations for young women navigating irregular menstrual cycles, hormonal acne, weight changes, and emotional wellbeing.
+                        </p>
+                    </div>
+
+                    <div>
+                        <div class="hotline-phone-row">
+                            <span class="hotline-phone-number">+91 427 8899 106</span>
+                            <span style="font-size: 0.78rem; color: #8da494;">09:00 AM - 08:00 PM</span>
+                        </div>
+                        <a href="404.html" class="hotline-action-btn">
+                            <i class="ri-chat-private-line"></i>
+                            <span>Private Consultation</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: SALEM CLINIC CAMPUS, TRANSIT & INTERACTIVE MAP GUIDE
+         ========================================================================== -->
+    <section class="location-section" id="locationGuide">
+        <div class="contact-hero-container">
+            <div class="text-center" data-reveal="fade-up">
+                <span class="section-tag-pill">
+                    <i class="ri-navigation-line"></i> Salem Campus &amp; Arrival
+                </span>
+                <h2 class="section-grand-title">Visit Our Salem Center</h2>
+                <p class="section-sub-desc mx-auto">
+                    Conveniently located in central Salem with dedicated patient drop-off lanes, complimentary valet parking, and round-the-clock emergency vehicle accessibility.
+                </p>
+            </div>
+
+            <div class="location-grid">
+                <!-- Left Address & Transit Details -->
+                <div class="location-info-card" data-reveal="fade-up" data-delay="50">
+                    <div>
+                        <div class="address-highlight-box">
+                            <h3 class="address-main-title">
+                                <i class="ri-map-pin-2-fill"></i>
+                                <span>Curevo Women's Health Center</span>
+                            </h3>
+                            <p class="address-detail-text">
+                                MMR Complex, Omalur Main Road, <br>
+                                Near New Bus Stand Junction, <br>
+                                Salem, Tamil Nadu — 636004, India.
+                            </p>
+                        </div>
+
+                        <div class="transit-points-list">
+                            <div class="transit-item">
+                                <div class="transit-icon-circle"><i class="ri-train-line"></i></div>
+                                <div>
+                                    <strong style="color: #ffffff;">Salem Junction Railway Station:</strong>
+                                    <span> 8 minutes drive (3.4 km)</span>
+                                </div>
+                            </div>
+
+                            <div class="transit-item">
+                                <div class="transit-icon-circle"><i class="ri-bus-line"></i></div>
+                                <div>
+                                    <strong style="color: #ffffff;">Salem New Bus Stand:</strong>
+                                    <span> 5 minutes walk (450 meters)</span>
+                                </div>
+                            </div>
+
+                            <div class="transit-item">
+                                <div class="transit-icon-circle"><i class="ri-flight-takeoff-line"></i></div>
+                                <div>
+                                    <strong style="color: #ffffff;">Salem Airport (SXV):</strong>
+                                    <span> 25 minutes drive (18.2 km)</span>
+                                </div>
+                            </div>
+
+                            <div class="transit-item">
+                                <div class="transit-icon-circle"><i class="ri-car-line"></i></div>
+                                <div>
+                                    <strong style="color: #ffffff;">Valet Parking:</strong>
+                                    <span> Complimentary underground 24/7 secure parking</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a href="https://maps.app.goo.gl/aVJAVpbcniQzgdjr9" target="_blank" rel="noopener noreferrer" class="btn-primary-lime" style="width: 100%; justify-content: center;">
+                            <i class="ri-direction-line"></i>
+                            <span>Get GPS Driving Directions</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Visual Map Card with Live Google Maps -->
+                <div class="map-visual-card" data-reveal="fade-up" data-delay="150">
+                    <div class="live-map-container">
+                        <iframe 
+                            src="https://maps.google.com/maps?q=MMR+Complex,+Omalur+Main+Road,+Salem,+Tamil+Nadu&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                            class="google-map-iframe" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade" 
+                            title="Curevo Women's Health Center Salem Map Location">
+                        </iframe>
+                    </div>
+
+                    <!-- Map Floating Bottom Bar -->
+                    <div class="map-floating-bar">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="ri-map-pin-2-fill" style="color: #8ef062; font-size: 1.3rem;"></i>
+                            <span style="font-size: 0.88rem; color: #ffffff; font-weight: 600;">MMR Complex, Omalur Main Rd, Salem</span>
+                        </div>
+                        <a href="https://maps.app.goo.gl/aVJAVpbcniQzgdjr9" target="_blank" rel="noopener noreferrer" class="btn-primary-lime" style="padding: 8px 18px; font-size: 0.82rem;">
+                            <span>Open in Google Maps</span>
+                            <i class="ri-external-link-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: RAPID VIRTUAL CONSULTATION & TELE-HEALTH GATEWAY
+         ========================================================================== -->
+    <section class="telehealth-section" id="telehealthGateway">
+        <div class="contact-hero-container">
+            <div class="telehealth-banner-card" data-reveal="fade-up">
+                <!-- Left Telehealth Intro -->
+                <div>
+                    <span class="section-tag-pill">
+                        <i class="ri-video-chat-line"></i> Remote Care Gateway
+                    </span>
+                    <h2 class="section-grand-title" style="margin-bottom: 16px;">Tele-Health Consultations from Home</h2>
+                    <p style="color: #a7b7ac; font-size: 1.05rem; line-height: 1.6;">
+                        Can't travel to our Salem campus? Connect directly with our lead gynecologists and maternity consultants over a private, end-to-end encrypted video stream.
+                    </p>
+
+                    <div class="telehealth-perks-list">
+                        <div class="perk-item">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <span>HD Video consultations via secure browser link (No app download required).</span>
+                        </div>
+                        <div class="perk-item">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <span>Digital e-prescription sent instantly to your WhatsApp &amp; Email.</span>
+                        </div>
+                        <div class="perk-item">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <span>Doorstep diagnostic blood sample collection coordination in Salem district.</span>
+                        </div>
+                    </div>
+
+                    <div class="telehealth-cta-btns">
+                        <a href="404.html" class="btn-primary-lime">
+                            <i class="ri-video-on-line"></i>
+                            <span>Book Video Consultation</span>
+                        </a>
+                        <a href="404.html" class="btn-glass-hollow">
+                            <i class="ri-whatsapp-line"></i>
+                            <span>Instant WhatsApp Desk</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Telehealth Visual Image Card -->
+                <div class="telehealth-image-card" data-reveal="fade-up" data-delay="100">
+                    <div class="telehealth-img-frame">
+                        <img src="images/Primary Care Doctor Consulting with Patient.webp" alt="Doctor Consulting Patient Online" class="telehealth-main-img">
+                        <div class="telehealth-img-gradient"></div>
+                        <div class="telehealth-floating-badge">
+                            <span class="live-beacon"></span>
+                            <span>24/7 Virtual Specialists Online</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: PATIENT VISITING HOURS & EMERGENCY PROTOCOLS
+         ========================================================================== -->
+    <section class="visiting-section" id="visitingHours">
+        <div class="contact-hero-container">
+            <div class="text-center" data-reveal="fade-up">
+                <span class="section-tag-pill">
+                    <i class="ri-time-line"></i> Timetable &amp; Protocols
+                </span>
+                <h2 class="section-grand-title">Visiting Hours &amp; Guidelines</h2>
+                <p class="section-sub-desc mx-auto">
+                    We maintain structured visiting hours to preserve quiet recovery for new mothers and surgical patients while ensuring family support.
+                </p>
+            </div>
+
+            <div class="visiting-grid">
+                <!-- Schedule Card -->
+                <div class="hours-schedule-card" data-reveal="fade-up" data-delay="50">
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 10px;">
+                        <i class="ri-calendar-todo-line" style="color: #8ef062;"></i>
+                        <span>OPD &amp; Inpatient Schedule</span>
+                    </h3>
+
+                    <div class="schedule-rows-list">
+                        <div class="schedule-row-item">
+                            <span class="schedule-day-label">Monday — Friday OPD</span>
+                            <span class="schedule-time-badge">09:00 AM — 08:00 PM</span>
+                        </div>
+
+                        <div class="schedule-row-item">
+                            <span class="schedule-day-label">Saturday Outpatient Clinic</span>
+                            <span class="schedule-time-badge">09:00 AM — 06:00 PM</span>
+                        </div>
+
+                        <div class="schedule-row-item">
+                            <span class="schedule-day-label">Sunday Routine Consultations</span>
+                            <span style="font-size: 0.88rem; color: #8da494; font-weight: 600;">10:00 AM — 02:00 PM</span>
+                        </div>
+
+                        <div class="schedule-row-item">
+                            <span class="schedule-day-label">Inpatient Visiting Windows</span>
+                            <span class="schedule-time-badge">11:00 AM — 01:00 PM &bull; 05:00 PM — 07:00 PM</span>
+                        </div>
+
+                        <div class="schedule-row-item">
+                            <span class="schedule-day-label">Labor, Delivery &amp; Emergency</span>
+                            <span class="emergency-always-badge">Open 24/7 / 365 Days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- First Visit Checklist Card -->
+                <div class="checklist-card" data-reveal="fade-up" data-delay="150">
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 10px;">
+                        <i class="ri-file-list-3-line" style="color: #8ef062;"></i>
+                        <span>First Visit Checklist</span>
+                    </h3>
+
+                    <div class="checklist-items">
+                        <div class="checklist-single">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <div>
+                                <strong style="color: #ffffff;">Government Photo ID:</strong>
+                                <span> Aadhaar Card, Driving License, or Passport for patient registration.</span>
+                            </div>
+                        </div>
+
+                        <div class="checklist-single">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <div>
+                                <strong style="color: #ffffff;">Prior Medical Records:</strong>
+                                <span> Previous ultrasound scans, discharge summaries, and blood test reports.</span>
+                            </div>
+                        </div>
+
+                        <div class="checklist-single">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <div>
+                                <strong style="color: #ffffff;">Current Medication List:</strong>
+                                <span> All ongoing prenatal vitamins, thyroid, or hormone prescriptions.</span>
+                            </div>
+                        </div>
+
+                        <div class="checklist-single">
+                            <i class="ri-checkbox-circle-fill"></i>
+                            <div>
+                                <strong style="color: #ffffff;">Insurance TPA E-Card:</strong>
+                                <span> Corporate health card or policy number for seamless cashless clearance.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: COMPREHENSIVE PATIENT HELP & FAQ ACCORDION
+         ========================================================================== -->
+    <section class="contact-faq-section" id="patientFaq">
+        <div class="contact-hero-container">
+            <div class="text-center" data-reveal="fade-up">
+                <span class="section-tag-pill">
+                    <i class="ri-questionnaire-line"></i> Patient Assistance
+                </span>
+                <h2 class="section-grand-title">Frequently Asked Questions</h2>
+                <p class="section-sub-desc mx-auto">
+                    Quick answers regarding consultations, emergency arrivals, insurance coverage, and appointment policies at Curevo Salem.
+                </p>
+            </div>
+
+            <div class="contact-faq-accordion" data-reveal="fade-up" data-delay="100">
+                <!-- FAQ 1 -->
+                <div class="contact-faq-item active">
+                    <button class="contact-faq-question" type="button">
+                        <span>How quickly can I consult a female gynecologist for an urgent issue?</span>
+                        <div class="contact-faq-toggle-icon"><i class="ri-add-line"></i></div>
+                    </button>
+                    <div class="contact-faq-answer">
+                        <p>We reserve dedicated same-day walk-in emergency slots across every morning and afternoon clinic session. If you are experiencing acute pain or bleeding, you will be seen immediately by our on-duty senior clinical registrar.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="contact-faq-item">
+                    <button class="contact-faq-question" type="button">
+                        <span>Which insurance providers and TPAs are accepted for cashless admissions?</span>
+                        <div class="contact-faq-toggle-icon"><i class="ri-add-line"></i></div>
+                    </button>
+                    <div class="contact-faq-answer">
+                        <p>Curevo Salem is empaneled with Star Health, Care Health, HDFC ERGO, ICICI Lombard, Medi Assist, Vidal Health, Paramount TPA, and all major corporate insurance networks for 100% cashless delivery and surgical admissions.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="contact-faq-item">
+                    <button class="contact-faq-question" type="button">
+                        <span>Is a prior doctor's referral mandatory to visit your Salem clinic?</span>
+                        <div class="contact-faq-toggle-icon"><i class="ri-add-line"></i></div>
+                    </button>
+                    <div class="contact-faq-answer">
+                        <p>No referral is required. You can self-schedule an appointment directly via this website, over phone call, or as a walk-in patient at our MMR Complex reception desk.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="contact-faq-item">
+                    <button class="contact-faq-question" type="button">
+                        <span>What should I do if I go into labor in the middle of the night?</span>
+                        <div class="contact-faq-toggle-icon"><i class="ri-add-line"></i></div>
+                    </button>
+                    <div class="contact-faq-answer">
+                        <p>Our 24/7 Labor Triage Suite is always active with resident obstetricians, anesthetists, and neonatal nurses on site. Proceed directly to our dedicated emergency ramp entrance at MMR Complex or call <strong>+91 427 8899 101</strong> for immediate ambulance dispatch.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="contact-faq-item">
+                    <button class="contact-faq-question" type="button">
+                        <span>How do you protect patient privacy during sensitive consultations?</span>
+                        <div class="contact-faq-toggle-icon"><i class="ri-add-line"></i></div>
+                    </button>
+                    <div class="contact-faq-answer">
+                        <p>All consultation suites feature soundproofed acoustic partitioning, private examination rooms with female nurse chaperones, and 256-bit encrypted digital electronic health records accessible only by your treating doctor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: RAPID INQUIRY & INSTANT CALLBACK DISPATCH FORM
+         ========================================================================== -->
+    <section class="inquiry-section" id="inquiryFormSection">
+        <div class="contact-hero-container">
+            <div class="text-center" data-reveal="fade-up">
+                <span class="section-tag-pill">
+                    <i class="ri-mail-send-line"></i> Direct Messaging
+                </span>
+                <h2 class="section-grand-title">Send a Clinical Inquiry</h2>
+                <p class="section-sub-desc mx-auto">
+                    Have a non-urgent medical question, insurance inquiry, or feedback for our hospital director? Our care team will respond within 4 business hours.
+                </p>
+            </div>
+
+            <div class="inquiry-card-glass" data-reveal="fade-up" data-delay="100">
+                <form id="contactInquiryForm" onsubmit="event.preventDefault(); handleInquirySubmit();">
+                    <div class="inquiry-form-grid">
+                        <div class="form-group-luxury">
+                            <label class="form-label-luxury" for="inqName">Your Full Name *</label>
+                            <input type="text" id="inqName" class="input-luxury" placeholder="e.g. Radhika Sundaram" required>
+                        </div>
+
+                        <div class="form-group-luxury">
+                            <label class="form-label-luxury" for="inqPhone">Mobile Phone (10 Digits) *</label>
+                            <input type="tel" id="inqPhone" class="input-luxury" placeholder="e.g. 9842154321" pattern="[0-9]{10}" maxlength="10" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                        </div>
+
+                        <div class="form-group-luxury">
+                            <label class="form-label-luxury" for="inqEmail">Email Address *</label>
+                            <input type="email" id="inqEmail" class="input-luxury" placeholder="name@domain.com" required>
+                        </div>
+
+                        <div class="form-group-luxury">
+                            <label class="form-label-luxury" for="inqDept">Department / Subject</label>
+                            <select id="inqDept" class="input-luxury">
+                                <option value="General Clinical Inquiry">General Clinical Inquiry</option>
+                                <option value="Maternity & Delivery Packages">Maternity &amp; Delivery Packages</option>
+                                <option value="Fertility / IVF Counseling">Fertility / IVF Counseling</option>
+                                <option value="Ultrasound & Diagnostic Scans">Ultrasound &amp; Diagnostic Scans</option>
+                                <option value="Cashless Insurance Query">Cashless Insurance Query</option>
+                                <option value="Feedback / Hospital Administration">Feedback / Hospital Administration</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-luxury full-span">
+                            <label class="form-label-luxury" for="inqMessage">Your Message or Query *</label>
+                            <textarea id="inqMessage" class="input-luxury" rows="4" placeholder="Type your message here in detail..." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="inquiry-form-footer">
+                        <span class="inquiry-guarantee-text">
+                            <i class="ri-shield-check-line"></i> 100% Confidential &bull; Zero Spam Guarantee
+                        </span>
+                        <button type="submit" class="btn-primary-lime inquiry-submit-btn">
+                            <span>Submit Clinical Message</span>
+                            <i class="ri-send-plane-fill"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER SECTION (Exact Match with index.html)
+         ========================================================================== -->
+    <footer class="main-footer" id="contact">
+        <!-- Subtle Background Glow / Texture Layer -->
+        <div class="footer-bg-glow"></div>
+
+        <div class="footer-container">
+            <!-- 4-Column Grid -->
+            <div class="footer-grid">
+                
+                <!-- Column 1: Brand Logo, Mission, Address & Working Hours -->
+                <div class="footer-col footer-col-brand" data-reveal="fade-up" data-delay="50">
+                    <a href="index.html" class="footer-logo-link" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="footer-logo-img">
+                    </a>
+                    
+                    <p class="footer-mission-text">
+                        We support discovery across healthcare, biotechnology, &amp; sciences.
+                    </p>
+
+                    <div class="footer-address-badge">
+                        <i class="ri-map-pin-2-fill address-icon"></i>
+                        <span>MMR complex, salem, tamilnadu</span>
+                    </div>
+
+                    <!-- Working Hours Glass Card -->
+                    <div class="footer-hours-box">
+                        <h4 class="hours-title">Working Hours:</h4>
+                        <div class="hours-card">
+                            <div class="hours-row">
+                                <span class="hours-day">Monday - Friday:-</span>
+                                <span class="hours-time">10:00 - 05:00</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-day">Saturday:-</span>
+                                <span class="hours-time">10:00 - 04:00</span>
+                            </div>
+                            <div class="hours-row closed-row">
+                                <span class="hours-day">Sunday:-</span>
+                                <span class="hours-time closed-badge">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col footer-col-links" data-reveal="fade-up" data-delay="100">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="index.html" class="footer-nav-link"><span class="link-dash">-</span> Home</a></li>
+                        <li><a href="about.html" class="footer-nav-link"><span class="link-dash">-</span> About</a></li>
+                        <li><a href="service.html" class="footer-nav-link"><span class="link-dash">-</span> Service</a></li>
+                        <li><a href="blog.html" class="footer-nav-link"><span class="link-dash">-</span> Blog</a></li>
+                        <li><a href="contact.html" class="footer-nav-link"><span class="link-dash">-</span> Contact</a></li>
+                        <li><a href="login.html" class="footer-nav-link"><span class="link-dash">-</span> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div class="footer-col footer-col-services" data-reveal="fade-up" data-delay="150">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Diagnostic Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Laboratory Analysis</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Industrial Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Clinical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Chemical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Preventive Checkups</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Follow Us On Social -->
+                <div class="footer-col footer-col-social" data-reveal="fade-up" data-delay="200">
+                    <h3 class="footer-heading">Follow Us On Social</h3>
+                    <p class="social-intro-text">
+                        Connect with us online for updates, breakthroughs, &amp; lab highlights.
+                    </p>
+
+                    <!-- Circular Social Buttons -->
+                    <div class="footer-social-row">
+                        <a href="404.html" class="social-circle-btn pinterest-btn" aria-label="Pinterest">
+                            <i class="ri-pinterest-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn twitter-btn" aria-label="Twitter X">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn facebook-btn" aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn instagram-btn" aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Legal Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-left">
+                    <p>&copy; 2026 Curevo Women's Health Center. All rights reserved. &bull; MMR complex, salem, tamilnadu</p>
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="404.html" class="legal-link">Privacy Policy</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Terms of Service</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

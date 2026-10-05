@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curevo — Women's Health & Wellness Center</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons & FontAwesome -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Immediate Scroll & 404 Position Restorer -->
+    <script>
+        (function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            function restoreScrollPosition() {
+                var isReturningFrom404 = sessionStorage.getItem('curevo_returning_from_404') === '1';
+                if (isReturningFrom404) {
+                    var savedPos = sessionStorage.getItem('curevo_scroll_pos');
+                    if (savedPos !== null) {
+                        var targetY = parseInt(savedPos, 10);
+                        if (!isNaN(targetY) && targetY >= 0) {
+                            window.scrollTo({ top: targetY, left: 0, behavior: 'instant' });
+                            document.querySelectorAll('[data-reveal]').forEach(function(el) {
+                                var rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight + 500) {
+                                    el.classList.add('revealed');
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+            }
+
+            restoreScrollPosition();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+                setTimeout(restoreScrollPosition, 150);
+                setTimeout(restoreScrollPosition, 300);
+            });
+
+            window.addEventListener('load', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 100);
+                setTimeout(function() {
+                    restoreScrollPosition();
+                    setTimeout(function() {
+                        sessionStorage.removeItem('curevo_returning_from_404');
+                        sessionStorage.removeItem('curevo_scroll_pos');
+                        sessionStorage.removeItem('curevo_from_url');
+                    }, 600);
+                }, 300);
+            });
+
+            window.addEventListener('pageshow', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Interactive Background Ambient Light Glow -->
+    <div class="ambient-glow ambient-glow-1"></div>
+    <div class="ambient-glow ambient-glow-2"></div>
+    <div class="ambient-glow ambient-glow-3"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="header-container" id="mainHeader">
+        <nav class="nav-glass-capsule">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" aria-label="Curevo Home">
+                <img src="images/logo.webp" alt="Curevo Women's Health Center" class="header-logo-img">
+            </a>
+
+            <!-- Navigation Links (Full Screen on Mobile) -->
+            <div class="nav-menu" id="navMenu">
+                <!-- Mobile Menu Header with Logo & Close Button -->
+                <div class="mobile-menu-header">
+                    <a href="index.html" class="mobile-menu-logo" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="mobile-logo-img">
+                    </a>
+                    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+
+                <ul class="nav-links-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="service.html" class="nav-link">Service</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link login-link">Login</a></li>
+                </ul>
+
+                <!-- Mobile Menu Bottom CTA & Location Info -->
+                <div class="mobile-menu-footer">
+                    <a href="404.html" class="mobile-cta-btn">
+                        <span>Book an appointment</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <p class="mobile-loc-text">MMR complex, salem, tamilnadu</p>
+                </div>
+            </div>
+
+            <!-- Header Action CTA -->
+            <div class="nav-actions">
+                <a href="404.html" class="btn-appointment" aria-label="Book an appointment">
+                    <span class="btn-text">Book an appointment</span>
+                    <span class="btn-arrow-circle">
+                        <i class="ri-arrow-right-line"></i>
+                    </span>
+                </a>
+                
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN HERO SLIDER SECTION -->
+    <main class="hero-wrapper" id="home">
+        <!-- 3D Parallax Canvas Background Layer -->
+        <div class="slider-viewport" id="sliderViewport">
+
+            <!-- SLIDE 1 -->
+            <div class="hero-slide active" data-slide="0">
+                <div class="slide-bg-wrapper">
+                    <img src="images/h1.webp" alt="Compassionate Women's Care" class="slide-bg-img">
+                    <div class="slide-overlay"></div>
+                    <div class="vignette-overlay"></div>
+                </div>
+
+                <div class="slide-container">
+                    <!-- Left Hero Content -->
+                    <div class="hero-left-content">
+                        <div class="hero-tag-badge">
+                            <span class="pulse-dot"></span>
+                            <span class="tag-text">THE TIME IS RIGHT TO</span>
+                        </div>
+                        
+                        <h1 class="hero-heading">
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-1">Leading care,</span>
+                            </span>
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-2">
+                                    <em class="italic-highlight">Lasting</em>
+                                    <span class="heading-word">support</span>
+                                </span>
+                            </span>
+                        </h1>
+
+                        <div class="hero-stats-row">
+                            <div class="stat-pill">
+                                <span class="stat-num">99.4%</span>
+                                <span class="stat-label">Patient Satisfaction</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">15+</span>
+                                <span class="stat-label">Specialized Doctors</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Content -->
+                    <div class="hero-right-content">
+                        <p class="hero-description">
+                            Experience personalized treatments and advanced healthcare solutions designed with empathy for every stage of your life.
+                        </p>
+
+                        <!-- Interactive Floating Glass Card -->
+                        <div class="glass-feature-card" id="glassCard1" data-tilt>
+                            <div class="card-inner">
+                                <div class="card-left-info">
+                                    <div class="card-icon-box">
+                                        <svg viewBox="0 0 24 24" fill="none" class="feature-icon" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="#8ef062" stroke-width="1.8"/>
+                                            <path d="M12 7V12L15 15" stroke="#8ef062" stroke-width="1.8" stroke-linecap="round"/>
+                                            <path d="M7 10C8.5 7.5 15.5 7.5 17 10" stroke="#8ef062" stroke-width="1.5" stroke-linecap="round"/>
+                                            <path d="M9 16C10 17 14 17 15 16" stroke="#8ef062" stroke-width="1.5" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="card-text-group">
+                                        <span class="card-subtitle">The care you deserve</span>
+                                        <a href="404.html" class="card-title-link">Who we are <i class="ri-arrow-right-up-line"></i></a>
+                                    </div>
+                                </div>
+
+                                <!-- Video Preview Thumbnail with 404 Page Redirect -->
+                                <a href="404.html" class="card-video-thumb" aria-label="Play clinic overview video">
+                                    <img src="images/Surgeon using tablet.webp" alt="Clinic Video Preview" class="video-thumb-img">
+                                    <div class="thumb-glow-overlay"></div>
+                                    <div class="play-btn-circle">
+                                        <i class="ri-play-fill"></i>
+                                    </div>
+                                    <span class="pulse-ring"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2 -->
+            <div class="hero-slide" data-slide="1">
+                <div class="slide-bg-wrapper">
+                    <img src="images/h3.webp" alt="Dedicated Female Specialist Doctors" class="slide-bg-img">
+                    <div class="slide-overlay"></div>
+                    <div class="vignette-overlay"></div>
+                </div>
+
+                <div class="slide-container">
+                    <!-- Left Hero Content -->
+                    <div class="hero-left-content">
+                        <div class="hero-tag-badge">
+                            <span class="pulse-dot"></span>
+                            <span class="tag-text">EMPOWERING YOUR WELLBEING</span>
+                        </div>
+                        
+                        <h1 class="hero-heading">
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-1">Holistic care,</span>
+                            </span>
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-2">
+                                    <em class="italic-highlight">Lifelong</em>
+                                    <span class="heading-word">vitality</span>
+                                </span>
+                            </span>
+                        </h1>
+
+                        <div class="hero-stats-row">
+                            <div class="stat-pill">
+                                <span class="stat-num">24/7</span>
+                                <span class="stat-label">Virtual Support</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">100%</span>
+                                <span class="stat-label">Confidential & Private</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Content -->
+                    <div class="hero-right-content">
+                        <p class="hero-description">
+                            Comprehensive gynecology, maternity, preventive diagnostics, and wellness programs crafted specifically for modern women.
+                        </p>
+
+                        <!-- Interactive Floating Glass Card -->
+                        <div class="glass-feature-card" id="glassCard2" data-tilt>
+                            <div class="card-inner">
+                                <div class="card-left-info">
+                                    <div class="card-icon-box">
+                                        <svg viewBox="0 0 24 24" fill="none" class="feature-icon" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#8ef062" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="card-text-group">
+                                         <span class="card-subtitle">World Class Experts</span>
+                                         <a href="404.html" class="card-title-link">Our Services <i class="ri-arrow-right-up-line"></i></a>
+                                     </div>
+                                 </div>
+
+                                 <a href="404.html" class="card-video-thumb" aria-label="Explore clinic services">
+                                     <img src="images/Primary Care Doctor Consulting with Patient.webp" alt="Primary Care Consultation" class="video-thumb-img">
+                                     <div class="thumb-glow-overlay"></div>
+                                     <div class="play-btn-circle">
+                                         <i class="ri-play-fill"></i>
+                                     </div>
+                                     <span class="pulse-ring"></span>
+                                 </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 3 -->
+            <div class="hero-slide" data-slide="2">
+                <div class="slide-bg-wrapper">
+                    <img src="images/h4.webp" alt="Modern Women's Sanctuary" class="slide-bg-img">
+                    <div class="slide-overlay"></div>
+                    <div class="vignette-overlay"></div>
+                </div>
+
+                <div class="slide-container">
+                    <!-- Left Hero Content -->
+                    <div class="hero-left-content">
+                        <div class="hero-tag-badge">
+                            <span class="pulse-dot"></span>
+                            <span class="tag-text">YOUR TRUSTED HEALTH PARTNER</span>
+                        </div>
+                        
+                        <h1 class="hero-heading">
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-1">Nurturing lives,</span>
+                            </span>
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-2">
+                                    <em class="italic-highlight">Inspiring</em>
+                                    <span class="heading-word">futures</span>
+                                </span>
+                            </span>
+                        </h1>
+
+                        <div class="hero-stats-row">
+                            <div class="stat-pill">
+                                <span class="stat-num">50k+</span>
+                                <span class="stat-label">Women Empowered</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">Top Rated</span>
+                                <span class="stat-label">Health Sanctuary</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Content -->
+                    <div class="hero-right-content">
+                        <p class="hero-description">
+                            Experience cutting-edge medical innovations wrapped in comforting care designed for maternal health, fertility, and wellness.
+                        </p>
+
+                        <!-- Interactive Floating Glass Card -->
+                        <div class="glass-feature-card" id="glassCard3" data-tilt>
+                            <div class="card-inner">
+                                <div class="card-left-info">
+                                    <div class="card-icon-box">
+                                        <svg viewBox="0 0 24 24" fill="none" class="feature-icon" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#8ef062" stroke-width="1.8"/>
+                                            <path d="M8 12L11 15L16 9" stroke="#8ef062" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="card-text-group">
+                                        <span class="card-subtitle">Peace of Mind</span>
+                                        <a href="404.html" class="card-title-link">Virtual Tour <i class="ri-arrow-right-up-line"></i></a>
+                                    </div>
+                                </div>
+
+                                <a href="404.html" class="card-video-thumb" aria-label="Virtual clinic tour">
+                                    <img src="images/surgery.webp" alt="Virtual Clinic Facility" class="video-thumb-img">
+                                    <div class="thumb-glow-overlay"></div>
+                                    <div class="play-btn-circle">
+                                        <i class="ri-play-fill"></i>
+                                    </div>
+                                    <span class="pulse-ring"></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- HERO BOTTOM CONTROLS & PAGINATION -->
+        <div class="hero-footer-bar">
+            <!-- Slide Progress Indicators -->
+            <div class="slider-indicators">
+                <div class="indicator-track active" data-slide-to="0">
+                    <span class="indicator-fill"></span>
+                    <span class="indicator-number">01</span>
+                </div>
+                <div class="indicator-track" data-slide-to="1">
+                    <span class="indicator-fill"></span>
+                    <span class="indicator-number">02</span>
+                </div>
+                <div class="indicator-track" data-slide-to="2">
+                    <span class="indicator-fill"></span>
+                    <span class="indicator-number">03</span>
+                </div>
+            </div>
+
+            <!-- Slide Navigation Buttons -->
+            <div class="slider-nav-arrows">
+                <button class="nav-arrow-btn prev-btn" id="prevSlideBtn" aria-label="Previous Slide">
+                    <i class="ri-arrow-left-line"></i>
+                </button>
+                <button class="nav-arrow-btn next-btn" id="nextSlideBtn" aria-label="Next Slide">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+
+            <!-- Floating Badge "More Templates / Curevo Care" in bottom right as in reference design -->
+            <div class="reference-badge">
+                <span class="badge-icon"><i class="ri-heart-pulse-fill"></i></span>
+                <span class="badge-text">Women's Wellness Care</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         WHY CHOOSE CUREVO / VALUE PROPOSITION & CERTIFICATION SECTION
+         ========================================================================== -->
+    <section class="trust-section" id="about">
+        <div class="trust-container">
+            <!-- Section Header -->
+            <div class="trust-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-heart-fill"></i>
+                    <span>HERE WHEN YOU NEED US</span>
+                </div>
+                <h2 class="trust-main-heading">
+                    <span class="heading-reveal-wrap">
+                        <span class="reveal-inner">Why choose Curevo for your health</span>
+                    </span>
+                </h2>
+            </div>
+
+            <!-- 3 Feature Pillars Grid -->
+            <div class="features-pillars-grid">
+                <!-- Pillar 1 -->
+                <div class="pillar-card" data-reveal="fade-up" data-delay="100">
+                    <div class="pillar-icon-box">
+                        <svg class="pillar-svg-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 14C24 14 18 8 13 8C8.5 8 5 11.5 5 16C5 23 15 31 24 37C33 31 43 23 43 16C43 11.5 39.5 8 35 8C30 8 24 14 24 14Z" stroke="#25593c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M10 28C6 33 5 38 12 40C18 41.5 24 37 24 37" stroke="#25593c" stroke-width="2.2" stroke-linecap="round"/>
+                            <path d="M38 28C42 33 43 38 36 40C30 41.5 24 37 24 37" stroke="#25593c" stroke-width="2.2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="pillar-title">Patient-Centered approach</h3>
+                    <p class="pillar-desc">We tailor treatments to fit your unique health needs and goals.</p>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-card" data-reveal="fade-up" data-delay="200">
+                    <div class="pillar-icon-box">
+                        <svg class="pillar-svg-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 8V20C14 25.5228 18.4772 30 24 30C29.5228 30 34 25.5228 34 20V8" stroke="#25593c" stroke-width="2.4" stroke-linecap="round"/>
+                            <path d="M10 8H18M30 8H38" stroke="#25593c" stroke-width="2.4" stroke-linecap="round"/>
+                            <path d="M24 30V36M24 36C20 36 17 39 17 42H31C31 39 28 36 24 36Z" stroke="#25593c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="pillar-title">Advanced diagnostic tools</h3>
+                    <p class="pillar-desc">State-of-the-art technology ensures precise and early detection.</p>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-card" data-reveal="fade-up" data-delay="300">
+                    <div class="pillar-icon-box">
+                        <svg class="pillar-svg-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 6C15 6 8 13 8 22C8 31 18 39 24 43C30 39 40 31 40 22C40 13 33 6 24 6Z" stroke="#25593c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18 22L22 26L30 17" stroke="#25593c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="pillar-title">Safety & Hygiene standards</h3>
+                    <p class="pillar-desc">Strict protocols to ensure your health and safety are always protected.</p>
+                </div>
+            </div>
+
+            <!-- Bottom Certified Care White Banner Card -->
+            <div class="certified-banner-card" data-reveal="fade-up" data-delay="400">
+                <div class="banner-left">
+                    <h3 class="banner-heading">Certified care you can rely on</h3>
+                    <a href="404.html" class="btn-appointment banner-btn" aria-label="Book an appointment">
+                        <span class="btn-text">Book an appointment</span>
+                        <span class="btn-arrow-circle">
+                            <i class="ri-arrow-right-line"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="banner-divider"></div>
+
+                <div class="banner-right-certifications">
+                    <!-- Certificate 1: ISO -->
+                    <div class="cert-item cert-iso" title="ISO 9001:2015 Certified Company">
+                        <img src="images/cert.webp" alt="ISO 9001 Certified Quality Healthcare" class="cert-logo-img">
+                    </div>
+
+                    <!-- Certificate 2: Certified Hygiene & Safety -->
+                    <div class="cert-item cert-hs" title="Certified Hygiene & Safety Standard">
+                        <img src="images/certii.webp" alt="Certified Hygiene & Safety" class="cert-logo-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         OUR SPECIALTIES / TREATMENTS ACCORDION SECTION
+         ========================================================================== -->
+    <section class="specialties-section" id="services">
+        <div class="specialties-container">
+            <!-- Header -->
+            <div class="specialties-header" data-reveal="fade-up">
+                <div class="specialties-badge">
+                    <i class="ri-sparkling-fill"></i>
+                    <span>OUR SPECIALTIES</span>
+                </div>
+                <h2 class="specialties-main-heading">
+                    <span class="heading-reveal-wrap">
+                        <span class="reveal-inner">Treatments crafted around your needs</span>
+                    </span>
+                </h2>
+            </div>
+
+            <!-- 2-Column Grid Layout -->
+            <div class="specialties-grid">
+                <!-- Left Column (Media Container with Testimonial Card) -->
+                <div class="specialties-media-column" data-reveal="fade-up" data-delay="100">
+                    <div class="specialty-card-wrapper" id="specialtyCardWrapper">
+                        <!-- Main Treatment Image -->
+                        <div class="specialty-img-box">
+                            <img src="images/ou1.webp" alt="General Medicine Care" class="specialty-main-img" id="specialtyMainImg">
+                            <div class="specialty-img-overlay"></div>
+                        </div>
+
+                        <!-- Testimonial Box inside the same rounded card -->
+                        <div class="specialty-testimonial-card" id="specialtyTestimonialCard">
+                            <div class="patient-profile-row">
+                                <div class="avatar-ring">
+                                    <img src="images/d1.webp" alt="Emily Turner" class="patient-avatar-img" id="patientAvatarImg">
+                                </div>
+                                <div class="patient-info">
+                                    <h4 class="patient-name" id="patientName">Emily Turner</h4>
+                                    <span class="patient-location" id="patientLocation">London</span>
+                                </div>
+                                <div class="quote-icon-badge">
+                                    <i class="ri-double-quotes-r"></i>
+                                </div>
+                            </div>
+                            <p class="patient-quote-text" id="patientQuote">
+                                &ldquo;The doctors are caring and make me feel confident.&rdquo;
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column (6-Item Interactive GSAP Accordion) -->
+                <div class="specialties-accordion-column" data-reveal="fade-up" data-delay="200">
+                    <div class="accordion-list" id="specialtiesAccordion">
+                        
+                        <!-- Item 1: General medicine -->
+                        <div class="accordion-item active" data-index="0" data-img="images/ou1.webp" data-avatar="images/d1.webp" data-name="Emily Turner" data-location="London" data-quote="&ldquo;The doctors are caring and make me feel confident.&rdquo;">
+                            <button class="accordion-header" type="button" aria-expanded="true">
+                                <span class="accordion-title">
+                                    General medicine <span class="tag-category text-sm text-green-300/60">(Medicine)</span>
+                                </span>
+                                <span class="accordion-icon-box">
+                                    <i class="ri-add-line accordion-icon"></i>
+                                </span>
+                            </button>
+                            <div class="accordion-collapse" style="height: auto; opacity: 1; visibility: visible;">
+                                <div class="accordion-body">
+                                    <p class="accordion-desc">Comprehensive primary care focused on prevention, early diagnosis, and effective treatment for all ages.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2: Physical therapy -->
+                        <div class="accordion-item" data-index="1" data-img="images/ou2.webp" data-avatar="images/d2.webp" data-name="James Walker" data-location="Manchester" data-quote="&ldquo;Their therapy helped me walk pain-free again. Very professional.&rdquo;">
+                            <button class="accordion-header" type="button" aria-expanded="false">
+                                <span class="accordion-title">
+                                    Physical therapy <span class="tag-category text-sm text-green-300/60">(Motion)</span>
+                                </span>
+                                <span class="accordion-icon-box">
+                                    <i class="ri-add-line accordion-icon"></i>
+                                </span>
+                            </button>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body">
+                                    <p class="accordion-desc">Personalized rehabilitation programs to restore mobility, reduce pain, and improve strength after injury or surgery.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3: Women's health -->
+                        <div class="accordion-item" data-index="2" data-img="images/ou3.webp" data-avatar="images/d3.webp" data-name="Sophie Bennett" data-location="Bristol" data-quote="&ldquo;A supportive team that truly understands women's health.&rdquo;">
+                            <button class="accordion-header" type="button" aria-expanded="false">
+                                <span class="accordion-title">
+                                    Women's health <span class="tag-category text-sm text-green-300/60">(Bloom)</span>
+                                </span>
+                                <span class="accordion-icon-box">
+                                    <i class="ri-add-line accordion-icon"></i>
+                                </span>
+                            </button>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body">
+                                    <p class="accordion-desc">Dedicated care for women at every stage of life — from routine check-ups to maternity and hormonal health.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4: Mental health -->
+                        <div class="accordion-item" data-index="3" data-img="images/ou4.webp" data-avatar="images/d4.webp" data-name="Oliver Harris" data-location="Cambridge" data-quote="&ldquo;I felt heard and supported from my very first session. Truly life-changing.&rdquo;">
+                            <button class="accordion-header" type="button" aria-expanded="false">
+                                <span class="accordion-title">
+                                    Mental health <span class="tag-category text-sm text-green-300/60">(Calm)</span>
+                                </span>
+                                <span class="accordion-icon-box">
+                                    <i class="ri-add-line accordion-icon"></i>
+                                </span>
+                            </button>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body">
+                                    <p class="accordion-desc">Confidential counseling and therapy designed to support emotional well-being and long-term mental balance.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5: Pediatrics -->
+                        <div class="accordion-item" data-index="4" data-img="images/ou5.webp" data-avatar="images/d5.webp" data-name="Sophia L." data-location="San Francisco" data-quote="&ldquo;Thanks to curevo, I now feel confident managing my health.&rdquo;">
+                            <button class="accordion-header" type="button" aria-expanded="false">
+                                <span class="accordion-title">
+                                    Pediatrics <span class="tag-category text-sm text-green-300/60">(Care)</span>
+                                </span>
+                                <span class="accordion-icon-box">
+                                    <i class="ri-add-line accordion-icon"></i>
+                                </span>
+                            </button>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body">
+                                    <p class="accordion-desc">Gentle and attentive healthcare for children, ensuring healthy growth and development.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 6: Radiology & Imaging -->
+                        <div class="accordion-item" data-index="5" data-img="images/ou6.webp" data-avatar="images/d6.webp" data-name="Daniel Foster" data-location="Oxford" data-quote="&ldquo;Quick results and excellent, professional care.&rdquo;">
+                            <button class="accordion-header" type="button" aria-expanded="false">
+                                <span class="accordion-title">
+                                    Radiology & Imaging <span class="tag-category text-sm text-green-300/60">(Scan)</span>
+                                </span>
+                                <span class="accordion-icon-box">
+                                    <i class="ri-add-line accordion-icon"></i>
+                                </span>
+                            </button>
+                            <div class="accordion-collapse">
+                                <div class="accordion-body">
+                                    <p class="accordion-desc">Advanced diagnostic imaging services offering precise scans and fast, reliable results for accurate treatment.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         OUR MEDICAL DOCTORS / CARING PROFESSIONALS SECTION
+         ========================================================================== -->
+    <section class="doctors-section" id="doctors">
+        <div class="doctors-container">
+            <!-- Header -->
+            <div class="doctors-header" data-reveal="fade-up">
+                <div class="doctors-badge">
+                    <i class="ri-heart-fill"></i>
+                    <span>HERE WHEN YOU NEED US</span>
+                </div>
+                <h2 class="doctors-main-heading">
+                    <span class="heading-reveal-wrap">
+                        <span class="reveal-inner">Caring professionals, advanced solutions</span>
+                    </span>
+                </h2>
+                <p class="doctors-subheading">
+                    Each doctor brings years of experience, specialized knowledge, and a compassionate approach to help you achieve optimal health.
+                </p>
+            </div>
+
+            <!-- Auto-Moving Smooth Cards Carousel Track (Left to Right) -->
+            <div class="doctors-carousel-wrapper" data-reveal="fade-up" data-delay="150" id="doctorsCarouselWrapper">
+                <div class="doctors-carousel-track" id="doctorsTrack">
+                    
+                    <!-- Card 1 -->
+                    <div class="doctor-card">
+                        <div class="doctor-card-header">
+                            <h3 class="doctor-name">Dr. Michael hayes</h3>
+                            <span class="doctor-specialty">Pediatrician</span>
+                        </div>
+                        <div class="doctor-img-box">
+                            <img src="images/Cewek cantik pakai gaun steril operasi di rumah sakit.webp" alt="Dr. Michael Hayes" class="doctor-img">
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="doctor-card">
+                        <div class="doctor-card-header">
+                            <h3 class="doctor-name">Dr. Olivia reynolds</h3>
+                            <span class="doctor-specialty">Dermatologist</span>
+                        </div>
+                        <div class="doctor-img-box">
+                            <img src="images/download (11).webp" alt="Dr. Olivia Reynolds" class="doctor-img">
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="doctor-card">
+                        <div class="doctor-card-header">
+                            <h3 class="doctor-name">Dr. Ava kim</h3>
+                            <span class="doctor-specialty">Health Specialist</span>
+                        </div>
+                        <div class="doctor-img-box">
+                            <img src="images/h3.webp" alt="Dr. Ava Kim" class="doctor-img">
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="doctor-card">
+                        <div class="doctor-card-header">
+                            <h3 class="doctor-name">Dr. David lin</h3>
+                            <span class="doctor-specialty">Ortho Surgeon</span>
+                        </div>
+                        <div class="doctor-img-box">
+                            <img src="images/h4.webp" alt="Dr. David Lin" class="doctor-img">
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="doctor-card">
+                        <div class="doctor-card-header">
+                            <h3 class="doctor-name">Dr. Maya Sharma</h3>
+                            <span class="doctor-specialty">Neurosurgeon</span>
+                        </div>
+                        <div class="doctor-img-box">
+                            <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Maya Sharma" class="doctor-img">
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="doctor-card">
+                        <div class="doctor-card-header">
+                            <h3 class="doctor-name">Dr. Sarah Jenkins</h3>
+                            <span class="doctor-specialty">Senior Clinical Specialist</span>
+                        </div>
+                        <div class="doctor-img-box">
+                            <img src="images/On duty.webp" alt="Dr. Sarah Jenkins" class="doctor-img">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bottom CTA Row -->
+            <div class="doctors-footer-cta" data-reveal="fade-up" data-delay="250">
+                <span class="cta-family-text">Join our family of healthy patients</span>
+                <a href="404.html" class="btn-appointment doctor-cta-btn" aria-label="View all doctors">
+                    <span class="btn-text">View all doctors</span>
+                    <span class="btn-arrow-circle">
+                        <i class="ri-arrow-right-line"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         HOW WE WORK / STEP-BY-STEP PROCESS SECTION
+         ========================================================================== -->
+    <section class="process-section" id="process">
+        <div class="process-container">
+            <!-- Header -->
+            <div class="process-header" data-reveal="fade-up">
+                <div class="process-badge">
+                    <i class="ri-heart-fill"></i>
+                    <span>HOW WE WORK</span>
+                </div>
+                <h2 class="process-main-heading">
+                    <span class="heading-reveal-wrap">
+                        <span class="reveal-inner">Personalized care, every step of the way</span>
+                    </span>
+                </h2>
+            </div>
+
+            <!-- Outer Rounded Process Box Card -->
+            <div class="process-card-box" data-reveal="fade-up" data-delay="150">
+                <!-- Top Tabs Switcher -->
+                <div class="process-tabs-nav">
+                    <button class="process-tab-btn active" data-step="0" type="button" aria-selected="true">
+                        <span>1. Schedule Consultation</span>
+                    </button>
+                    <button class="process-tab-btn" data-step="1" type="button" aria-selected="false">
+                        <span>2. Personalized Care</span>
+                    </button>
+                    <button class="process-tab-btn" data-step="2" type="button" aria-selected="false">
+                        <span>3. Wellness Support</span>
+                    </button>
+                </div>
+
+                <!-- 2-Column Content Grid -->
+                <div class="process-content-grid">
+                    <!-- Left Column: Details & Checklist -->
+                    <div class="process-details-col">
+                        <p class="process-lead-text" id="processLead">
+                            We start by understanding your health goals and concerns through a one-on-one consultation.
+                        </p>
+
+                        <ul class="process-checklist" id="processChecklist">
+                            <li class="checklist-item">
+                                <span class="check-icon-badge"><i class="ri-checkbox-circle-fill"></i></span>
+                                <span class="check-text">Share your symptoms and medical history with our specialists</span>
+                            </li>
+                            <li class="checklist-item">
+                                <span class="check-icon-badge"><i class="ri-checkbox-circle-fill"></i></span>
+                                <span class="check-text">Get initial guidance on next steps toward diagnosis</span>
+                            </li>
+                        </ul>
+
+                        <!-- Bottom Lotus Quote Note -->
+                        <div class="process-lotus-note" id="processNote">
+                            <div class="lotus-icon-wrapper">
+                                <svg class="lotus-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16 4C16 4 11 11 11 17C11 20.5 13.5 23 16 23C18.5 23 21 20.5 21 17C21 11 16 4 16 4Z" stroke="#2a6642" stroke-width="1.8" stroke-linejoin="round"/>
+                                    <path d="M16 23C12 23 6 18 6 13C6 11 7 9 7 9C7 9 10 16 16 19" stroke="#2a6642" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M16 23C20 23 26 18 26 13C26 11 25 9 25 9C25 9 22 16 16 19" stroke="#2a6642" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M9 25C13 28 19 28 23 25" stroke="#2a6642" stroke-width="1.6" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <span class="lotus-note-text" id="lotusText">Every great recovery begins with the right conversation.</span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Process Visual Image -->
+                    <div class="process-media-col">
+                        <div class="process-img-wrapper">
+                            <img src="images/Primary Care Doctor Consulting with Patient.webp" alt="Schedule Consultation" class="process-img" id="processImg">
+                            <div class="process-img-glass-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         CASE STUDIES / REAL STORIES & REMARKABLE OUTCOMES CAROUSEL
+         ========================================================================== -->
+    <section class="case-studies-section" id="blog">
+        <!-- Ambient Wavy Background Overlay -->
+        <div class="cases-wave-bg"></div>
+
+        <div class="case-studies-container">
+            <!-- Header (Centered) -->
+            <div class="cases-header" data-reveal="fade-up">
+                <div class="cases-badge">
+                    <i class="ri-heart-fill"></i>
+                    <span>CASE STUDIES</span>
+                </div>
+                <h2 class="cases-main-heading">
+                    <span class="heading-reveal-wrap">
+                        <span class="reveal-inner">Real stories, remarkable outcomes</span>
+                    </span>
+                </h2>
+                <p class="cases-subheading">
+                    These case studies showcase how curevo's expert care, advanced treatments, and personalized approach have helped patients overcome health challenges.
+                </p>
+            </div>
+
+            <!-- Carousel Viewport & Controls Area -->
+            <div class="cases-carousel-area" data-reveal="fade-up" data-delay="150">
+                <!-- Navigation Prev / Next Buttons -->
+                <button class="case-nav-btn case-prev-btn" id="casePrevBtn" aria-label="Previous Case Study">
+                    <i class="ri-arrow-left-line"></i>
+                </button>
+                <button class="case-nav-btn case-next-btn" id="caseNextBtn" aria-label="Next Case Study">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+
+                <!-- Carousel Viewport Track -->
+                <div class="cases-viewport" id="casesViewport">
+                    <div class="cases-track" id="casesTrack">
+                        
+                        <!-- Card 1 -->
+                        <div class="case-card">
+                            <div class="case-img-box">
+                                <img src="images/surgery.webp" alt="Even tone & confidence" class="case-img">
+                            </div>
+                            <div class="case-card-body">
+                                <div class="case-text-meta">
+                                    <span class="case-category">PIGMENTATION SOLUTIONS</span>
+                                    <h3 class="case-title">Even tone & confidence</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="case-card">
+                            <div class="case-img-box">
+                                <img src="images/Your Health, _Our Priority”.webp" alt="Oil control & fresh feel" class="case-img">
+                            </div>
+                            <div class="case-card-body">
+                                <div class="case-text-meta">
+                                    <span class="case-category">OILY SKIN & SEBUM CONTROL</span>
+                                    <h3 class="case-title">Oil control & fresh feel</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="case-card">
+                            <div class="case-img-box">
+                                <img src="images/Clinical Documentation Training & Resources _ CoDoc Academy.webp" alt="Clearer skin, greater confidence" class="case-img">
+                            </div>
+                            <div class="case-card-body">
+                                <div class="case-text-meta">
+                                    <span class="case-category">DERMATOLOGY</span>
+                                    <h3 class="case-title">Clearer skin, greater confidence</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="case-card">
+                            <div class="case-img-box">
+                                <img src="images/Clinical Nurse II Special Care Nursery FT nights - Relocation Offered! - Clinton, MD.webp" alt="Supporting maternal wellness" class="case-img">
+                            </div>
+                            <div class="case-card-body">
+                                <div class="case-text-meta">
+                                    <span class="case-category">WOMEN'S HEALTH</span>
+                                    <h3 class="case-title">Supporting maternal wellness</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 5 -->
+                        <div class="case-card">
+                            <div class="case-img-box">
+                                <img src="images/download (11).webp" alt="Anti-aging confidence" class="case-img">
+                            </div>
+                            <div class="case-card-body">
+                                <div class="case-text-meta">
+                                    <span class="case-category">LASER REJUVENATION</span>
+                                    <h3 class="case-title">Anti-aging confidence</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 6 -->
+                        <div class="case-card">
+                            <div class="case-img-box">
+                                <img src="images/Surgeon using tablet.webp" alt="Scars to smooth skin" class="case-img">
+                            </div>
+                            <div class="case-card-body">
+                                <div class="case-text-meta">
+                                    <span class="case-category">SCAR REDUCTION TREATMENTS</span>
+                                    <h3 class="case-title">Scars to smooth skin</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Section (2 Columns) -->
+            <div class="cases-footer-grid" data-reveal="fade-up" data-delay="250">
+                <!-- Left Column: Trusted Brands -->
+                <div class="cases-partners-col">
+                    <h4 class="partners-subheading">TRUSTED BY LEADING ORGANIZATIONS</h4>
+                    <div class="partners-logo-row">
+                        <div class="partner-logo-item">
+                            <span class="logo-mark"><i class="ri-shield-cross-fill"></i></span>
+                            <span class="logo-name">Studioz</span>
+                        </div>
+                        <div class="partner-logo-item">
+                            <span class="logo-mark"><i class="ri-pulse-fill"></i></span>
+                            <span class="logo-name">Mivora</span>
+                        </div>
+                        <div class="partner-logo-item">
+                            <span class="logo-mark"><i class="ri-leaf-fill"></i></span>
+                            <span class="logo-name">OkeyStudio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Testimonial -->
+                <div class="cases-testimonial-col">
+                    <div class="cases-patient-avatar-ring">
+                        <img src="images/d3.webp" alt="Olivia T." class="cases-avatar-img">
+                    </div>
+                    <div class="cases-quote-content">
+                        <div class="cases-patient-header">
+                            <strong class="cases-patient-name">OLIVIA T.</strong>
+                            <span class="cases-patient-loc">Los Angeles</span>
+                        </div>
+                        <p class="cases-quote-text">
+                            &ldquo;Curevo's approach to holistic care helped me feel better physically and mentally. I highly recommend their services to anyone in need of expert care.&rdquo;
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         OUR JOURNEY IN NUMBERS / BENTO STATS & SOCIAL PROOF SECTION
+         ========================================================================== -->
+    <section class="journey-section" id="journey">
+        <div class="journey-container">
+            <div class="journey-bento-grid">
+                
+                <!-- ROW 1 -->
+                <!-- Card 1: Dark Green Lead Card -->
+                <div class="bento-card bento-card-lead" data-reveal="fade-up" data-delay="50">
+                    <div class="bento-lead-top">
+                        <h2 class="bento-lead-heading">
+                            <span>Our journey in</span>
+                            <span class="heading-arrow-row">
+                                <span>numbers</span>
+                                <i class="ri-arrow-right-line lead-arrow-icon"></i>
+                            </span>
+                        </h2>
+                    </div>
+                    <p class="bento-lead-desc">A community built on trust and care.</p>
+                </div>
+
+                <!-- Card 2: 1k+ Patients Treated -->
+                <div class="bento-card bento-card-stat" data-reveal="fade-up" data-delay="100">
+                    <div class="bento-stat-val" data-counter="1" data-suffix="k+">1k+</div>
+                    <span class="bento-stat-label">Patients treated</span>
+                </div>
+
+                <!-- Card 3: Medical Equipment Card -->
+                <div class="bento-card bento-card-media" data-reveal="fade-up" data-delay="150">
+                    <img src="images/Download Set of Medical Equipment with Red First Aid Kit for free.webp" alt="Medical Equipment with First Aid Kit" class="bento-media-img">
+                    <div class="bento-media-overlay"></div>
+                </div>
+
+                <!-- Card 4: 24/7 Emergency Support -->
+                <div class="bento-card bento-card-stat" data-reveal="fade-up" data-delay="200">
+                    <div class="bento-stat-val">24/7</div>
+                    <span class="bento-stat-label">Emergency support</span>
+                </div>
+
+                <!-- ROW 2 -->
+                <!-- Card 5: 98% Patients Treated -->
+                <div class="bento-card bento-card-stat" data-reveal="fade-up" data-delay="250">
+                    <div class="bento-stat-val" data-counter="98" data-suffix="%">98%</div>
+                    <span class="bento-stat-label">Patients treated</span>
+                </div>
+
+                <!-- Card 6: 4.9 Star Rating & Review Box -->
+                <div class="bento-card bento-card-rating" data-reveal="fade-up" data-delay="300">
+                    <div class="rating-stars-row">
+                        <div class="stars-icons">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                        <span class="rating-score">4.9</span>
+                    </div>
+                    <h4 class="rating-based-text">Based on 1k reviews</h4>
+                    <p class="rating-detail-text">1500 satisfied patients love our services</p>
+                </div>
+
+                <!-- Card 7: 20+ Patients Treated -->
+                <div class="bento-card bento-card-stat" data-reveal="fade-up" data-delay="350">
+                    <div class="bento-stat-val" data-counter="20" data-suffix="+">20+</div>
+                    <span class="bento-stat-label">Patients treated</span>
+                </div>
+
+                <!-- Card 8: Essential Oils / Clinic Sanctuary Image -->
+                <div class="bento-card bento-card-media" data-reveal="fade-up" data-delay="400">
+                    <img src="images/journey-oil.webp" alt="Pure holistic therapy oils" class="bento-media-img">
+                    <div class="bento-media-overlay"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         PRICING PLANS SECTION (Interactive GSAP Plan Switcher & Additional Notes)
+         ========================================================================== -->
+    <section class="pricing-section" id="pricing">
+        <div class="pricing-container">
+            <!-- Centered Header -->
+            <div class="pricing-header" data-reveal="fade-up">
+                <div class="pricing-badge">
+                    <i class="ri-heart-fill"></i>
+                    <span>PRICING PLAN</span>
+                </div>
+                <h2 class="pricing-main-heading">
+                    <span class="heading-reveal-wrap">
+                        <span class="reveal-inner">The right plan for every patient</span>
+                    </span>
+                </h2>
+                <p class="pricing-subheading">
+                    At curevo, we offer flexible plans designed to meet your health needs&mdash;no surprises, just care you can trust.
+                </p>
+            </div>
+
+            <!-- 2-Column Grid Layout -->
+            <div class="pricing-grid">
+                <!-- Left Column: Dynamic Interactive Pricing Card -->
+                <div class="pricing-card-col" data-reveal="fade-up" data-delay="100">
+                    <div class="dynamic-pricing-card" id="dynamicPricingCard">
+                        <!-- Plan Header (Title & Price) -->
+                        <div class="plan-header-area" id="planHeaderArea">
+                            <h3 class="plan-title" id="planTitle">Basic care plan</h3>
+                            <div class="plan-price-wrap">
+                                <span class="price-currency">$</span>
+                                <span class="price-val" id="planPriceVal">49</span>
+                                <span class="price-period">/visit</span>
+                            </div>
+                        </div>
+
+                        <!-- Divider line -->
+                        <div class="plan-card-divider"></div>
+
+                        <!-- 2-Column Features List -->
+                        <div class="plan-features-container" id="planFeaturesContainer">
+                            <ul class="plan-features-list col-1" id="featuresCol1">
+                                <li class="feature-item">
+                                    <span class="feature-check-icon"><i class="ri-check-line"></i></span>
+                                    <span class="feature-text">Annual health checkups</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-check-icon"><i class="ri-check-line"></i></span>
+                                    <span class="feature-text">Access to general practitioners</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-check-icon"><i class="ri-check-line"></i></span>
+                                    <span class="feature-text">Preventive care tips</span>
+                                </li>
+                            </ul>
+                            <ul class="plan-features-list col-2" id="featuresCol2">
+                                <li class="feature-item">
+                                    <span class="feature-check-icon"><i class="ri-check-line"></i></span>
+                                    <span class="feature-text">Basic lab tests</span>
+                                </li>
+                                <li class="feature-item">
+                                    <span class="feature-check-icon"><i class="ri-check-line"></i></span>
+                                    <span class="feature-text">Personalized wellness tips</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <a href="404.html" class="plan-cta-btn" aria-label="Get started today with selected plan">
+                            <span>Get started today</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+
+                        <!-- Prev / Next Controls & Plan Indicator -->
+                        <div class="plan-nav-controls">
+                            <button class="plan-nav-btn plan-prev-btn" id="planPrevBtn" aria-label="Previous plan">
+                                <i class="ri-arrow-left-line"></i>
+                                <span>Prev</span>
+                            </button>
+                            <div class="plan-dots-indicator" id="planDotsIndicator">
+                                <span class="plan-dot active" data-plan="0"></span>
+                                <span class="plan-dot" data-plan="1"></span>
+                                <span class="plan-dot" data-plan="2"></span>
+                            </div>
+                            <button class="plan-nav-btn plan-next-btn" id="planNextBtn" aria-label="Next plan">
+                                <span>Next</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </div>
+
+                        <!-- Subtle Bottom Seedling Illustration -->
+                        <div class="plan-seedling-graphic">
+                            <svg class="seedling-svg" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M24 44V26" stroke="#8ef062" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M24 26C24 16 36 14 38 12C38 22 28 26 24 26Z" fill="rgba(142, 240, 98, 0.2)" stroke="#8ef062" stroke-width="2" stroke-linejoin="round"/>
+                                <path d="M24 32C24 24 14 22 12 20C12 28 20 32 24 32Z" fill="rgba(142, 240, 98, 0.15)" stroke="#8ef062" stroke-width="1.8" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Static Information -->
+                <div class="pricing-info-col" data-reveal="fade-up" data-delay="200">
+                    <!-- Additional Notes Box -->
+                    <div class="additional-notes-card">
+                        <h3 class="notes-heading">Additional notes</h3>
+                        <ul class="notes-list">
+                            <li class="notes-item">
+                                <span class="notes-bullet-icon"><i class="ri-checkbox-circle-fill"></i></span>
+                                <span class="notes-text">Flexible payment options available</span>
+                            </li>
+                            <li class="notes-item">
+                                <span class="notes-bullet-icon"><i class="ri-checkbox-circle-fill"></i></span>
+                                <span class="notes-text">Insurance support and billing guidance</span>
+                            </li>
+                            <li class="notes-item">
+                                <span class="notes-bullet-icon"><i class="ri-checkbox-circle-fill"></i></span>
+                                <span class="notes-text">No hidden fees&mdash;only care you can rely on</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Stretching / Wellness Image Container -->
+                    <div class="pricing-media-box">
+                        <img src="images/💙 Prioritize Your Health Today.webp" alt="Prioritize Your Health Today" class="pricing-media-img">
+                        <div class="pricing-media-overlay"></div>
+                    </div>
+
+                    <!-- Small CTA Block Below Image -->
+                    <div class="pricing-sub-cta-card">
+                        <div class="sub-cta-info">
+                            <span class="sub-cta-question">Need expert care you can trust?</span>
+                            <span class="sub-cta-subtext">Consult our women's health specialists today</span>
+                        </div>
+                        <a href="404.html" class="sub-cta-btn" aria-label="Get started with expert care">
+                            <span>Get started</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         WELL-BEING MATTERS / HEALTHIER HAPPIER TOGETHER SECTION
+         ========================================================================== -->
+    <section class="wellbeing-section" id="wellbeing">
+        <div class="wellbeing-container">
+            <div class="wellbeing-grid">
+                <!-- Left Column: Content, Checklist & Action Button -->
+                <div class="wellbeing-content-col" data-reveal="fade-up">
+                    <h2 class="wellbeing-heading">
+                        <span class="heading-reveal-wrap">
+                            <span class="reveal-inner">Your well-being matters&mdash;let's build a healthier, happier you together.</span>
+                        </span>
+                    </h2>
+                    
+                    <p class="wellbeing-description">
+                        Whether you're managing a condition or simply prioritizing wellness, we're here to guide you every step of the way.
+                    </p>
+
+                    <!-- Features Checklist -->
+                    <ul class="wellbeing-checklist">
+                        <li class="wellbeing-check-item">
+                            <span class="wellbeing-check-icon"><i class="ri-checkbox-circle-fill"></i></span>
+                            <span class="wellbeing-check-text">Holistic wellness approach</span>
+                        </li>
+                        <li class="wellbeing-check-item">
+                            <span class="wellbeing-check-icon"><i class="ri-checkbox-circle-fill"></i></span>
+                            <span class="wellbeing-check-text">Advanced technology & diagnostics</span>
+                        </li>
+                    </ul>
+
+                    <!-- Large Bright Lime Capsule Button -->
+                    <a href="404.html" class="wellbeing-cta-btn" aria-label="Get started today with women's health care">
+                        <span class="btn-text">Get started today</span>
+                        <span class="btn-arrow-circle">
+                            <i class="ri-arrow-right-line"></i>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Right Column: Visual Collage & Social Proof Card -->
+                <div class="wellbeing-visual-col" data-reveal="fade-up" data-delay="150">
+                    <!-- Top 2 Visual Cards -->
+                    <div class="wellbeing-images-row">
+                        <!-- Case Study / Wellness Highlight Card -->
+                        <div class="wellbeing-img-card forest-card">
+                            <img src="images/case6.webp" alt="Women Wellness Sanctuary" class="wellbeing-img">
+                            <div class="wellbeing-img-overlay"></div>
+                        </div>
+
+                        <!-- Green Vitamin/Capsule Card -->
+                        <div class="wellbeing-img-card capsule-card">
+                            <img src="images/cta-capsule.webp" alt="Herbal wellness vitality softgel" class="wellbeing-img">
+                            <div class="wellbeing-img-overlay"></div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Social Proof Bar Card -->
+                    <div class="wellbeing-experts-card">
+                        <span class="experts-card-text">Trusted experts, here when you need them most.</span>
+                        <div class="experts-actions-group">
+                            <div class="experts-avatar-stack">
+                                <img src="images/d1.webp" alt="Doctor Emily" class="stack-avatar">
+                                <img src="images/d2.webp" alt="Doctor James" class="stack-avatar">
+                                <img src="images/d3.webp" alt="Doctor Sophie" class="stack-avatar">
+                            </div>
+                            <a href="404.html" class="experts-arrow-btn" aria-label="View our medical team">
+                                <i class="ri-arrow-right-line"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER SECTION (Stackly/Curevo Medical Luxury Footer)
+         ========================================================================== -->
+    <footer class="main-footer" id="contact">
+        <!-- Subtle Background Glow / Texture Layer -->
+        <div class="footer-bg-glow"></div>
+
+        <div class="footer-container">
+            <!-- 4-Column Grid -->
+            <div class="footer-grid">
+                
+                <!-- Column 1: Brand Logo, Mission, Address & Working Hours -->
+                <div class="footer-col footer-col-brand" data-reveal="fade-up" data-delay="50">
+                    <a href="index.html" class="footer-logo-link" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="footer-logo-img">
+                    </a>
+                    
+                    <p class="footer-mission-text">
+                        We support discovery across healthcare, biotechnology, & sciences.
+                    </p>
+
+                    <div class="footer-address-badge">
+                        <i class="ri-map-pin-2-fill address-icon"></i>
+                        <span>MMR complex, salem, tamilnadu</span>
+                    </div>
+
+                    <!-- Working Hours Glass Card -->
+                    <div class="footer-hours-box">
+                        <h4 class="hours-title">Working Hours:</h4>
+                        <div class="hours-card">
+                            <div class="hours-row">
+                                <span class="hours-day">Monday - Friday:-</span>
+                                <span class="hours-time">10:00 - 05:00</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-day">Saturday:-</span>
+                                <span class="hours-time">10:00 - 04:00</span>
+                            </div>
+                            <div class="hours-row closed-row">
+                                <span class="hours-day">Sunday:-</span>
+                                <span class="hours-time closed-badge">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col footer-col-links" data-reveal="fade-up" data-delay="100">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="index.html" class="footer-nav-link"><span class="link-dash">-</span> Home</a></li>
+                        <li><a href="about.html" class="footer-nav-link"><span class="link-dash">-</span> About</a></li>
+                        <li><a href="service.html" class="footer-nav-link"><span class="link-dash">-</span> Service</a></li>
+                        <li><a href="blog.html" class="footer-nav-link"><span class="link-dash">-</span> Blog</a></li>
+                        <li><a href="contact.html" class="footer-nav-link"><span class="link-dash">-</span> Contact</a></li>
+                        <li><a href="login.html" class="footer-nav-link"><span class="link-dash">-</span> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div class="footer-col footer-col-services" data-reveal="fade-up" data-delay="150">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Diagnostic Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Laboratory Analysis</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Industrial Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Clinical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Chemical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Preventive Checkups</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Follow Us On Social -->
+                <div class="footer-col footer-col-social" data-reveal="fade-up" data-delay="200">
+                    <h3 class="footer-heading">Follow Us On Social</h3>
+                    <p class="social-intro-text">
+                        Connect with us online for updates, breakthroughs, & lab highlights.
+                    </p>
+
+                    <!-- Circular Social Buttons -->
+                    <div class="footer-social-row">
+                        <a href="404.html" class="social-circle-btn pinterest-btn" aria-label="Pinterest">
+                            <i class="ri-pinterest-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn twitter-btn" aria-label="Twitter X">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn facebook-btn" aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn instagram-btn" aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Legal Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-left">
+                    <p>&copy; 2026 Curevo Women's Health Center. All rights reserved. &bull; MMR complex, salem, tamilnadu</p>
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="404.html" class="legal-link">Privacy Policy</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Terms of Service</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

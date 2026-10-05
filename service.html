@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services — Curevo Women's Health & Wellness Center</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Immediate Scroll & 404 Position Restorer -->
+    <script>
+        (function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            function restoreScrollPosition() {
+                var isReturningFrom404 = sessionStorage.getItem('curevo_returning_from_404') === '1';
+                if (isReturningFrom404) {
+                    var savedPos = sessionStorage.getItem('curevo_scroll_pos');
+                    if (savedPos !== null) {
+                        var targetY = parseInt(savedPos, 10);
+                        if (!isNaN(targetY) && targetY >= 0) {
+                            window.scrollTo({ top: targetY, left: 0, behavior: 'instant' });
+                            document.querySelectorAll('[data-reveal]').forEach(function(el) {
+                                var rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight + 500) {
+                                    el.classList.add('revealed');
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+            }
+
+            restoreScrollPosition();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+                setTimeout(restoreScrollPosition, 150);
+                setTimeout(restoreScrollPosition, 300);
+            });
+
+            window.addEventListener('load', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 100);
+                setTimeout(function() {
+                    restoreScrollPosition();
+                    setTimeout(function() {
+                        sessionStorage.removeItem('curevo_returning_from_404');
+                        sessionStorage.removeItem('curevo_scroll_pos');
+                        sessionStorage.removeItem('curevo_from_url');
+                    }, 600);
+                }, 300);
+            });
+
+            window.addEventListener('pageshow', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Interactive Ambient Glow Layers -->
+    <div class="ambient-glow ambient-glow-1"></div>
+    <div class="ambient-glow ambient-glow-2"></div>
+    <div class="ambient-glow ambient-glow-3"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="header-container" id="mainHeader">
+        <nav class="nav-glass-capsule">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" aria-label="Curevo Home">
+                <img src="images/logo.webp" alt="Curevo Women's Health Center" class="header-logo-img">
+            </a>
+
+            <!-- Navigation Links (Full Screen on Mobile) -->
+            <div class="nav-menu" id="navMenu">
+                <!-- Mobile Menu Header with Logo & Close Button -->
+                <div class="mobile-menu-header">
+                    <a href="index.html" class="mobile-menu-logo" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="mobile-logo-img">
+                    </a>
+                    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+
+                <ul class="nav-links-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="service.html" class="nav-link active">Service</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link login-link">Login</a></li>
+                </ul>
+
+                <!-- Mobile Menu Bottom CTA & Location Info -->
+                <div class="mobile-menu-footer">
+                    <a href="404.html" class="mobile-cta-btn">
+                        <span>Book an appointment</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <p class="mobile-loc-text">MMR complex, salem, tamilnadu</p>
+                </div>
+            </div>
+
+            <!-- Header Action CTA -->
+            <div class="nav-actions">
+                <a href="404.html" class="btn-appointment" aria-label="Book an appointment">
+                    <span class="btn-text">Book an appointment</span>
+                    <span class="btn-arrow-circle">
+                        <i class="ri-arrow-right-line"></i>
+                    </span>
+                </a>
+                
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================================================
+         SECTION 1: INTERACTIVE SERVICES HERO
+         Features: Interactive Service Spotlight, Quick Diagnostic Finder, Live Stats
+         ========================================================================== -->
+    <section class="services-hero-section" id="servicesHero">
+        <div class="services-hero-bg">
+            <img src="images/Supportive Care at Norman Women’s Center.webp" alt="Curevo Women's Care" class="services-hero-img">
+            <div class="services-hero-overlay"></div>
+            <div class="services-hero-grain"></div>
+        </div>
+
+        <div class="services-hero-container">
+            <div class="services-hero-grid">
+                <!-- Left Hero Text & Quick Finder -->
+                <div class="services-hero-text">
+                    <div class="about-badge-pill" data-reveal="fade-up">
+                        <span class="pulse-dot"></span>
+                        <span class="badge-label">SPECIALIZED CLINICAL CARE</span>
+                    </div>
+
+                    <h1 class="services-hero-title" data-reveal="fade-up" data-delay="100">
+                        <span class="hero-line">Precision medical science</span>
+                        <span class="hero-line">
+                            crafted for <em class="about-highlight-italic">every stage</em>
+                        </span>
+                        <span class="hero-line">of womanhood.</span>
+                    </h1>
+
+                    <p class="services-hero-desc" data-reveal="fade-up" data-delay="200">
+                        Explore our full spectrum of non-invasive diagnostics, gentle obstetric care, advanced gynecological procedures, and hormonal longevity therapies in Salem's most comforting sanctuary.
+                    </p>
+
+                    <!-- Interactive Quick Care Finder Bar -->
+                    <div class="services-quick-finder" data-reveal="fade-up" data-delay="250">
+                        <div class="finder-input-box">
+                            <i class="ri-search-line finder-icon"></i>
+                            <select id="quickServiceSelect" class="finder-select" aria-label="Find specialty service">
+                                <option value="all">Select a Health Specialty...</option>
+                                <option value="obstetrics">Maternal & Prenatal Care</option>
+                                <option value="gynecology">Preventative Gynecology</option>
+                                <option value="hormonal">Hormonal & PCOS Balance</option>
+                                <option value="imaging">4D Imaging & Diagnostic Labs</option>
+                                <option value="pelvic">Pelvic Floor & Longevity Rehab</option>
+                            </select>
+                        </div>
+                        <a href="404.html" class="btn-finder-search" id="btnQuickSearch">
+                            <span>Explore Care</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+
+                    <div class="services-hero-tags-row" data-reveal="fade-up" data-delay="300">
+                        <span class="hero-tag-item"><i class="ri-shield-star-fill"></i> NABH Accredited Suites</span>
+                        <span class="hero-tag-item"><i class="ri-time-line"></i> Same-Day Lab Results</span>
+                        <span class="hero-tag-item"><i class="ri-lock-line"></i> 100% Confidential</span>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Floating Care Suite Spotlight Card -->
+                <div class="services-hero-interactive-col" data-reveal="fade-up" data-delay="250">
+                    <div class="services-spotlight-card" id="servicesSpotlightCard" data-tilt>
+                        <div class="spotlight-card-inner">
+                            <div class="spotlight-media-box">
+                                <img src="images/case1.webp" alt="Women Healthcare Excellence" class="spotlight-img">
+                                <div class="spotlight-badge-top">
+                                    <span class="spotlight-dot"></span>
+                                    <span>Specialist On Duty</span>
+                                </div>
+                                <div class="spotlight-metric-glass">
+                                    <span class="spotlight-metric-num">99.8%</span>
+                                    <span class="spotlight-metric-lbl">Diagnostic Precision Index</span>
+                                </div>
+                            </div>
+
+                            <div class="spotlight-body">
+                                <div class="spotlight-header-row">
+                                    <div class="spotlight-cat-tag">
+                                        <i class="ri-stethoscope-fill"></i>
+                                        <span>Primary Clinical Suite</span>
+                                    </div>
+                                    <span class="spotlight-time-tag"><i class="ri-time-line"></i> Unhurried 45-Min Care</span>
+                                </div>
+
+                                <h3 class="spotlight-title">Integrated Women’s Wellness Hub</h3>
+                                <p class="spotlight-text">From routine preventive screenings to complex fetal diagnostics, experience continuous care tailored to your unique biology.</p>
+                                
+                                <div class="spotlight-features-list">
+                                    <span class="spotlight-feat-pill"><i class="ri-check-line"></i> 4D Ultrasound</span>
+                                    <span class="spotlight-feat-pill"><i class="ri-check-line"></i> Hormonal Panels</span>
+                                    <span class="spotlight-feat-pill"><i class="ri-check-line"></i> Private Suites</span>
+                                </div>
+
+                                <div class="spotlight-footer-row">
+                                    <a href="404.html" class="btn-spotlight-book">
+                                        <span>Book Consultation</span>
+                                        <i class="ri-arrow-right-line"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: INTERACTIVE CLINICAL SERVICES MATRIX (Filterable Tabs)
+         ========================================================================== -->
+    <section class="services-matrix-section" id="careMatrix">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-grid-fill"></i>
+                    <span>OUR CLINICAL DISCIPLINES</span>
+                </div>
+                <h2 class="section-main-title">Comprehensive care programs for every stage</h2>
+                <p class="section-sub-title">Filter by specialized medical branch to explore our diagnostics, therapeutic interventions, and dedicated female clinicians.</p>
+            </div>
+
+            <!-- Filter Tabs Nav -->
+            <div class="service-category-tabs" data-reveal="fade-up" data-delay="100">
+                <button class="srv-tab-btn active" data-filter="all">All Specialties</button>
+                <button class="srv-tab-btn" data-filter="obstetrics">Maternity & Obstetrics</button>
+                <button class="srv-tab-btn" data-filter="gynecology">Preventive Gynecology</button>
+                <button class="srv-tab-btn" data-filter="hormonal">Hormones & Endocrinology</button>
+                <button class="srv-tab-btn" data-filter="imaging">Advanced Imaging & Labs</button>
+                <button class="srv-tab-btn" data-filter="pelvic">Pelvic & Active Longevity</button>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="service-matrix-grid">
+                
+                <!-- Service 1: Maternity & Fetal Care -->
+                <div class="service-matrix-card" data-category="obstetrics" data-reveal="fade-up" data-delay="100">
+                    <div class="service-card-media">
+                        <img src="images/download (8).webp" alt="Maternity and Prenatal Care" class="srv-card-img">
+                        <span class="srv-time-badge"><i class="ri-heart-pulse-fill"></i> Full Trimester Journey</span>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="srv-cat-label">OBSTETRICS & FETAL MEDICINE</div>
+                        <h3 class="srv-card-title">Comprehensive Maternity & Gentle Childbirth</h3>
+                        <p class="srv-card-desc">Complete pre-conception guidance, high-resolution fetal health mapping, natural birth prep, and postnatal maternal recovery.</p>
+                        <ul class="srv-feature-bullets">
+                            <li><i class="ri-checkbox-circle-fill"></i> 4D Volumetric Fetal Growth Scans</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Non-Invasive Prenatal Testing (NIPT)</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Gentle Labor & Lactation Counseling</li>
+                        </ul>
+                        <div class="srv-card-footer">
+                            <span class="srv-lead-doc">Lead: <strong>Dr. Sarah Jenkins</strong></span>
+                            <span class="srv-discipline-symbol" aria-hidden="true">
+                                <i class="ri-heart-pulse-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 2: Preventive Gynecology -->
+                <div class="service-matrix-card" data-category="gynecology" data-reveal="fade-up" data-delay="150">
+                    <div class="service-card-media">
+                        <img src="images/download (7).webp" alt="Preventative Gynecology" class="srv-card-img">
+                        <span class="srv-time-badge"><i class="ri-shield-check-fill"></i> Routine & Annual</span>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="srv-cat-label">PREVENTIVE GYNECOLOGY</div>
+                        <h3 class="srv-card-title">Well-Woman Screenings & Pelvic Care</h3>
+                        <p class="srv-card-desc">Early-detection wellness diagnostics, liquid-based Pap smears, HPV vaccination, and gentle treatments for pelvic pain.</p>
+                        <ul class="srv-feature-bullets">
+                            <li><i class="ri-checkbox-circle-fill"></i> High-Sensitivity Pap & Cervical Screening</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Non-Invasive Pelvic Ultrasonography</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Fibroid & Endometriosis Management</li>
+                        </ul>
+                        <div class="srv-card-footer">
+                            <span class="srv-lead-doc">Lead: <strong>Dr. Priya Sharma</strong></span>
+                            <span class="srv-discipline-symbol" aria-hidden="true">
+                                <i class="ri-shield-check-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 3: Hormonal & Endocrinology -->
+                <div class="service-matrix-card" data-category="hormonal" data-reveal="fade-up" data-delay="200">
+                    <div class="service-card-media">
+                        <img src="images/download (9).webp" alt="Hormonal and PCOS Therapy" class="srv-card-img">
+                        <span class="srv-time-badge"><i class="ri-pulse-line"></i> Root-Cause Science</span>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="srv-cat-label">ENDOCRINOLOGY & METABOLISM</div>
+                        <h3 class="srv-card-title">PCOS, Thyroid & Menopause Harmony</h3>
+                        <p class="srv-card-desc">Personalized endocrine mapping to treat hormonal acne, irregular cycles, peri-menopause transitions, and metabolic vitality.</p>
+                        <ul class="srv-feature-bullets">
+                            <li><i class="ri-checkbox-circle-fill"></i> Comprehensive 12-Point Hormone Panel</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Bio-Identical Hormone Balancing</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Clinical Nutrition & Metabolic Protocol</li>
+                        </ul>
+                        <div class="srv-card-footer">
+                            <span class="srv-lead-doc">Lead: <strong>Dr. Maya Sharma</strong></span>
+                            <span class="srv-discipline-symbol" aria-hidden="true">
+                                <i class="ri-pulse-line"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 4: Advanced Imaging & In-House Labs -->
+                <div class="service-matrix-card" data-category="imaging" data-reveal="fade-up" data-delay="250">
+                    <div class="service-card-media">
+                        <img src="images/case2.webp" alt="Advanced Diagnostics and Labs" class="srv-card-img">
+                        <span class="srv-time-badge"><i class="ri-time-line"></i> Same-Day Results</span>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="srv-cat-label">DIAGNOSTIC EXCELLENCE</div>
+                        <h3 class="srv-card-title">Precision Ultrasound & Mammography</h3>
+                        <p class="srv-card-desc">State-of-the-art low-dose digital 3D mammography, high-frequency transvaginal scanning, and swift in-house pathology.</p>
+                        <ul class="srv-feature-bullets">
+                            <li><i class="ri-checkbox-circle-fill"></i> 3D Breast Tomosynthesis Screening</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Fast-Track Same-Day Blood & Bio Panels</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Color Doppler Fetal & Vascular Imaging</li>
+                        </ul>
+                        <div class="srv-card-footer">
+                            <span class="srv-lead-doc">Lead: <strong>Dr. Elena Vance</strong></span>
+                            <span class="srv-discipline-symbol" aria-hidden="true">
+                                <i class="ri-microscope-line"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 5: Pelvic Health & Active Longevity -->
+                <div class="service-matrix-card" data-category="pelvic" data-reveal="fade-up" data-delay="300">
+                    <div class="service-card-media">
+                        <img src="images/download (10).webp" alt="Pelvic Floor Rehabilitation" class="srv-card-img">
+                        <span class="srv-time-badge"><i class="ri-sparkling-fill"></i> Core Vitality</span>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="srv-cat-label">PELVIC REHAB & LONGEVITY</div>
+                        <h3 class="srv-card-title">Pelvic Floor Physio & Bone Health</h3>
+                        <p class="srv-card-desc">Gentle, restorative pelvic floor physical therapy, biofeedback strengthening, DEXA bone density scans, and longevity support.</p>
+                        <ul class="srv-feature-bullets">
+                            <li><i class="ri-checkbox-circle-fill"></i> Postnatal Pelvic Rehabilitation</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Incontinence & Core Strengthening</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Osteopenia & Osteoporosis Prevention</li>
+                        </ul>
+                        <div class="srv-card-footer">
+                            <span class="srv-lead-doc">Lead: <strong>Dr. Ananya Rao</strong></span>
+                            <span class="srv-discipline-symbol" aria-hidden="true">
+                                <i class="ri-sparkling-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 6: Minimally Invasive Day Surgery -->
+                <div class="service-matrix-card" data-category="gynecology" data-reveal="fade-up" data-delay="350">
+                    <div class="service-card-media">
+                        <img src="images/case3.webp" alt="Minimally Invasive Surgery" class="srv-card-img">
+                        <span class="srv-time-badge"><i class="ri-hospital-line"></i> Fast Recovery</span>
+                    </div>
+                    <div class="service-card-content">
+                        <div class="srv-cat-label">SURGICAL PRECISION</div>
+                        <h3 class="srv-card-title">Advanced Laparoscopy & Hysteroscopy</h3>
+                        <p class="srv-card-desc">Day-care surgical procedures using pin-hole incisions for rapid, pain-minimized recovery and minimal scar visibility.</p>
+                        <ul class="srv-feature-bullets">
+                            <li><i class="ri-checkbox-circle-fill"></i> Ovarian Cystectomy & Polypectomy</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Gentle Diagnostic Hysteroscopy</li>
+                            <li><i class="ri-checkbox-circle-fill"></i> Same-Day Discharge Suites</li>
+                        </ul>
+                        <div class="srv-card-footer">
+                            <span class="srv-lead-doc">Lead: <strong>Dr. Sarah Jenkins</strong></span>
+                            <span class="srv-discipline-symbol" aria-hidden="true">
+                                <i class="ri-hospital-line"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: 4-STEP PATIENT CARE WORKFLOW
+         ========================================================================== -->
+    <section class="services-workflow-section" id="careWorkflow">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-route-line"></i>
+                    <span>PATIENT-FIRST METHODOLOGY</span>
+                </div>
+                <h2 class="section-main-title">How we deliver compassionate, precise care</h2>
+                <p class="section-sub-title">From your initial arrival to ongoing follow-up, our 4-step clinical pathway is designed for calm, clarity, and reassurance.</p>
+            </div>
+
+            <div class="workflow-steps-grid">
+                <!-- Step 1 -->
+                <div class="workflow-step-card" data-reveal="fade-up" data-delay="100">
+                    <div class="step-card-top">
+                        <div class="step-num-bubble">01</div>
+                        <span class="step-phase-tag">INTAKE</span>
+                    </div>
+                    <div class="step-icon-wrap">
+                        <i class="ri-user-heart-line"></i>
+                    </div>
+                    <h3 class="step-card-title">Comfortable Intake & Listening</h3>
+                    <p class="step-card-desc">Private consultation lounge check-in where our doctors listen to your complete health history without any rush or pressure.</p>
+                    <div class="step-metric-note">
+                        <i class="ri-check-line"></i> Zero waiting room anxiety
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="workflow-step-card" data-reveal="fade-up" data-delay="200">
+                    <div class="step-card-top">
+                        <div class="step-num-bubble">02</div>
+                        <span class="step-phase-tag">DIAGNOSTICS</span>
+                    </div>
+                    <div class="step-icon-wrap">
+                        <i class="ri-scan-2-line"></i>
+                    </div>
+                    <h3 class="step-card-title">Non-Invasive Diagnostic Clarity</h3>
+                    <p class="step-card-desc">State-of-the-art 4D imaging, gentle ultrasound, and same-day lab blood profiling to pinpoint root biological factors.</p>
+                    <div class="step-metric-note">
+                        <i class="ri-check-line"></i> Same-day lab delivery
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="workflow-step-card" data-reveal="fade-up" data-delay="300">
+                    <div class="step-card-top">
+                        <div class="step-num-bubble">03</div>
+                        <span class="step-phase-tag">CARE PLAN</span>
+                    </div>
+                    <div class="step-icon-wrap">
+                        <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <h3 class="step-card-title">Personalized Treatment Roadmap</h3>
+                    <p class="step-card-desc">Collaborative care strategy integrating clinical treatments, targeted nutrition, hormonal therapies, or gentle interventions.</p>
+                    <div class="step-metric-note">
+                        <i class="ri-check-line"></i> Tailored to your lifestyle
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="workflow-step-card" data-reveal="fade-up" data-delay="400">
+                    <div class="step-card-top">
+                        <div class="step-num-bubble">04</div>
+                        <span class="step-phase-tag">AFTERCARE</span>
+                    </div>
+                    <div class="step-icon-wrap">
+                        <i class="ri-heart-pulse-line"></i>
+                    </div>
+                    <h3 class="step-card-title">Continuous Tracking & Telehealth</h3>
+                    <p class="step-card-desc">24/7 direct doctor access, remote recovery monitoring, and scheduled check-ins to ensure sustained long-term health.</p>
+                    <div class="step-metric-note">
+                        <i class="ri-check-line"></i> 24/7 dedicated support
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: SMART SYMPTOM & SERVICE MATCHER WIDGET
+         ========================================================================== -->
+    <section class="services-matcher-section" id="symptomMatcher">
+        <div class="about-container">
+            <div class="matcher-box-card" data-reveal="fade-up">
+                <div class="matcher-header">
+                    <div class="trust-badge">
+                        <i class="ri-sparkling-fill"></i>
+                        <span>INTERACTIVE CARE ADVISOR</span>
+                    </div>
+                    <h2 class="matcher-main-heading">Not sure which specialty you need?</h2>
+                    <p class="matcher-sub-heading">Select your primary symptom or health milestone below, and our care advisor will match you with the exact clinical team, diagnostic screening, and prep checklist.</p>
+                </div>
+
+                <!-- Interactive Symptom Selection Pills -->
+                <div class="matcher-options-row">
+                    <button type="button" class="matcher-pill-btn active" data-symptom="prenatal">
+                        <i class="ri-heart-3-fill"></i>
+                        <span>Pregnancy & First Trimester</span>
+                    </button>
+                    <button type="button" class="matcher-pill-btn" data-symptom="pcos">
+                        <i class="ri-pulse-fill"></i>
+                        <span>PCOS & Irregular Cycles</span>
+                    </button>
+                    <button type="button" class="matcher-pill-btn" data-symptom="annual">
+                        <i class="ri-shield-check-fill"></i>
+                        <span>Routine Annual Checkup</span>
+                    </button>
+                    <button type="button" class="matcher-pill-btn" data-symptom="menopause">
+                        <i class="ri-fire-fill"></i>
+                        <span>Menopause & Hormonal Balance</span>
+                    </button>
+                    <button type="button" class="matcher-pill-btn" data-symptom="pelvic">
+                        <i class="ri-leaf-fill"></i>
+                        <span>Pelvic Pain & Core Recovery</span>
+                    </button>
+                </div>
+
+                <!-- Dynamic Recommendation Display Panel -->
+                <div class="matcher-result-panel" id="matcherResultPanel">
+                    <div class="matcher-result-grid">
+                        <div class="matcher-col-left">
+                            <span class="rec-badge"><i class="ri-shield-check-line"></i> RECOMMENDED CARE PATHWAY</span>
+                            <h3 class="rec-title" id="recTitle">Maternal & Fetal Medicine Suite</h3>
+                            <p class="rec-desc" id="recDesc">Dedicated first-trimester genetic screening, 4D viability scans, prenatal blood panels, and personalized nutritional guidance for an anxiety-free pregnancy.</p>
+                            
+                            <div class="rec-tests-box">
+                                <h4>Key Recommended Diagnostics:</h4>
+                                <ul class="rec-checklist" id="recChecklist">
+                                    <li><i class="ri-check-line"></i> Early Viability & Dating 4D Ultrasound</li>
+                                    <li><i class="ri-check-line"></i> Non-Invasive Prenatal Testing (NIPT) & Dual Marker</li>
+                                    <li><i class="ri-check-line"></i> Complete Maternal Hemogram & Thyroid Profile</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="matcher-col-right">
+                            <div class="rec-doctor-card">
+                                <div class="rec-doc-header">
+                                    <img src="images/d2.webp" alt="Lead Consultant" class="rec-doc-avatar" id="recDocImg">
+                                    <div class="rec-doc-meta">
+                                        <strong id="recDocName">Dr. Sarah Jenkins, OB-GYN</strong>
+                                        <span id="recDocRole">Head of Maternal & Prenatal Health</span>
+                                    </div>
+                                </div>
+                                <div class="rec-doc-schedule">
+                                    <div class="sched-row">
+                                        <i class="ri-calendar-check-line"></i>
+                                        <span id="recSchedule">Mon – Sat &bull; 10:00 AM – 04:00 PM</span>
+                                    </div>
+                                    <div class="sched-row">
+                                        <i class="ri-map-pin-line"></i>
+                                        <span>Sanctuary Suite 01 &bull; Salem Clinic</span>
+                                    </div>
+                                </div>
+                                <a href="404.html" class="btn-rec-appointment">
+                                    <span>Book This Specialty</span>
+                                    <i class="ri-arrow-right-line"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: ADVANCED MEDICAL TECHNOLOGY & DIAGNOSTIC SUITES
+         ========================================================================== -->
+    <section class="services-tech-section" id="medicalTech">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-microscope-line"></i>
+                    <span>CLINICAL EXCELLENCE</span>
+                </div>
+                <h2 class="section-main-title">World-class diagnostic technology</h2>
+                <p class="section-sub-title">We invest in the latest non-invasive medical equipment to deliver ultra-precise results while prioritizing your comfort.</p>
+            </div>
+
+            <div class="tech-suites-grid">
+                <!-- Tech 1 -->
+                <div class="tech-suite-card" data-reveal="fade-up" data-delay="100">
+                    <div class="tech-card-media">
+                        <img src="images/Surgeon using tablet.webp" alt="4D HD Volumetric Ultrasound" class="tech-img">
+                        <span class="tech-badge">Ultrasonography</span>
+                    </div>
+                    <div class="tech-card-info">
+                        <h3 class="tech-title">4D HD Volumetric Ultrasound</h3>
+                        <p class="tech-desc">Crystal-clear real-time fetal imaging and high-frequency pelvic acoustic mapping with minimal patient discomfort.</p>
+                        <div class="tech-spec-row">
+                            <span class="tech-spec"><i class="ri-sparkling-line"></i> 0.2mm Resolution</span>
+                            <span class="tech-spec"><i class="ri-shield-check-line"></i> Radiation-Free</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech 2 -->
+                <div class="tech-suite-card" data-reveal="fade-up" data-delay="200">
+                    <div class="tech-card-media">
+                        <img src="images/Download Set of Medical Equipment with Red First Aid Kit for free.webp" alt="Digital 3D Tomosynthesis" class="tech-img">
+                        <span class="tech-badge">Breast Health</span>
+                    </div>
+                    <div class="tech-card-info">
+                        <h3 class="tech-title">Digital Low-Dose Tomosynthesis</h3>
+                        <p class="tech-desc">3D layered breast screening providing 40% higher accuracy in early lesion detection compared to standard mammograms.</p>
+                        <div class="tech-spec-row">
+                            <span class="tech-spec"><i class="ri-sparkling-line"></i> Low Radiation</span>
+                            <span class="tech-spec"><i class="ri-shield-check-line"></i> Gentle Compression</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech 3 -->
+                <div class="tech-suite-card" data-reveal="fade-up" data-delay="300">
+                    <div class="tech-card-media">
+                        <img src="images/Витамины и пищевые добавки для всей семьи.webp" alt="Nutritional & Lab Bio-Suites" class="tech-img">
+                        <span class="tech-badge">Pathology & Nutrition</span>
+                    </div>
+                    <div class="tech-card-info">
+                        <h3 class="tech-title">Nutritional & Automated Lab Bio-Suites</h3>
+                        <p class="tech-desc">Fully automated immunoassay, metabolic profiling, and endocrine testing systems delivering validated diagnostics in under 3 hours.</p>
+                        <div class="tech-spec-row">
+                            <span class="tech-spec"><i class="ri-sparkling-line"></i> ISO 15189 Validated</span>
+                            <span class="tech-spec"><i class="ri-shield-check-line"></i> Same-Day Results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: SPECIALIZED WOMEN'S HEALTH CHECKUP PACKAGES
+         ========================================================================== -->
+    <section class="services-packages-section" id="carePackages">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-gift-line"></i>
+                    <span>PREVENTATIVE HEALTH PLANS</span>
+                </div>
+                <h2 class="section-main-title">Curated health checkup packages</h2>
+                <p class="section-sub-title">All-inclusive diagnostic screening bundles structured to provide 360-degree clarity on your vitality.</p>
+            </div>
+
+            <div class="packages-pricing-grid">
+                
+                <!-- Package 1: Essential Well-Woman -->
+                <div class="package-pricing-card" data-reveal="fade-up" data-delay="100">
+                    <div class="pkg-header">
+                        <span class="pkg-tier-tag">ANNUAL ESSENTIAL</span>
+                        <h3 class="pkg-name">Well-Woman Preventive</h3>
+                        <p class="pkg-summary">Recommended annually for women aged 18–45 for baseline health clarity.</p>
+                        <div class="pkg-price-row">
+                            <span class="pkg-price-highlight">Full Assessment</span>
+                            <span class="pkg-duration">&bull; 60 Min Session</span>
+                        </div>
+                    </div>
+
+                    <div class="pkg-divider"></div>
+
+                    <ul class="pkg-features-list">
+                        <li><i class="ri-checkbox-circle-fill"></i> Complete Hemogram & Iron Profile</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Liquid-Based Pap Smear Cytology</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Pelvic & Abdominal Ultrasound</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Thyroid & Fasting Glucose Screening</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> 1-on-1 Gynecologist Consultation</li>
+                    </ul>
+
+                    <a href="404.html" class="btn-pkg-action">
+                        <span>Book Essential Package</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+
+                <!-- Package 2: Maternal Harmony (Featured) -->
+                <div class="package-pricing-card featured-package" data-reveal="fade-up" data-delay="200">
+                    <div class="pkg-popular-badge">
+                        <i class="ri-sparkling-fill"></i> MOST POPULAR
+                    </div>
+                    <div class="pkg-header">
+                        <span class="pkg-tier-tag highlight-tag">PRENATAL & POSTNATAL</span>
+                        <h3 class="pkg-name">Maternal Harmony Haven</h3>
+                        <p class="pkg-summary">End-to-end clinical monitoring covering trimester scans and recovery.</p>
+                        <div class="pkg-price-row">
+                            <span class="pkg-price-highlight">Comprehensive</span>
+                            <span class="pkg-duration">&bull; Trimester Care</span>
+                        </div>
+                    </div>
+
+                    <div class="pkg-divider"></div>
+
+                    <ul class="pkg-features-list">
+                        <li><i class="ri-checkbox-circle-fill"></i> 3x 4D High-Definition Ultrasound Scans</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Full NIPT & Genetic Risk Screening</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Lactation & Natural Birth Preparation</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Postpartum Pelvic Floor Therapy</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> 24/7 Dedicated Doctor WhatsApp Line</li>
+                    </ul>
+
+                    <a href="404.html" class="btn-pkg-action btn-pkg-featured">
+                        <span>Book Maternal Haven</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+
+                <!-- Package 3: Hormonal & Longevity -->
+                <div class="package-pricing-card" data-reveal="fade-up" data-delay="300">
+                    <div class="pkg-header">
+                        <span class="pkg-tier-tag">ENDOCRINE & VITALITY</span>
+                        <h3 class="pkg-name">Hormonal & Longevity</h3>
+                        <p class="pkg-summary">Tailored for PCOS balance, peri-menopause, and metabolic energy.</p>
+                        <div class="pkg-price-row">
+                            <span class="pkg-price-highlight">Deep Diagnostic</span>
+                            <span class="pkg-duration">&bull; 90 Min Review</span>
+                        </div>
+                    </div>
+
+                    <div class="pkg-divider"></div>
+
+                    <ul class="pkg-features-list">
+                        <li><i class="ri-checkbox-circle-fill"></i> 14-Point Comprehensive Hormone Panel</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> DEXA Bone Mineral Density Scan</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Bio-Identical Hormone Consultation</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Micronutrient & Vitamin D3/B12 Profile</li>
+                        <li><i class="ri-checkbox-circle-fill"></i> Personalized Longevity Diet Blueprint</li>
+                    </ul>
+
+                    <a href="404.html" class="btn-pkg-action">
+                        <span>Book Longevity Suite</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: CLINICAL SPECIALIST TEAM LEADS
+         ========================================================================== -->
+    <section class="services-team-section" id="specialistTeam">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-team-line"></i>
+                    <span>CLINICAL LEADERSHIP</span>
+                </div>
+                <h2 class="section-main-title">Consult with accredited specialists</h2>
+                <p class="section-sub-title">Our multi-disciplinary team brings decades of hospital experience and compassionate bedside care.</p>
+            </div>
+
+            <div class="specialist-team-grid">
+                <!-- Doctor 1 -->
+                <div class="specialist-doc-card" data-reveal="fade-up" data-delay="100">
+                    <div class="doc-card-media-wrap">
+                        <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Maya Sharma" class="doc-card-portrait">
+                    </div>
+                    <div class="doc-card-details">
+                        <span class="doc-dept-pill">GYNECOLOGY</span>
+                        <h3 class="doc-name">Dr. Maya Sharma, MD</h3>
+                        <p class="doc-experience"><i class="ri-award-fill"></i> 16+ Years Clinical Practice</p>
+                        <p class="doc-bio-snippet">Specializing in preventative wellness, adolescent gynecology, and non-invasive fibroid therapies.</p>
+                        <a href="404.html" class="btn-doc-book">
+                            <span>Book Consultation</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Doctor 2 -->
+                <div class="specialist-doc-card" data-reveal="fade-up" data-delay="200">
+                    <div class="doc-card-media-wrap">
+                        <img src="images/download (11).webp" alt="Dr. Sarah Jenkins" class="doc-card-portrait">
+                    </div>
+                    <div class="doc-card-details">
+                        <span class="doc-dept-pill">OBSTETRICS</span>
+                        <h3 class="doc-name">Dr. Sarah Jenkins, OB-GYN</h3>
+                        <p class="doc-experience"><i class="ri-award-fill"></i> 18+ Years Clinical Practice</p>
+                        <p class="doc-bio-snippet">International fellowship in gentle childbirth, fetal ultrasound diagnostics, and high-risk maternity.</p>
+                        <a href="404.html" class="btn-doc-book">
+                            <span>Book Consultation</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Doctor 3 -->
+                <div class="specialist-doc-card" data-reveal="fade-up" data-delay="300">
+                    <div class="doc-card-media-wrap">
+                        <img src="images/h3.webp" alt="Dr. Priya Sharma" class="doc-card-portrait">
+                    </div>
+                    <div class="doc-card-details">
+                        <span class="doc-dept-pill">ENDOCRINOLOGY</span>
+                        <h3 class="doc-name">Dr. Priya Sharma, MD</h3>
+                        <p class="doc-experience"><i class="ri-award-fill"></i> 15+ Years Clinical Practice</p>
+                        <p class="doc-bio-snippet">Expert in hormonal balance, PCOS root-cause recovery, thyroid disorders, and menopause support.</p>
+                        <a href="404.html" class="btn-doc-book">
+                            <span>Book Consultation</span>
+                            <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: EMERGENCY TRIAGE & APPOINTMENT BOOKING CTA
+         ========================================================================== -->
+    <section class="services-cta-section" id="serviceCta">
+        <div class="about-container">
+            <div class="about-cta-card" data-reveal="fade-up">
+                <div class="cta-bg-layer">
+                    <img src="images/case6.webp" alt="Curevo Healthcare Services" class="cta-card-bg-img">
+                    <div class="cta-card-overlay"></div>
+                </div>
+                <div class="cta-glow-blob"></div>
+                <div class="about-cta-inner">
+                    <div class="trust-badge">
+                        <i class="ri-calendar-check-fill"></i>
+                        <span>SCHEDULE YOUR VISIT TODAY</span>
+                    </div>
+                    <h2 class="about-cta-heading">Take the first step towards personalized, unhurried care.</h2>
+                    <p class="about-cta-sub">
+                        Whether you need a routine annual screening, prenatal guidance, or specialized hormonal support, our friendly care team is ready to welcome you.
+                    </p>
+                    
+                    <div class="about-cta-buttons-row">
+                        <a href="404.html" class="btn-appointment about-cta-primary">
+                            <span class="btn-text">Book an appointment</span>
+                            <span class="btn-arrow-circle">
+                                <i class="ri-arrow-right-line"></i>
+                            </span>
+                        </a>
+                        <a href="404.html" class="about-cta-secondary">
+                            <i class="ri-phone-fill"></i>
+                            <span>Call 24/7 Helpline</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER SECTION (Matching Index & About Page)
+         ========================================================================== -->
+    <footer class="main-footer" id="contact">
+        <!-- Subtle Background Glow / Texture Layer -->
+        <div class="footer-bg-glow"></div>
+
+        <div class="footer-container">
+            <!-- 4-Column Grid -->
+            <div class="footer-grid">
+                
+                <!-- Column 1: Brand Logo, Mission, Address & Working Hours -->
+                <div class="footer-col footer-col-brand" data-reveal="fade-up" data-delay="50">
+                    <a href="index.html" class="footer-logo-link" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="footer-logo-img">
+                    </a>
+                    
+                    <p class="footer-mission-text">
+                        We support discovery across healthcare, biotechnology, & sciences.
+                    </p>
+
+                    <div class="footer-address-badge">
+                        <i class="ri-map-pin-2-fill address-icon"></i>
+                        <span>MMR complex, salem, tamilnadu</span>
+                    </div>
+
+                    <!-- Working Hours Glass Card -->
+                    <div class="footer-hours-box">
+                        <h4 class="hours-title">Working Hours:</h4>
+                        <div class="hours-card">
+                            <div class="hours-row">
+                                <span class="hours-day">Monday - Friday:-</span>
+                                <span class="hours-time">10:00 - 05:00</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-day">Saturday:-</span>
+                                <span class="hours-time">10:00 - 04:00</span>
+                            </div>
+                            <div class="hours-row closed-row">
+                                <span class="hours-day">Sunday:-</span>
+                                <span class="hours-time closed-badge">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col footer-col-links" data-reveal="fade-up" data-delay="100">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="index.html" class="footer-nav-link"><span class="link-dash">-</span> Home</a></li>
+                        <li><a href="about.html" class="footer-nav-link"><span class="link-dash">-</span> About</a></li>
+                        <li><a href="service.html" class="footer-nav-link"><span class="link-dash">-</span> Service</a></li>
+                        <li><a href="blog.html" class="footer-nav-link"><span class="link-dash">-</span> Blog</a></li>
+                        <li><a href="contact.html" class="footer-nav-link"><span class="link-dash">-</span> Contact</a></li>
+                        <li><a href="login.html" class="footer-nav-link"><span class="link-dash">-</span> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div class="footer-col footer-col-services" data-reveal="fade-up" data-delay="150">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Diagnostic Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Laboratory Analysis</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Industrial Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Clinical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Chemical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Preventive Checkups</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Follow Us On Social -->
+                <div class="footer-col footer-col-social" data-reveal="fade-up" data-delay="200">
+                    <h3 class="footer-heading">Follow Us On Social</h3>
+                    <p class="social-intro-text">
+                        Connect with us online for updates, breakthroughs, & lab highlights.
+                    </p>
+
+                    <!-- Circular Social Buttons -->
+                    <div class="footer-social-row">
+                        <a href="404.html" class="social-circle-btn pinterest-btn" aria-label="Pinterest">
+                            <i class="ri-pinterest-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn twitter-btn" aria-label="Twitter X">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn facebook-btn" aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn instagram-btn" aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Legal Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-left">
+                    <p>&copy; 2026 Curevo Women's Health Center. All rights reserved. &bull; MMR complex, salem, tamilnadu</p>
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="404.html" class="legal-link">Privacy Policy</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Terms of Service</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
