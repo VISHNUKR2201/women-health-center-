@@ -1,0 +1,2816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin & Clinical Operations Dashboard | Curevo Women's Health Center</title>
+    <link rel="shortcut icon" href="images/logo black.webp" type="image/x-icon">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Immediate Scroll & Section Controller for 404 Navigation -->
+    <script>
+        (function () {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            function restoreDashboardState() {
+                var isReturningFrom404 = sessionStorage.getItem('curevo_returning_from_404') === '1';
+                if (isReturningFrom404) {
+                    var savedSection = sessionStorage.getItem('curevo_admin_section');
+                    var hash = window.location.hash;
+                    if (hash && hash.indexOf('section=') !== -1) {
+                        var match = hash.match(/section=([a-zA-Z0-9_-]+)/);
+                        if (match && match[1]) savedSection = match[1];
+                    }
+                    if (savedSection && typeof switchSection === 'function') {
+                        var navLink = document.querySelector('.nav-item[onclick*="' + savedSection + '"]');
+                        switchSection(savedSection, navLink, false);
+                    }
+
+                    var savedPos = sessionStorage.getItem('curevo_admin_scroll_pos');
+                    if (savedPos !== null) {
+                        var targetY = parseInt(savedPos, 10);
+                        if (!isNaN(targetY) && targetY >= 0) {
+                            window.scrollTo({ top: targetY, left: 0, behavior: 'instant' });
+                        }
+                    }
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+            }
+
+            restoreDashboardState();
+
+            document.addEventListener('DOMContentLoaded', function () {
+                restoreDashboardState();
+                setTimeout(restoreDashboardState, 50);
+                setTimeout(restoreDashboardState, 150);
+                setTimeout(restoreDashboardState, 300);
+            });
+
+            window.addEventListener('load', function () {
+                restoreDashboardState();
+                setTimeout(function () {
+                    restoreDashboardState();
+                    setTimeout(function () {
+                        sessionStorage.removeItem('curevo_returning_from_404');
+                        sessionStorage.removeItem('curevo_admin_scroll_pos');
+                        sessionStorage.removeItem('curevo_admin_section');
+                        sessionStorage.removeItem('curevo_from_url');
+                    }, 600);
+                }, 300);
+            });
+        })();
+    </script>
+
+    <style>
+        :root {
+            --primary-teal: #15b2b2;
+            --primary-dark: #0d3446;
+            --brand-lime: #8ef062;
+            --bg-light: #f4f7f6;
+            --white: #ffffff;
+            --slate: #123C52;
+            --text-gray: #64748b;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 4px 6px rgba(13, 52, 70, 0.05);
+            --shadow-md: 0 10px 25px rgba(13, 52, 70, 0.08);
+            --shadow-float: 0 15px 45px rgba(13, 52, 70, 0.08);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--slate);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: clip;
+        }
+
+        /* --- Sticky Header --- */
+        .top-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            height: 80px;
+            padding: 0 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(13, 52, 70, 0.06);
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(13, 52, 70, 0.07);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-light);
+            color: var(--primary-dark);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .menu-toggle:hover {
+            background: var(--bg-light);
+            color: var(--primary-teal);
+        }
+
+        .brand-logo {
+            height: 48px;
+            max-width: 190px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            transition: var(--transition);
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+        }
+
+        .notification-bell:hover {
+            background: var(--bg-light);
+            color: var(--primary-dark);
+            border-color: var(--primary-teal);
+        }
+
+        .badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #ef4444;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-left: 20px;
+            border-left: 1px solid var(--border-light);
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            background: var(--primary-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(13, 52, 70, 0.15);
+            border: 2px solid #ffffff;
+        }
+
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        /* --- Layout & Sticky Side Menu --- */
+        .dashboard-container {
+            display: flex;
+            flex: 1;
+            position: relative;
+            min-height: calc(100vh - 80px);
+            align-items: flex-start;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: var(--primary-dark);
+            color: white;
+            padding: 30px 0;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            z-index: 100;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            font-weight: 600;
+            font-size: 14px;
+            position: relative;
+            margin: 4px 14px;
+            border-radius: 12px;
+        }
+
+        .nav-item:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            color: #081710 !important;
+            background: linear-gradient(135deg, #8ef062 0%, #6ddf41 100%) !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 20px rgba(142, 240, 98, 0.35);
+        }
+
+        .nav-item.active svg {
+            stroke: #081710 !important;
+        }
+
+        .nav-item svg {
+            transition: transform 0.25s ease;
+            flex-shrink: 0;
+            stroke: currentColor;
+        }
+
+        .nav-item:hover svg {
+            transform: scale(1.1);
+        }
+
+        .sidebar.active {
+            left: 0 !important;
+        }
+
+        .close-sidebar {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white !important;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 2100;
+        }
+
+        .close-sidebar:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Mobile Overlay --- */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(13, 52, 70, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 95;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 40px;
+            min-width: 0;
+        }
+
+        .flex-between {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            gap: 20px !important;
+            flex-wrap: wrap !important;
+        }
+
+        /* --- Hero Banner & Welcome Blocks --- */
+        .welcome-block {
+            margin-bottom: 35px;
+        }
+
+        .welcome-hero-banner {
+            background: linear-gradient(135deg, rgba(13, 52, 70, 0.04) 0%, rgba(21, 178, 178, 0.08) 100%);
+            border: 1px solid rgba(21, 178, 178, 0.15);
+            padding: 28px 32px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-hero-banner::after {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(142, 240, 98, 0.25) 0%, rgba(21, 178, 178, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--primary-teal);
+            background: rgba(21, 178, 178, 0.12);
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .welcome-block h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 6px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .welcome-block p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        .welcome-quick-stats {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .quick-chip {
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--slate);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .chip-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+        }
+
+        .chip-dot.alert-dot {
+            background: #f59e0b;
+            box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+        }
+
+        .chip-dot.pulse-dot {
+            animation: pulseChip 1.8s infinite;
+        }
+
+        @keyframes pulseChip {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Cards & Grid Systems --- */
+        .premium-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(13, 52, 70, 0.04);
+            border: 1px solid rgba(13, 52, 70, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .premium-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(13, 52, 70, 0.08);
+        }
+
+        .section-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 30px;
+            border: 1px solid rgba(13, 52, 70, 0.04);
+        }
+
+        .section-card h2 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .metrics-grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary-teal);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background: rgba(21, 178, 178, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-teal);
+            font-size: 20px;
+        }
+
+        .metric-badge-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .trend-up {
+            background: rgba(34, 197, 94, 0.12);
+            color: #16a34a;
+        }
+
+        .trend-neutral {
+            background: rgba(13, 52, 70, 0.08);
+            color: var(--slate);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-family: 'Outfit', sans-serif;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        /* --- Split Grid & Department Load Chart --- */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .chart-container {
+            height: 190px;
+            display: flex;
+            align-items: flex-end;
+            gap: 14px;
+            padding: 20px 0 10px 0;
+            border-bottom: 2px solid var(--border-light);
+            margin-bottom: 15px;
+        }
+
+        .bar-wrapper {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, var(--primary-dark), var(--primary-teal));
+            border-radius: 6px 6px 0 0;
+            height: 0;
+            transition: height 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .bar.bar-lime {
+            background: linear-gradient(to top, #15b2b2, #8ef062);
+        }
+
+        .bar-label {
+            font-size: 11px;
+            color: var(--text-gray);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* --- Tables & Patient Records --- */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .project-table th {
+            padding: 16px;
+            font-size: 12px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-bottom: 2px solid var(--border-light);
+            font-weight: 700;
+        }
+
+        .project-table td {
+            padding: 18px 16px;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .project-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .project-table tr:hover td {
+            background-color: rgba(21, 178, 178, 0.03);
+        }
+
+        /* --- Badges --- */
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 700;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-admitted {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .status-stable {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-critical {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .status-monitoring {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-discharged {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        /* --- Medical Staff Cards --- */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+            margin-bottom: 30px;
+        }
+
+        .staff-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(13, 52, 70, 0.1);
+            border-color: var(--primary-teal);
+        }
+
+        .staff-avatar-holder {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-teal);
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(21, 178, 178, 0.2);
+            position: relative;
+        }
+
+        .staff-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .staff-duty-badge {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            background: #22c55e;
+            border: 3px solid white;
+            border-radius: 50%;
+        }
+
+        .staff-duty-badge.busy {
+            background: #ef4444;
+        }
+
+        .staff-duty-badge.oncall {
+            background: #f59e0b;
+        }
+
+        .staff-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 4px;
+        }
+
+        .staff-role {
+            font-size: 13px;
+            color: var(--primary-teal);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .staff-info-tag {
+            background: var(--bg-light);
+            border-radius: 10px;
+            padding: 8px 14px;
+            font-size: 12px;
+            color: var(--slate);
+            font-weight: 600;
+            width: 100%;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* --- Diagnostics & Scans --- */
+        .diagnostics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .scan-card {
+            background: #0d3446;
+            border-radius: 20px;
+            aspect-ratio: 4/3;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .scan-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+        }
+
+        .scan-card:hover .scan-img {
+            transform: scale(1.08);
+            opacity: 0.95;
+        }
+
+        .scan-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 52, 70, 0.95) 0%, rgba(13, 52, 70, 0.3) 60%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 22px;
+            color: white;
+            z-index: 2;
+        }
+
+        .scan-tag-top {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(13, 52, 70, 0.85);
+            backdrop-filter: blur(8px);
+            color: #8ef062;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+
+        /* --- Timeline Scheduler --- */
+        .timeline-container {
+            position: relative;
+            padding-left: 35px;
+            margin-top: 15px;
+        }
+
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 22px;
+            padding: 18px 22px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(4px);
+            border-color: var(--primary-teal);
+            box-shadow: var(--shadow-md);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -31px;
+            top: 22px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--primary-teal);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary-teal);
+            z-index: 2;
+        }
+
+        .timeline-dot.emergency {
+            background: #ef4444;
+            box-shadow: 0 0 0 2px #ef4444;
+        }
+
+        .timeline-dot.surgery {
+            background: #8b5cf6;
+            box-shadow: 0 0 0 2px #8b5cf6;
+        }
+
+        /* --- Buttons --- */
+        .btn-ai {
+            background: var(--primary-teal);
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(21, 178, 178, 0.35);
+            background: #119e9e;
+        }
+
+        .btn-dark {
+            background: var(--primary-dark);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-dark:hover {
+            background: #123C52;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(13, 52, 70, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border-light);
+            color: var(--slate);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+            background: rgba(21, 178, 178, 0.05);
+        }
+
+        /* --- View Management --- */
+        .dashboard-view {
+            display: none;
+            animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .dashboard-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- AI Clinical Module --- */
+        .ai-card {
+            background: linear-gradient(135deg, var(--white) 0%, #f9fdfd 100%);
+            border: 1px solid rgba(21, 178, 178, 0.15);
+        }
+
+        .dropzone {
+            border: 2px dashed var(--border-light);
+            border-radius: 20px;
+            padding: 45px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 25px;
+            background: rgba(21, 178, 178, 0.02);
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropzone:hover {
+            border-color: var(--primary-teal);
+            background: rgba(21, 178, 178, 0.05);
+        }
+
+        .dropzone svg {
+            width: 54px;
+            height: 54px;
+            margin-bottom: 12px;
+            color: var(--primary-teal);
+        }
+
+        .loading-bar-container {
+            width: 100%;
+            height: 5px;
+            background: #e2e8f0;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .loading-bar-fill {
+            height: 100%;
+            background: var(--primary-teal);
+            width: 0;
+            transition: width 2s linear;
+        }
+
+        .ai-results-reveal {
+            display: none;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--border-light);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .result-block {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+        }
+
+        .result-block h5 {
+            font-size: 12px;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .result-val {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-teal);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .progress-bg {
+            height: 8px;
+            background: var(--bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-teal);
+            width: 0;
+            border-radius: 10px;
+            transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- Settings Premium --- */
+        .settings-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 35px;
+        }
+
+        .settings-sidebar {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            height: fit-content;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .settings-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 20px;
+            border-radius: 14px;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .settings-nav-btn:hover {
+            background: var(--bg-light);
+            color: var(--primary-teal);
+            transform: translateX(4px);
+        }
+
+        .settings-nav-btn.active {
+            background: var(--primary-dark);
+            color: white;
+            box-shadow: 0 8px 20px rgba(13, 52, 70, 0.15);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-gray);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--bg-light);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            font-size: 14px;
+            color: var(--slate);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--primary-teal);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(21, 178, 178, 0.1);
+        }
+
+        .profile-header-premium {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .avatar-edit-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .settings-avatar-box {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e2e8f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary-teal);
+            border: 4px solid white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* --- Inventory Visualization --- */
+        .inventory-visual-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .inv-item-card {
+            background: white;
+            border-radius: 20px;
+            padding: 22px;
+            border: 1px solid var(--border-light);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .inv-item-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-teal);
+            box-shadow: var(--shadow-md);
+        }
+
+        .inv-circle-progress {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .inv-circle-svg {
+            transform: rotate(-90deg);
+        }
+
+        .inv-val {
+            position: absolute;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--primary-dark);
+        }
+
+        /* --- Media Queries for Mobile Responsiveness --- */
+        @media (max-width: 1024px) {
+            .metrics-grid-4 {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 20px !important;
+            }
+
+            .split-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .diagnostics-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .settings-container {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html, body {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow-x: clip !important;
+                position: relative;
+            }
+
+            .top-header {
+                position: -webkit-sticky !important;
+                position: sticky !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                z-index: 1000 !important;
+                padding: 0 15px !important;
+                height: 70px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                background: rgba(255, 255, 255, 0.98) !important;
+                backdrop-filter: blur(16px) !important;
+                -webkit-backdrop-filter: blur(16px) !important;
+                box-shadow: 0 2px 12px rgba(13, 52, 70, 0.08) !important;
+                width: 100% !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+            }
+
+            .logo-area {
+                gap: 10px !important;
+            }
+
+            .menu-toggle {
+                display: flex !important;
+                width: 40px !important;
+                height: 40px !important;
+                border-radius: 10px !important;
+                background: var(--bg-light) !important;
+                border: 1px solid var(--border-light) !important;
+                color: var(--primary-teal) !important;
+                z-index: 1100 !important;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .brand-logo {
+                height: 26px !important;
+                max-width: 150px !important;
+            }
+
+            .header-right {
+                gap: 10px !important;
+            }
+
+            .notification-bell {
+                width: 38px !important;
+                height: 38px !important;
+                background: var(--bg-light) !important;
+                border-radius: 10px !important;
+            }
+
+            .user-profile {
+                padding-left: 0 !important;
+                border: none !important;
+            }
+
+            .user-profile .avatar {
+                width: 36px !important;
+                height: 36px !important;
+                font-size: 12px !important;
+            }
+
+            .user-profile div:last-child {
+                display: none !important;
+            }
+
+            .dashboard-container {
+                width: 100% !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+            }
+
+            .sidebar {
+                position: fixed !important;
+                left: -280px !important;
+                top: 0 !important;
+                height: 100vh !important;
+                width: 280px !important;
+                box-shadow: 20px 0 40px rgba(0, 0, 0, 0.2) !important;
+                padding-top: 90px !important;
+                z-index: 2000 !important;
+                background: var(--primary-dark) !important;
+            }
+
+            .sidebar.active {
+                left: 0 !important;
+            }
+
+            .sidebar-overlay {
+                z-index: 1900 !important;
+                backdrop-filter: blur(5px) !important;
+            }
+
+            .sidebar-overlay.active {
+                display: block !important;
+            }
+
+            .close-sidebar {
+                display: flex !important;
+                top: 25px !important;
+                right: 20px !important;
+                z-index: 2100 !important;
+            }
+
+            .main-content {
+                width: 100% !important;
+                max-width: 100vw !important;
+                padding: 20px 12px !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+            }
+
+            .dashboard-view {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+            }
+
+            .welcome-block {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                margin-bottom: 25px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .welcome-block h1 {
+                font-size: 20px !important;
+                margin-bottom: 8px !important;
+                line-height: 1.25 !important;
+            }
+
+            .welcome-block p {
+                font-size: 13px !important;
+                color: var(--text-gray) !important;
+                max-width: 100% !important;
+                line-height: 1.5 !important;
+            }
+
+            .welcome-hero-banner {
+                padding: 20px 14px !important;
+                border-radius: 18px !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 16px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .welcome-quick-stats {
+                justify-content: center !important;
+                width: 100% !important;
+            }
+
+            .metrics-grid-4 {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            .stat-card {
+                padding: 20px 14px !important;
+                align-items: center !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+            }
+
+            .staff-grid,
+            .diagnostics-grid,
+            .results-grid {
+                grid-template-columns: 1fr !important;
+                gap: 18px !important;
+                width: 100% !important;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr !important;
+                gap: 14px !important;
+            }
+
+            .settings-sidebar {
+                display: flex !important;
+                flex-direction: row !important;
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+                width: 100% !important;
+                padding: 8px !important;
+                gap: 8px !important;
+                border-radius: 16px !important;
+            }
+
+            .settings-nav-btn {
+                padding: 10px 16px !important;
+                white-space: nowrap !important;
+                font-size: 13px !important;
+                flex-shrink: 0 !important;
+                margin-bottom: 0 !important;
+            }
+
+            .btn-ai, .btn-dark, .btn-outline {
+                width: 100% !important;
+                box-sizing: border-box !important;
+                text-align: center !important;
+                justify-content: center !important;
+            }
+        }
+
+        /* ==========================================================================
+           COMPREHENSIVE LUXURY HOVER EFFECTS & MICRO-INTERACTIONS
+           ========================================================================== */
+        /* 1. Header & Brand Logo */
+        .brand-logo {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+        }
+        .brand-logo:hover {
+            transform: scale(1.04);
+            filter: drop-shadow(0 4px 14px rgba(21, 178, 178, 0.25));
+        }
+
+        .menu-toggle {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .menu-toggle:hover {
+            transform: scale(1.06);
+            background: var(--bg-light);
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+        }
+
+        .notification-bell {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .notification-bell:hover {
+            background: rgba(21, 178, 178, 0.1);
+            color: var(--primary-teal);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(21, 178, 178, 0.2);
+        }
+        .notification-bell:hover svg {
+            transform: rotate(14deg);
+        }
+        .notification-bell svg {
+            transition: transform 0.25s ease;
+        }
+
+        .user-profile {
+            padding: 6px 12px;
+            border-radius: 14px;
+            transition: all 0.25s ease;
+        }
+        .user-profile:hover {
+            background: rgba(13, 52, 70, 0.04);
+        }
+        .user-profile:hover .avatar {
+            transform: scale(1.08);
+            box-shadow: 0 0 16px rgba(21, 178, 178, 0.4);
+            border-color: var(--primary-teal);
+        }
+        .avatar {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 2. Sidebar Navigation */
+        .nav-item {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-item:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(6px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+        .nav-item:hover svg {
+            transform: scale(1.15) rotate(-4deg);
+            stroke: var(--brand-lime) !important;
+        }
+        .nav-item.active:hover {
+            transform: translateX(4px);
+            box-shadow: 0 6px 24px rgba(142, 240, 98, 0.45);
+        }
+
+        /* 3. Stat & Metric Cards */
+        .stat-card,
+        .metric-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+        .stat-card:hover,
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-teal) !important;
+            box-shadow: 0 16px 36px rgba(13, 52, 70, 0.12);
+        }
+        .stat-card:hover .icon-box,
+        .metric-card:hover .icon-box {
+            transform: scale(1.12) rotate(6deg);
+            background: rgba(21, 178, 178, 0.2);
+            box-shadow: 0 6px 16px rgba(21, 178, 178, 0.25);
+        }
+        .icon-box {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .metric-badge-trend {
+            transition: transform 0.2s ease;
+        }
+        .metric-badge-trend:hover {
+            transform: scale(1.06);
+        }
+
+        .quick-chip {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+        .quick-chip:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-teal);
+            box-shadow: 0 6px 16px rgba(13, 52, 70, 0.08);
+        }
+
+        /* 4. Section Cards & Panels */
+        .section-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .section-card:hover {
+            box-shadow: 0 15px 40px rgba(13, 52, 70, 0.1);
+        }
+
+        .premium-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .premium-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 22px 50px rgba(13, 52, 70, 0.1);
+            border-color: rgba(21, 178, 178, 0.25);
+        }
+
+        /* 5. Medical Staff Cards */
+        .staff-card {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+        .staff-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 45px rgba(13, 52, 70, 0.12);
+            border-color: var(--primary-teal);
+        }
+        .staff-card:hover .staff-avatar-holder {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(21, 178, 178, 0.35);
+        }
+        .staff-avatar-holder {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* 6. Tables & Rows */
+        .project-table tbody tr {
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .project-table tbody tr:hover td {
+            background-color: rgba(21, 178, 178, 0.045) !important;
+        }
+
+        /* 7. Buttons & Interactive Controls */
+        button,
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-teal,
+        .btn-action,
+        .btn-ai,
+        .btn-dark,
+        .btn-outline,
+        .btn-export,
+        .btn-add,
+        .btn-filter {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn:hover,
+        .btn-primary:hover,
+        .btn-teal:hover,
+        .btn-action:hover,
+        .btn-ai:hover,
+        .btn-dark:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(21, 178, 178, 0.35);
+            filter: brightness(1.04);
+        }
+        .btn-outline:hover {
+            background: rgba(21, 178, 178, 0.08);
+            border-color: var(--primary-teal);
+            color: var(--primary-teal);
+            transform: translateY(-2px);
+        }
+        .btn:active,
+        .btn-primary:active,
+        .btn-teal:active,
+        .btn-action:active,
+        .btn-ai:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(21, 178, 178, 0.25);
+        }
+
+        /* 8. Status Badges & Pills */
+        .status-badge {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
+        }
+        .status-badge:hover {
+            transform: translateY(-1px) scale(1.04);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 9. Chart Bars */
+        .bar-wrapper {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .bar-wrapper:hover {
+            transform: translateY(-3px);
+        }
+        .bar-wrapper:hover .bar {
+            filter: brightness(1.18);
+            box-shadow: 0 0 12px rgba(21, 178, 178, 0.5);
+        }
+
+        /* 10. Settings & Form Controls */
+        .settings-nav-btn {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .settings-nav-btn:hover {
+            background: var(--bg-light);
+            color: var(--primary-teal);
+            transform: translateX(6px);
+        }
+
+        .form-group input,
+        .form-group select {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .form-group input:hover,
+        .form-group select:hover {
+            border-color: var(--primary-teal);
+            background: #ffffff;
+        }
+
+        .inv-search-v2 {
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .inv-search-v2:hover {
+            border-color: var(--primary-teal);
+            box-shadow: 0 6px 18px rgba(13, 52, 70, 0.08);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sticky Header -->
+    <header class="top-header">
+        <div class="logo-area">
+            <button class="menu-toggle" onclick="toggleSidebar()" aria-label="Toggle menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <a href="admindashboard.html" class="logo-link" title="Curevo Women's Health Center">
+                <img src="images/logo black.webp" alt="Curevo Women's Health Center" class="brand-logo">
+            </a>
+        </div>
+
+        <div class="header-right">
+            <div class="notification-bell" title="Clinical Notifications" onclick="navigateTo404From(this)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <div class="badge"></div>
+            </div>
+            <div class="user-profile" onclick="navigateTo404From(this)" title="Director Profile">
+                <div class="avatar" id="header-avatar">
+                    <img src="images/d2.webp" alt="Admin Avatar" class="avatar-img" onerror="this.style.display='none'; this.parentElement.innerText='A'">
+                </div>
+                <div>
+                    <div id="header-user-name" style="font-weight: 700; font-size: 14px; color: var(--primary-dark);">Admin</div>
+                    <div id="header-user-role" style="font-size: 12px; color: var(--text-gray);">admin@curevo-health.org</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div class="dashboard-container">
+        <!-- Sticky Sidebar Navigation -->
+        <aside class="sidebar">
+            <button class="close-sidebar" onclick="toggleSidebar()" aria-label="Close menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <nav>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item active" onclick="switchSection('dashboard', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                            Operations Hub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item" onclick="switchSection('patients', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            Patient Census & EMR
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item" onclick="switchSection('staff', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <line x1="19" y1="8" x2="19" y2="14"></line>
+                                <line x1="22" y1="11" x2="16" y2="11"></line>
+                            </svg>
+                            Clinical Staff Roster
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item" onclick="switchSection('diagnostics', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            Diagnostic Imaging & AI
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item" onclick="switchSection('appointments', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Surgery & Consult Timelines
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item" onclick="switchSection('inventory', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                            </svg>
+                            Pharmacy & Cryo Stock
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" class="nav-item" onclick="switchSection('settings', this)">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="3"></circle>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                            </svg>
+                            Center Governance
+                        </a>
+                    </li>
+                    <li style="margin-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 15px;">
+                        <a href="login.html" class="nav-item" onclick="localStorage.removeItem('curevo_admin_user')">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Logout
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="nav-item">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            Back to Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+
+            <!-- 1. OPERATIONS HUB VIEW -->
+            <section id="view-dashboard" class="dashboard-view active">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Clinical Director Command</span>
+                            <h1>Curevo Women's Health Center &bull; Administrative Hub</h1>
+                            <p>Real-time hospital operations, in-patient occupancy, surgical suites, and specialized genomics throughput.</p>
+                        </div>
+                        <div class="welcome-quick-stats">
+                            <div class="quick-chip">
+                                <span class="chip-dot pulse-dot"></span>
+                                <span>Center Status: <strong>100% Operational</strong></span>
+                            </div>
+                            <div class="quick-chip">
+                                <span class="chip-dot"></span>
+                                <span>Staff on Duty: <strong>46 Clinicians</strong></span>
+                            </div>
+                            <div class="quick-chip">
+                                <span class="chip-dot alert-dot"></span>
+                                <span>Emergency ICU Beds: <strong>4 Open</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Top KPI Cards -->
+                <div class="metrics-grid-4">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box"><i class="ri-hospital-line"></i></div>
+                            <span class="metric-badge-trend trend-up"><i class="ri-arrow-up-line"></i> +14.2%</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">1,482</div>
+                            <div class="stat-label">Active In-Patients & Cases</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box" style="background: rgba(142, 240, 98, 0.15); color: #166534;"><i class="ri-dna-line"></i></div>
+                            <span class="metric-badge-trend trend-up"><i class="ri-arrow-up-line"></i> +8.5%</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">328</div>
+                            <div class="stat-label">Genomic & BRCA Screenings</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box" style="background: rgba(59, 130, 246, 0.12); color: #2563eb;"><i class="ri-stethoscope-line"></i></div>
+                            <span class="metric-badge-trend trend-neutral">94.8% Occupancy</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">48 / 52</div>
+                            <div class="stat-label">Maternal & Surgical Suites</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box" style="background: rgba(245, 158, 11, 0.12); color: #d97706;"><i class="ri-flashlight-line"></i></div>
+                            <span class="metric-badge-trend trend-up">99.4% Precision</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">12 mins</div>
+                            <div class="stat-label">Avg AI Diagnostic Triage</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Split Grid: Department Load & Critical Alerts -->
+                <div class="split-grid">
+                    <div class="premium-card">
+                        <div class="flex-between" style="margin-bottom: 20px;">
+                            <div>
+                                <h3 style="font-family: 'Outfit'; font-size: 18px; color: var(--primary-dark);">Specialized Department Patient Distribution</h3>
+                                <p style="font-size: 13px; color: var(--text-gray);">Live census breakdown across women's healthcare wings</p>
+                            </div>
+                            <button class="btn-outline" onclick="navigateTo404From(this)">Export Census</button>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 82%;"></div>
+                                <span class="bar-label">Maternal Care</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar bar-lime" style="height: 94%;"></div>
+                                <span class="bar-label">Gyn Oncology</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 65%;"></div>
+                                <span class="bar-label">IVF / Embryo</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar bar-lime" style="height: 78%;"></div>
+                                <span class="bar-label">Prenatal MFM</span>
+                            </div>
+                            <div class="bar-wrapper">
+                                <div class="bar" style="height: 88%;"></div>
+                                <span class="bar-label">Genomics Lab</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--text-gray); margin-top: 10px;">
+                            <span>Total Capacity: 200 Beds</span>
+                            <span>Current Occupancy: 174 Beds (87%)</span>
+                        </div>
+                    </div>
+
+                    <div class="premium-card">
+                        <div class="flex-between" style="margin-bottom: 20px;">
+                            <div>
+                                <h3 style="font-family: 'Outfit'; font-size: 18px; color: var(--primary-dark);">Clinical Rapid Response</h3>
+                                <p style="font-size: 13px; color: var(--text-gray);">Real-time high-priority alerts</p>
+                            </div>
+                            <span class="status-badge status-critical">3 Active</span>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="background: rgba(239, 68, 68, 0.06); border-left: 4px solid #ef4444; padding: 14px; border-radius: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <strong style="font-size: 13px; color: #991b1b;">Cardiac Variance Alert</strong>
+                                    <span style="font-size: 11px; color: #ef4444; font-weight: 700;">2m ago</span>
+                                </div>
+                                <p style="font-size: 12px; color: var(--slate); line-height: 1.4;">ICU Suite 04 &bull; Patient #CW-8812 &bull; On-call team dispatched.</p>
+                            </div>
+
+                            <div style="background: rgba(245, 158, 11, 0.06); border-left: 4px solid #f59e0b; padding: 14px; border-radius: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <strong style="font-size: 13px; color: #92400e;">Surgical Suite 02 Ready</strong>
+                                    <span style="font-size: 11px; color: #d97706; font-weight: 700;">14m ago</span>
+                                </div>
+                                <p style="font-size: 12px; color: var(--slate); line-height: 1.4;">Laparoscopic Gyn Surgery scheduled for Dr. Eleanor Vance.</p>
+                            </div>
+
+                            <div style="background: rgba(21, 178, 178, 0.06); border-left: 4px solid var(--primary-teal); padding: 14px; border-radius: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                    <strong style="font-size: 13px; color: var(--primary-dark);">BRCA1 NGS Completed</strong>
+                                    <span style="font-size: 11px; color: var(--primary-teal); font-weight: 700;">28m ago</span>
+                                </div>
+                                <p style="font-size: 12px; color: var(--slate); line-height: 1.4;">Genetic lab finalized sequencing for 4 in-patient cases.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Patient Admissions Table -->
+                <div class="section-card">
+                    <h2>
+                        <span>Critical & Recent Admissions</span>
+                        <button class="btn-outline" onclick="navigateTo404From(this)">View All Census &rarr;</button>
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="project-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Admission ID</th>
+                                    <th>Department</th>
+                                    <th>Attending Physician</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 38px; height: 38px; background: #e0f2fe; color: #0369a1; font-size: 13px;">SJ</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Sarah Jenkins</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Age: 38 &bull; Room 204</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-9042</td>
+                                    <td>Gynecologic Oncology</td>
+                                    <td>Dr. Eleanor Vance</td>
+                                    <td><span class="status-badge status-stable">Analyzed</span></td>
+                                    <td><button class="btn-outline" onclick="navigateTo404From(this)">Open EMR</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 38px; height: 38px; background: #fee2e2; color: #991b1b; font-size: 13px;">MC</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Maria Chen</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Age: 42 &bull; ICU-02</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-8831</td>
+                                    <td>High-Risk Obstetrics</td>
+                                    <td>Dr. Marcus Vance</td>
+                                    <td><span class="status-badge status-critical">Urgent Review</span></td>
+                                    <td><button class="btn-ai" style="padding: 8px 16px; font-size: 12px;" onclick="navigateTo404From(this)">Triage File</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 38px; height: 38px; background: #fef3c7; color: #92400e; font-size: 13px;">ER</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Elena Rodriguez</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Age: 31 &bull; Room 108</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-7720</td>
+                                    <td>IVF & Reproductive Health</td>
+                                    <td>Dr. Julian Reed</td>
+                                    <td><span class="status-badge status-monitoring">Monitoring</span></td>
+                                    <td><button class="btn-outline" onclick="navigateTo404From(this)">Open EMR</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. PATIENT CENSUS & EMR VIEW -->
+            <section id="view-patients" class="dashboard-view">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Clinical Record Systems</span>
+                            <h1>In-Patient Census & Genomic Medical Records</h1>
+                            <p>Centralized electronic medical records (EMR), hereditary risk panels, and clinical progress charts.</p>
+                        </div>
+                        <button class="btn-ai" onclick="navigateTo404From(this)">+ Admit New Patient</button>
+                    </div>
+                </div>
+
+                <div class="metrics-grid-4">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box"><i class="ri-group-line"></i></div>
+                            <span class="metric-badge-trend trend-up">142 In-House</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">142</div>
+                            <div class="stat-label">Total In-Patient Census</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box" style="background: rgba(34, 197, 94, 0.15); color: #16a34a;"><i class="ri-stethoscope-line"></i></div>
+                            <span class="metric-badge-trend trend-up">38 Active Today</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">38</div>
+                            <div class="stat-label">Specialist Consultations</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box" style="background: rgba(245, 158, 11, 0.15); color: #d97706;"><i class="ri-flask-line"></i></div>
+                            <span class="metric-badge-trend trend-neutral">18 Pending</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">18</div>
+                            <div class="stat-label">Pathology Lab Reports</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="icon-box" style="background: rgba(21, 178, 178, 0.15); color: var(--primary-teal);"><i class="ri-file-list-3-line"></i></div>
+                            <span class="metric-badge-trend trend-up">24 Discharged</span>
+                        </div>
+                        <div>
+                            <div class="stat-number">24</div>
+                            <div class="stat-label">Recovered & Discharged</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>Complete In-Patient Directory</h2>
+                    <div class="table-responsive">
+                        <table class="project-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient Profile</th>
+                                    <th>Case ID</th>
+                                    <th>Clinical Department</th>
+                                    <th>Primary Physician</th>
+                                    <th>Genomic Marker</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 40px; height: 40px; background: var(--primary-teal); color: white; font-weight: 700;">SJ</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Sarah Jenkins</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Admitted: 3 Days ago</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-9042</td>
+                                    <td>Gynecologic Oncology</td>
+                                    <td>Dr. Eleanor Vance</td>
+                                    <td><span style="font-size: 12px; font-weight: 700; color: #166534;">BRCA1 Negative</span></td>
+                                    <td><span class="status-badge status-stable">Stable Post-Op</span></td>
+                                    <td><button class="btn-outline" onclick="navigateTo404From(this)">View Record</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 40px; height: 40px; background: #fee2e2; color: #991b1b; font-weight: 700;">MC</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Maria Chen</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Admitted: Yesterday</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-8831</td>
+                                    <td>High-Risk Maternal Fetal</td>
+                                    <td>Dr. Marcus Vance</td>
+                                    <td><span style="font-size: 12px; font-weight: 700; color: #b91c1c;">Elevated Biomarker</span></td>
+                                    <td><span class="status-badge status-critical">ICU Monitoring</span></td>
+                                    <td><button class="btn-ai" style="padding: 8px 16px; font-size: 12px;" onclick="navigateTo404From(this)">Emergency Triage</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 40px; height: 40px; background: #fef3c7; color: #92400e; font-weight: 700;">ER</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Elena Rodriguez</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Admitted: 5 Days ago</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-7720</td>
+                                    <td>IVF & Reproductive Health</td>
+                                    <td>Dr. Julian Reed</td>
+                                    <td><span style="font-size: 12px; font-weight: 700; color: var(--primary-teal);">Embryo Viable 94%</span></td>
+                                    <td><span class="status-badge status-monitoring">Post-Transfer</span></td>
+                                    <td><button class="btn-outline" onclick="navigateTo404From(this)">View Record</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center; gap: 12px;">
+                                            <div class="avatar" style="width: 40px; height: 40px; background: #e0f2fe; color: #0369a1; font-weight: 700;">KL</div>
+                                            <div>
+                                                <div style="font-weight: 700;">Karen Lewis</div>
+                                                <div style="font-size: 12px; color: var(--text-gray);">Admitted: Today</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>#CW-6610</td>
+                                    <td>Maternal Ultrasound</td>
+                                    <td>Dr. Sarah Jenkins</td>
+                                    <td><span style="font-size: 12px; font-weight: 700; color: #166534;">Normal Fetal Growth</span></td>
+                                    <td><span class="status-badge status-admitted">Routine Check</span></td>
+                                    <td><button class="btn-outline" onclick="navigateTo404From(this)">View Record</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. CLINICAL STAFF ROSTER VIEW -->
+            <section id="view-staff" class="dashboard-view">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Medical Governance</span>
+                            <h1>Physicians, Surgeons & Specialist Roster</h1>
+                            <p>Manage department leadership, surgical assignments, and active duty schedules across Curevo Women's Health Center.</p>
+                        </div>
+                        <button class="btn-ai" onclick="navigateTo404From(this)">+ Add Specialist</button>
+                    </div>
+                </div>
+
+                <div class="staff-grid">
+                    <div class="staff-card">
+                        <div class="staff-avatar-holder">
+                            <img src="images/d2.webp" alt="Dr. Eleanor Vance" class="staff-avatar-img" onerror="this.src='images/d1.webp'">
+                            <div class="staff-duty-badge"></div>
+                        </div>
+                        <h3 class="staff-name">Dr. Eleanor Vance</h3>
+                        <div class="staff-role">Chief Medical Director & Gyn Oncologist</div>
+                        <div class="staff-info-tag">
+                            <span>Duty: Active Shift</span>
+                            <span>Cases: 14</span>
+                        </div>
+                        <button class="btn-outline" style="width: 100%;" onclick="navigateTo404From(this)">Physician Profile</button>
+                    </div>
+
+                    <div class="staff-card">
+                        <div class="staff-avatar-holder">
+                            <img src="images/d1.webp" alt="Dr. Sarah Jenkins" class="staff-avatar-img" onerror="this.src='images/d2.webp'">
+                            <div class="staff-duty-badge"></div>
+                        </div>
+                        <h3 class="staff-name">Dr. Sarah Jenkins</h3>
+                        <div class="staff-role">Head of Maternal-Fetal Medicine</div>
+                        <div class="staff-info-tag">
+                            <span>Duty: In Surgery</span>
+                            <span>Cases: 11</span>
+                        </div>
+                        <button class="btn-outline" style="width: 100%;" onclick="navigateTo404From(this)">Physician Profile</button>
+                    </div>
+
+                    <div class="staff-card">
+                        <div class="staff-avatar-holder">
+                            <img src="images/d3.webp" alt="Dr. Marcus Vance" class="staff-avatar-img" onerror="this.src='images/d1.webp'">
+                            <div class="staff-duty-badge busy"></div>
+                        </div>
+                        <h3 class="staff-name">Dr. Marcus Vance</h3>
+                        <div class="staff-role">Lead Embryologist & IVF Director</div>
+                        <div class="staff-info-tag">
+                            <span>Duty: Cryo Lab</span>
+                            <span>Cases: 19</span>
+                        </div>
+                        <button class="btn-outline" style="width: 100%;" onclick="navigateTo404From(this)">Physician Profile</button>
+                    </div>
+
+                    <div class="staff-card">
+                        <div class="staff-avatar-holder">
+                            <img src="images/d4.webp" alt="Dr. Julian Reed" class="staff-avatar-img" onerror="this.src='images/d2.webp'">
+                            <div class="staff-duty-badge oncall"></div>
+                        </div>
+                        <h3 class="staff-name">Dr. Julian Reed</h3>
+                        <div class="staff-role">Director of Clinical Genetics</div>
+                        <div class="staff-info-tag">
+                            <span>Duty: On Call</span>
+                            <span>Cases: 8</span>
+                        </div>
+                        <button class="btn-outline" style="width: 100%;" onclick="navigateTo404From(this)">Physician Profile</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. DIAGNOSTIC IMAGING & AI CORE VIEW -->
+            <section id="view-diagnostics" class="dashboard-view">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Precision Diagnostic Imaging</span>
+                            <h1>Radiology, Mammography & AI Diagnostic Core</h1>
+                            <p>Neural pattern matching and high-definition diagnostic scans for rapid clinical decisions.</p>
+                        </div>
+                        <button class="btn-dark" onclick="navigateTo404From(this)">DICOM Cloud PACS</button>
+                    </div>
+                </div>
+
+                <div class="diagnostics-grid">
+                    <div class="scan-card">
+                        <span class="scan-tag-top">3D Mammogram</span>
+                        <img src="images/h1.webp" alt="3D Mammogram" class="scan-img" onerror="this.src='images/case1.webp'">
+                        <div class="scan-overlay">
+                            <h4 style="font-size: 16px; margin-bottom: 4px;">Dense Breast Tissue Screening #MG-402</h4>
+                            <p style="font-size: 12px; color: rgba(255,255,255,0.8);">AI Pathogenicity Index: 98.4% Benign</p>
+                        </div>
+                    </div>
+
+                    <div class="scan-card">
+                        <span class="scan-tag-top">Prenatal 4D Scan</span>
+                        <img src="images/h2.webp" alt="Prenatal 4D Scan" class="scan-img" onerror="this.src='images/case2.webp'">
+                        <div class="scan-overlay">
+                            <h4 style="font-size: 16px; margin-bottom: 4px;">24-Week Fetal Morphological Scan</h4>
+                            <p style="font-size: 12px; color: rgba(255,255,255,0.8);">Gestational Growth: 96th Percentile</p>
+                        </div>
+                    </div>
+
+                    <div class="scan-card">
+                        <span class="scan-tag-top">Pelvic MRI Scan</span>
+                        <img src="images/h3.webp" alt="Pelvic MRI Scan" class="scan-img" onerror="this.src='images/case3.webp'">
+                        <div class="scan-overlay">
+                            <h4 style="font-size: 16px; margin-bottom: 4px;">Endometriosis Deep Lesion Mapping</h4>
+                            <p style="font-size: 12px; color: rgba(255,255,255,0.8);">Pre-Op Surgical Planning Clear</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Diagnostic Runner -->
+                <div class="premium-card ai-card" style="padding: 35px;">
+                    <h2 style="font-family: 'Outfit'; font-size: 22px; color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--primary-teal);">
+                            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                        </svg>
+                        AI-Assisted Neural Diagnostic Analysis
+                    </h2>
+                    <a href="javascript:void(0)" class="dropzone" onclick="document.getElementById('start-analysis-btn').click()">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <p style="font-size: 17px; font-weight: 700; color: var(--primary-dark);">Drop Patient Medical Records & Scans Here</p>
+                        <p style="color: var(--text-gray); font-size: 13px; margin-top: 4px;">Supports DICOM, FASTQ Genomic Sequencing, and Histology Imagery</p>
+                    </a>
+                    <button class="btn-ai" id="start-analysis-btn" onclick="runAIDiagnosis()" style="width: 100%; font-size: 15px;">
+                        Initiate Neural Diagnostic Engine
+                    </button>
+
+                    <div class="loading-bar-container" id="ai-loader">
+                        <div class="loading-bar-fill" id="ai-fill"></div>
+                    </div>
+
+                    <div class="ai-results-reveal" id="ai-results">
+                        <div class="results-grid">
+                            <div class="result-block">
+                                <h5>Neural Map Precision</h5>
+                                <div class="result-val">99.2%</div>
+                            </div>
+                            <div class="result-block">
+                                <h5>Clinical Confidence</h5>
+                                <div class="result-val">97.8%</div>
+                            </div>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 16px; border: 1px solid var(--border-light);">
+                            <div style="margin-bottom: 14px;">
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700;">
+                                    <span>BRCA1/2 Mutation Pathogenicity Index</span>
+                                    <span style="color: var(--primary-teal);">94% Negative</span>
+                                </div>
+                                <div class="progress-bg"><div class="progress-fill ai-p-bar" data-progress="94"></div></div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700;">
+                                    <span>Maternal Hemodynamic Stability Profile</span>
+                                    <span style="color: var(--primary-teal);">98% Optimal</span>
+                                </div>
+                                <div class="progress-bg"><div class="progress-fill ai-p-bar" data-progress="98"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. SURGERY & CONSULT TIMELINES VIEW -->
+            <section id="view-appointments" class="dashboard-view">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Department Timelines</span>
+                            <h1>Daily Surgical Schedule & Case Timelines</h1>
+                            <p>Real-time theatre allocation, maternal delivery suites, and emergency clinical procedures.</p>
+                        </div>
+                        <button class="btn-ai" onclick="navigateTo404From(this)">+ Schedule Surgical Case</button>
+                    </div>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <div class="timeline-dot surgery"></div>
+                        <div style="font-size: 12px; font-weight: 700; color: #8b5cf6; margin-bottom: 4px;">08:30 AM &bull; Surgical Theatre 01</div>
+                        <h4 style="font-size: 16px; color: var(--primary-dark); margin-bottom: 6px;">Minimally Invasive Laparoscopic Surgery &bull; Sarah Jenkins</h4>
+                        <p style="font-size: 13px; color: var(--text-gray); line-height: 1.5;">Lead Surgeon: Dr. Eleanor Vance &bull; Anesthesiology Lead: Dr. Marcus Vance. Target duration: 90 mins.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div style="font-size: 12px; font-weight: 700; color: var(--primary-teal); margin-bottom: 4px;">11:00 AM &bull; Consult Room 4</div>
+                        <h4 style="font-size: 16px; color: var(--primary-dark); margin-bottom: 6px;">Prenatal High-Risk Consultation &bull; Karen Lewis</h4>
+                        <p style="font-size: 13px; color: var(--text-gray); line-height: 1.5;">Fetal echocardiography review and gestational diabetes management plan with Dr. Sarah Jenkins.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot emergency"></div>
+                        <div style="font-size: 12px; font-weight: 700; color: #ef4444; margin-bottom: 4px;">01:45 PM &bull; Maternal ICU</div>
+                        <h4 style="font-size: 16px; color: #991b1b; margin-bottom: 6px;">Stat Biomarker Elevation Review &bull; Maria Chen</h4>
+                        <p style="font-size: 13px; color: var(--text-gray); line-height: 1.5;">Emergency review of cardiac enzyme fluctuations with intensive neonatal standby team.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div style="font-size: 12px; font-weight: 700; color: var(--primary-teal); margin-bottom: 4px;">04:00 PM &bull; Cryo Laboratory</div>
+                        <h4 style="font-size: 16px; color: var(--primary-dark); margin-bottom: 6px;">IVF Blastocyst Cryopreservation Transfer &bull; Elena Rodriguez</h4>
+                        <p style="font-size: 13px; color: var(--text-gray); line-height: 1.5;">Embryo grading finalized at 94% cellular viability by Lead Embryologist Dr. Marcus Vance.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. PHARMACY & CRYO STOCK VIEW -->
+            <section id="view-inventory" class="dashboard-view">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Specialty Supply Chain</span>
+                            <h1>Women's Health Pharmacy & Cryogenic Storage</h1>
+                            <p>Real-time liquid nitrogen levels, hormonal therapies, IVF media, and surgical pack inventories.</p>
+                        </div>
+                        <button class="btn-ai" onclick="navigateTo404From(this)">Reorder Supplies</button>
+                    </div>
+                </div>
+
+                <div class="inventory-visual-grid">
+                    <div class="inv-item-card">
+                        <div class="inv-circle-progress">
+                            <svg class="inv-circle-svg" width="80" height="80">
+                                <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="6" fill="none" />
+                                <circle cx="40" cy="40" r="34" stroke="#15b2b2" stroke-width="6" fill="none" stroke-dasharray="213" stroke-dashoffset="21" stroke-linecap="round" />
+                            </svg>
+                            <span class="inv-val">90%</span>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px;">Cryo Tank Alpha</h4>
+                        <p style="font-size: 12px; color: var(--text-gray);">Liquid N2 @ -196Â°C</p>
+                    </div>
+
+                    <div class="inv-item-card">
+                        <div class="inv-circle-progress">
+                            <svg class="inv-circle-svg" width="80" height="80">
+                                <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="6" fill="none" />
+                                <circle cx="40" cy="40" r="34" stroke="#8ef062" stroke-width="6" fill="none" stroke-dasharray="213" stroke-dashoffset="38" stroke-linecap="round" />
+                            </svg>
+                            <span class="inv-val">82%</span>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px;">Hormone Therapies</h4>
+                        <p style="font-size: 12px; color: var(--text-gray);">Estrogen & Progesterone</p>
+                    </div>
+
+                    <div class="inv-item-card">
+                        <div class="inv-circle-progress">
+                            <svg class="inv-circle-svg" width="80" height="80">
+                                <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="6" fill="none" />
+                                <circle cx="40" cy="40" r="34" stroke="#3b82f6" stroke-width="6" fill="none" stroke-dasharray="213" stroke-dashoffset="15" stroke-linecap="round" />
+                            </svg>
+                            <span class="inv-val">93%</span>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px;">IVF Culture Media</h4>
+                        <p style="font-size: 12px; color: var(--text-gray);">Sequential Embryo Broth</p>
+                    </div>
+
+                    <div class="inv-item-card">
+                        <div class="inv-circle-progress">
+                            <svg class="inv-circle-svg" width="80" height="80">
+                                <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="6" fill="none" />
+                                <circle cx="40" cy="40" r="34" stroke="#f59e0b" stroke-width="6" fill="none" stroke-dasharray="213" stroke-dashoffset="68" stroke-linecap="round" />
+                            </svg>
+                            <span class="inv-val">68%</span>
+                        </div>
+                        <h4 style="font-size: 15px; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px;">Laparoscopy Kits</h4>
+                        <p style="font-size: 12px; color: var(--text-gray);">Sterilized Surgical Packs</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. CENTER GOVERNANCE & SETTINGS VIEW -->
+            <section id="view-settings" class="dashboard-view">
+                <div class="welcome-block">
+                    <div class="welcome-hero-banner">
+                        <div>
+                            <span class="welcome-badge">Administrative Control</span>
+                            <h1>Center Governance & Executive Configuration</h1>
+                            <p>Manage medical director credentials, role-based clinic access, and operational protocols.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-container">
+                    <div class="settings-sidebar">
+                        <div class="settings-nav-btn active">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Director Profile
+                        </div>
+                        <div class="settings-nav-btn" onclick="navigateTo404From(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            Access Permissions
+                        </div>
+                        <div class="settings-nav-btn" onclick="navigateTo404From(this)">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                            Clinical Alerts
+                        </div>
+                    </div>
+
+                    <div class="premium-card" style="padding: 35px;">
+                        <div class="profile-header-premium">
+                            <div class="avatar-edit-wrapper" onclick="navigateTo404From(this)">
+                                <div id="settings-avatar" class="settings-avatar-box">
+                                    <img src="images/d2.webp" alt="Admin Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onerror="this.parentElement.innerText='A'">
+                                </div>
+                            </div>
+                            <div>
+                                <h2 id="settings-profile-name" style="font-family: 'Outfit'; font-size: 22px; color: var(--primary-dark); margin-bottom: 4px;">Admin Profile</h2>
+                                <p id="settings-profile-role" style="color: var(--text-gray); font-size: 14px;">Clinical Administrator • admin@curevo-health.org</p>
+                            </div>
+                        </div>
+
+                        <form onsubmit="event.preventDefault(); saveProfile();">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Full / Email Name</label>
+                                    <input type="text" id="settings-fname" value="Admin" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Administrative Role</label>
+                                    <input type="text" id="settings-lname" value="Clinical Staff / Admin" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Official Email Address</label>
+                                    <input type="email" id="settings-email" value="admin@curevo-health.org" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Governance Scope</label>
+                                    <select id="settings-spec" required>
+                                        <option selected>Medical Operations & Hospital Administration</option>
+                                        <option>Lead Gynecologic Oncology Unit</option>
+                                        <option>Chief of Maternal Fetal Medicine</option>
+                                        <option>Senior Reproductive Endocrinology</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: flex-end; margin-top: 25px;">
+                                <button type="submit" class="btn-ai" style="padding: 14px 35px;">
+                                    Save Governance Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Navigation & UI Interactive Scripts -->
+    <script>
+        // --- 404 Navigation with State Memory ---
+        function navigateTo404From(element) {
+            var activeNav = document.querySelector('.nav-item.active');
+            var currentSection = 'dashboard';
+            if (activeNav && activeNav.getAttribute('onclick')) {
+                var match = activeNav.getAttribute('onclick').match(/switchSection\('([^']+)'/);
+                if (match && match[1]) currentSection = match[1];
+            }
+            sessionStorage.setItem('curevo_admin_section', currentSection);
+
+            var scrollY = window.scrollY || window.pageYOffset || 0;
+            sessionStorage.setItem('curevo_admin_scroll_pos', scrollY);
+            sessionStorage.setItem('curevo_scroll_pos', scrollY);
+            sessionStorage.setItem('curevo_from_url', window.location.href);
+
+            window.location.href = '404.html';
+        }
+
+        // --- Section Switching ---
+        function switchSection(sectionId, element, shouldScroll) {
+            if (shouldScroll === undefined) shouldScroll = true;
+
+            // Nav active state
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+            } else {
+                var matchingLink = document.querySelector('.nav-item[onclick*="' + sectionId + '"]');
+                if (matchingLink) matchingLink.classList.add('active');
+            }
+
+            // View switching
+            document.querySelectorAll('.dashboard-view').forEach(view => view.classList.remove('active'));
+            const targetView = document.getElementById('view-' + sectionId);
+            if (targetView) targetView.classList.add('active');
+
+            // Save state
+            sessionStorage.setItem('curevo_admin_section', sectionId);
+            localStorage.setItem('curevo_admin_section', sectionId);
+
+            // Close mobile sidebar
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            if (sidebar && sidebar.classList.contains('active')) {
+                sidebar.classList.remove('active');
+                if (overlay) overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // Scroll to top
+            if (shouldScroll) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // --- Sidebar Toggle for Mobile ---
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            if (sidebar && overlay) {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+
+                if (sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        }
+
+        // --- AI Diagnostic Simulation ---
+        function runAIDiagnosis() {
+            const btn = document.getElementById('start-analysis-btn');
+            const loader = document.getElementById('ai-loader');
+            const fill = document.getElementById('ai-fill');
+            const results = document.getElementById('ai-results');
+
+            if (!btn || !loader || !fill || !results) return;
+
+            btn.disabled = true;
+            btn.innerHTML = 'Analyzing Diagnostic Records...';
+            loader.style.display = 'block';
+            results.style.display = 'none';
+            fill.style.width = '0%';
+
+            setTimeout(() => {
+                fill.style.width = '100%';
+            }, 100);
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                results.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = 'Analysis Complete &bull; Synced to EMR';
+
+                document.querySelectorAll('.ai-p-bar').forEach(bar => {
+                    const prog = bar.getAttribute('data-progress');
+                    if (prog) bar.style.width = prog + '%';
+                });
+            }, 2000);
+        }
+
+        // --- Profile Update ---
+        function saveProfile() {
+            const fname = document.getElementById('settings-fname').value.trim();
+            const email = document.getElementById('settings-email').value.trim();
+
+            if (!fname || !email) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            const headerName = document.getElementById('header-user-name');
+            if (headerName) headerName.innerText = fname;
+
+            navigateTo404From(document.getElementById('settings-fname'));
+        }
+
+        // --- Initialize Dynamic Admin User Session ---
+        window.addEventListener('DOMContentLoaded', () => {
+            try {
+                const rawUser = localStorage.getItem('curevo_user') || sessionStorage.getItem('curevo_user') || localStorage.getItem('curevo_admin_user') || localStorage.getItem('stacklyBiotech_user');
+                let userData = null;
+                if (rawUser) {
+                    try { userData = JSON.parse(rawUser); } catch (e) {}
+                }
+
+                let displayName = 'Admin';
+                let displayEmail = 'admin@curevo-health.org';
+
+                if (userData) {
+                    if (userData.emailName) displayName = userData.emailName;
+                    else if (userData.email) displayName = userData.email.split('@')[0];
+                    else if (userData.name) displayName = userData.name;
+
+                    if (userData.email) displayEmail = userData.email;
+                }
+
+                const initials = displayName.substring(0, 2).toUpperCase();
+
+                // Update Header
+                const headerName = document.getElementById('header-user-name');
+                if (headerName) headerName.innerText = displayName;
+
+                const headerRole = document.getElementById('header-user-role');
+                if (headerRole) headerRole.innerText = displayEmail;
+
+                const headerAvatar = document.getElementById('header-avatar');
+                if (headerAvatar) {
+                    headerAvatar.innerText = initials;
+                    headerAvatar.style.background = 'var(--primary-teal)';
+                    headerAvatar.style.color = '#ffffff';
+                    headerAvatar.style.fontWeight = '700';
+                }
+
+                // Update Settings
+                const settingsFname = document.getElementById('settings-fname');
+                const settingsEmail = document.getElementById('settings-email');
+                const settingsAvatar = document.getElementById('settings-avatar');
+                
+                if (settingsFname) settingsFname.value = displayName;
+                if (settingsEmail) settingsEmail.value = displayEmail;
+                if (settingsAvatar) {
+                    settingsAvatar.innerText = initials;
+                    settingsAvatar.style.background = 'var(--primary-teal)';
+                    settingsAvatar.style.color = '#ffffff';
+                }
+
+                const settingsProfileName = document.getElementById('settings-profile-name');
+                if (settingsProfileName) settingsProfileName.innerText = displayName;
+                const settingsProfileRole = document.getElementById('settings-profile-role');
+                if (settingsProfileRole) settingsProfileRole.innerText = `Clinical Staff / Admin • ${displayEmail}`;
+            } catch (e) {
+                console.error("Session load error:", e);
+            }
+        });
+    </script>
+</body>
+
+</html>

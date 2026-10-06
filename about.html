@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — Curevo Women's Health & Wellness Center</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Immediate Scroll & 404 Position Restorer -->
+    <script>
+        (function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            function restoreScrollPosition() {
+                var isReturningFrom404 = sessionStorage.getItem('curevo_returning_from_404') === '1';
+                if (isReturningFrom404) {
+                    var savedPos = sessionStorage.getItem('curevo_scroll_pos');
+                    if (savedPos !== null) {
+                        var targetY = parseInt(savedPos, 10);
+                        if (!isNaN(targetY) && targetY >= 0) {
+                            window.scrollTo({ top: targetY, left: 0, behavior: 'instant' });
+                            document.querySelectorAll('[data-reveal]').forEach(function(el) {
+                                var rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight + 500) {
+                                    el.classList.add('revealed');
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+            }
+
+            restoreScrollPosition();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+                setTimeout(restoreScrollPosition, 150);
+                setTimeout(restoreScrollPosition, 300);
+            });
+
+            window.addEventListener('load', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 100);
+                setTimeout(function() {
+                    restoreScrollPosition();
+                    setTimeout(function() {
+                        sessionStorage.removeItem('curevo_returning_from_404');
+                        sessionStorage.removeItem('curevo_scroll_pos');
+                        sessionStorage.removeItem('curevo_from_url');
+                    }, 600);
+                }, 300);
+            });
+
+            window.addEventListener('pageshow', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Interactive Ambient Glow Layers -->
+    <div class="ambient-glow ambient-glow-1"></div>
+    <div class="ambient-glow ambient-glow-2"></div>
+    <div class="ambient-glow ambient-glow-3"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="header-container" id="mainHeader">
+        <nav class="nav-glass-capsule">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" aria-label="Curevo Home">
+                <img src="images/logo.webp" alt="Curevo Women's Health Center" class="header-logo-img">
+            </a>
+
+            <!-- Navigation Links (Full Screen on Mobile) -->
+            <div class="nav-menu" id="navMenu">
+                <!-- Mobile Menu Header with Logo & Close Button -->
+                <div class="mobile-menu-header">
+                    <a href="index.html" class="mobile-menu-logo" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="mobile-logo-img">
+                    </a>
+                    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+
+                <ul class="nav-links-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link active">About</a></li>
+                    <li class="nav-item"><a href="service.html" class="nav-link">Service</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link login-link">Login</a></li>
+                </ul>
+
+                <!-- Mobile Menu Bottom CTA & Location Info -->
+                <div class="mobile-menu-footer">
+                    <a href="404.html" class="mobile-cta-btn">
+                        <span>Book an appointment</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=MMR+Complex,+Omalur+Main+Road,+Salem,+Tamil+Nadu" target="_blank" rel="noopener noreferrer" class="mobile-loc-text mobile-loc-link">
+                        <i class="ri-map-pin-2-fill"></i> MMR complex, salem, tamilnadu
+                    </a>
+                </div>
+            </div>
+
+            <!-- Header Action CTA -->
+            <div class="nav-actions">
+                <a href="404.html" class="btn-appointment" aria-label="Book an appointment">
+                    <span class="btn-text">Book an appointment</span>
+                    <span class="btn-arrow-circle">
+                        <i class="ri-arrow-right-line"></i>
+                    </span>
+                </a>
+                
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================================================
+         SECTION 1: INTERACTIVE ABOUT HERO SECTION
+         Features: Interactive Floating 3D Depth Card, Luminous Editorial Title, Live Counter Badges
+         ========================================================================== -->
+    <section class="about-hero-section" id="aboutHero">
+        <div class="about-hero-bg">
+            <img src="images/Supportive Care at Norman Women’s Center.webp" alt="Curevo Women's Care Sanctuary" class="about-hero-img" id="aboutHeroBg">
+            <div class="about-hero-overlay"></div>
+            <div class="about-hero-grain"></div>
+        </div>
+
+        <div class="about-hero-container">
+            <div class="about-hero-grid">
+                <!-- Left Hero Content -->
+                <div class="about-hero-text">
+                    <div class="about-badge-pill" data-reveal="fade-up">
+                        <span class="pulse-dot"></span>
+                        <span class="badge-label">DEDICATED TO WOMEN'S HEALTH</span>
+                    </div>
+
+                    <h1 class="about-hero-title" data-reveal="fade-up" data-delay="100">
+                        <span class="hero-line">A sanctuary built for</span>
+                        <span class="hero-line">
+                            <em class="about-highlight-italic">compassionate</em> care,
+                        </span>
+                        <span class="hero-line">tailored for every woman.</span>
+                    </h1>
+
+                    <p class="about-hero-desc" data-reveal="fade-up" data-delay="200">
+                        At Curevo, we combine premier medical science, holistic wellness diagnostics, and unwavering empathy to create a health experience designed exclusively for women at every chapter of life.
+                    </p>
+
+                    <div class="about-hero-actions" data-reveal="fade-up" data-delay="300">
+                        <a href="404.html" class="btn-appointment about-hero-cta">
+                            <span class="btn-text">Explore Our Clinic</span>
+                            <span class="btn-arrow-circle">
+                                <i class="ri-arrow-right-line"></i>
+                            </span>
+                        </a>
+                        <a href="404.html" class="about-scroll-down-btn">
+                            <span>Our Philosophy</span>
+                            <i class="ri-arrow-down-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Floating Sanctuary Card -->
+                <div class="about-hero-interactive-col" data-reveal="fade-up" data-delay="250">
+                    <div class="about-interactive-card" id="aboutInteractiveCard" data-tilt>
+                        <div class="interactive-card-inner">
+                            <div class="card-hero-thumb-box">
+                                <img src="images/h3.webp" alt="Specialist Consultation" class="card-thumb-img">
+                                <div class="card-thumb-glass">
+                                    <span class="thumb-stat-num">99.8%</span>
+                                    <span class="thumb-stat-text">Patient Care Rating</span>
+                                </div>
+                                <div class="card-verified-badge">
+                                    <i class="ri-shield-check-fill"></i>
+                                    <span>Certified Specialists</span>
+                                </div>
+                            </div>
+
+                            <div class="card-content-bottom">
+                                <div class="card-visual-header">
+                                    <div class="card-header-badge">
+                                        <i class="ri-heart-pulse-fill"></i>
+                                        <span>Clinical Excellence</span>
+                                    </div>
+                                    <div class="live-active-indicator">
+                                        <span class="card-live-dot"></span>
+                                        <span class="live-text">Consulting Now</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="card-lead-heading">Empathetic Medical Experts</h3>
+                                <p class="card-lead-sub">State-of-the-art diagnostics and warm, private consultations tailored for you.</p>
+                                
+                                <div class="card-tags-row">
+                                    <span class="care-tag"><i class="ri-check-line"></i> Maternity</span>
+                                    <span class="care-tag"><i class="ri-check-line"></i> Gynecology</span>
+                                    <span class="care-tag"><i class="ri-check-line"></i> Preventive</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: MISSION, VISION & CORE VALUES BENTO
+         ========================================================================== -->
+    <section class="about-mission-section" id="mission">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-sparkling-fill"></i>
+                    <span>OUR GUIDING PRINCIPLES</span>
+                </div>
+                <h2 class="section-main-title">Rooted in science, guided by empathy</h2>
+                <p class="section-sub-title">We believe women deserve personalized healthcare environments that listen without rushing and diagnose with cutting-edge clarity.</p>
+            </div>
+
+            <div class="mission-bento-grid">
+                <!-- Mission Card -->
+                <div class="mission-card mission-card-large" data-reveal="fade-up" data-delay="100">
+                    <div class="mission-card-media-banner">
+                        <img src="images/download (11).webp" alt="Empowering Women Consultation" class="mission-banner-img">
+                        <div class="mission-badge-overlay">
+                            <i class="ri-heart-pulse-line"></i>
+                            <span>Patient-First Approach</span>
+                        </div>
+                    </div>
+                    <div class="mission-content-box">
+                        <div class="mission-card-icon">
+                            <i class="ri-focus-3-line"></i>
+                        </div>
+                        <span class="mission-tag">OUR MISSION</span>
+                        <h3 class="mission-card-heading">Empowering women with fearless, dignified healthcare.</h3>
+                        <p class="mission-card-desc">
+                            To deliver continuous, empathetic care across every stage of a woman’s life — from adolescence and prenatal journeys to hormonal balance and active longevity.
+                        </p>
+
+                        <!-- Micro Feature Cards -->
+                        <div class="mission-mini-grid">
+                            <div class="mission-mini-card">
+                                <div class="mini-card-icon"><i class="ri-stethoscope-line"></i></div>
+                                <div class="mini-card-info">
+                                    <h4>Precision Diagnostics</h4>
+                                    <p>Advanced screening & preventive care.</p>
+                                </div>
+                            </div>
+                            <div class="mission-mini-card">
+                                <div class="mini-card-icon"><i class="ri-shield-user-line"></i></div>
+                                <div class="mini-card-info">
+                                    <h4>100% Confidential</h4>
+                                    <p>Private suites & encrypted records.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checklist -->
+                        <div class="mission-checklist">
+                            <div class="mission-check-item">
+                                <i class="ri-checkbox-circle-fill"></i>
+                                <span>Personalized, unhurried 1-on-1 specialist consultations</span>
+                            </div>
+                            <div class="mission-check-item">
+                                <i class="ri-checkbox-circle-fill"></i>
+                                <span>State-of-the-art non-invasive screening technologies</span>
+                            </div>
+                            <div class="mission-check-item">
+                                <i class="ri-checkbox-circle-fill"></i>
+                                <span>Holistic nutrition, hormonal wellness & emotional support</span>
+                            </div>
+                        </div>
+
+                        <!-- Doctor Medical Endorsement Box -->
+                        <div class="mission-quote-card">
+                            <div class="mission-quote-avatar-wrap">
+                                <img src="images/d1.webp" alt="Dr. Priya Sharma" class="mission-quote-avatar">
+                                <span class="quote-verify-badge"><i class="ri-check-line"></i></span>
+                            </div>
+                            <div class="mission-quote-content">
+                                <p class="mission-quote-text">"Every woman deserves a health partner who listens with empathy and leads with clinical excellence."</p>
+                                <div class="mission-quote-author">
+                                    <strong>Dr. Priya Sharma, MD</strong>
+                                    <span>Lead Obstetrician & Gynecologist</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Trust Badges Row -->
+                        <div class="mission-pill-tags">
+                            <span class="m-pill"><i class="ri-shield-star-fill"></i> NABH Certified</span>
+                            <span class="m-pill"><i class="ri-award-fill"></i> Excellence in Women Care</span>
+                            <span class="m-pill"><i class="ri-heart-3-fill"></i> 99.8% Trust Score</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Card -->
+                <div class="mission-card mission-card-accent" data-reveal="fade-up" data-delay="200">
+                    <div class="mission-card-media-small">
+                        <img src="images/Cewek cantik pakai gaun steril operasi di rumah sakit.webp" alt="Modern Women Healthcare Vision" class="mission-vision-img">
+                        <div class="vision-badge-overlay">
+                            <i class="ri-sparkling-2-line"></i>
+                            <span>2026 Vision</span>
+                        </div>
+                    </div>
+                    <div class="vision-content-box">
+                        <div class="mission-card-icon">
+                            <i class="ri-eye-line"></i>
+                        </div>
+                        <span class="mission-tag">OUR VISION</span>
+                        <h3 class="mission-card-heading">Redefining modern women's wellness.</h3>
+                        <p class="mission-card-desc">
+                            A global sanctuary where proactive diagnostics replace reactive emergency care, ensuring women feel understood, empowered, and thoroughly supported.
+                        </p>
+                        <div class="vision-quote-box">
+                            <i class="ri-double-quotes-l"></i>
+                            <span>"When women thrive in health, families and entire communities prosper."</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Values 3-Stack -->
+                <div class="mission-card mission-card-values" data-reveal="fade-up" data-delay="300">
+                    <span class="mission-tag">CORE VALUES</span>
+                    <div class="values-list">
+                        <div class="value-row">
+                            <div class="value-thumb-wrap">
+                                <img src="images/ou1.webp" alt="Empathy" class="value-thumb-img">
+                            </div>
+                            <div class="value-content">
+                                <h4>01. Empathy First</h4>
+                                <p>We listen with intent before offering clinical recommendations.</p>
+                            </div>
+                        </div>
+                        <div class="value-row">
+                            <div class="value-thumb-wrap">
+                                <img src="images/ou2.webp" alt="Clinical Precision" class="value-thumb-img">
+                            </div>
+                            <div class="value-content">
+                                <h4>02. Clinical Precision</h4>
+                                <p>Evidence-based treatments backed by accredited global certifications.</p>
+                            </div>
+                        </div>
+                        <div class="value-row">
+                            <div class="value-thumb-wrap">
+                                <img src="images/ou3.webp" alt="Holistic Harmony" class="value-thumb-img">
+                            </div>
+                            <div class="value-content">
+                                <h4>03. Holistic Harmony</h4>
+                                <p>Uniting nutrition, mental tranquility, and physical vitality.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: OUR FOUNDING STORY & TIMELINE OF INNOVATION
+         ========================================================================== -->
+    <section class="about-story-section" id="story">
+        <div class="about-container">
+            <div class="story-grid">
+                <!-- Left Visual Collage -->
+                <div class="story-visual-col" data-reveal="fade-up">
+                    <div class="story-image-stack">
+                        <div class="story-main-img-wrap">
+                            <img src="images/innovation-center.webp" alt="Curevo Innovation Center" class="story-img-main">
+                        </div>
+                        <div class="story-badge-card">
+                            <div class="story-badge-icon">
+                                <i class="ri-award-fill"></i>
+                            </div>
+                            <div class="story-badge-text">
+                                <strong>12+ Years</strong>
+                                <span>Pioneering Women’s Health</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Timeline Story Content -->
+                <div class="story-content-col" data-reveal="fade-up" data-delay="150">
+                    <div class="trust-badge">
+                        <i class="ri-history-line"></i>
+                        <span>OUR JOURNEY</span>
+                    </div>
+                    <h2 class="section-main-title text-left">From a clinical vision to a premier care sanctuary</h2>
+                    <p class="story-lead-p">
+                        Founded with the vision of creating an empathetic refuge for women's healthcare, Curevo started as a specialized maternal diagnostic unit and has evolved into an integrated medical sanctuary.
+                    </p>
+
+                    <!-- Interactive Animated Timeline -->
+                    <div class="story-timeline" id="storyTimeline">
+                        <div class="timeline-step active" data-step="0">
+                            <div class="timeline-dot-wrap">
+                                <span class="timeline-dot"></span>
+                                <span class="timeline-line"></span>
+                            </div>
+                            <div class="timeline-body">
+                                <span class="timeline-year">2014 &bull; The Beginning</span>
+                                <h4 class="timeline-title">First Integrated Prenatal Unit</h4>
+                                <p class="timeline-text">Established our foundational women's diagnostic clinic dedicated to non-invasive fetal diagnostics and maternal care.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-step" data-step="1">
+                            <div class="timeline-dot-wrap">
+                                <span class="timeline-dot"></span>
+                                <span class="timeline-line"></span>
+                            </div>
+                            <div class="timeline-body">
+                                <span class="timeline-year">2019 &bull; Expansion</span>
+                                <h4 class="timeline-title">Holistic Wellness & Hormonal Clinic</h4>
+                                <p class="timeline-text">Expanded our practice to include specialized endocrinology, menopause support, and mental wellness counseling.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-step" data-step="2">
+                            <div class="timeline-dot-wrap">
+                                <span class="timeline-dot"></span>
+                            </div>
+                            <div class="timeline-body">
+                                <span class="timeline-year">2026 &bull; Today & Beyond</span>
+                                <h4 class="timeline-title">Accredited Women’s Sanctuary</h4>
+                                <p class="timeline-text">Serving thousands of patients annually across ISO-certified facilities with top medical specialists in Salem, Tamil Nadu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: 4 HOLISTIC PILLARS OF CUREVO CARE
+         ========================================================================== -->
+    <section class="about-pillars-section" id="pillars">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-shield-heart-line"></i>
+                    <span>CARE METHODOLOGY</span>
+                </div>
+                <h2 class="section-main-title">The Four Pillars of Complete Care</h2>
+                <p class="section-sub-title">Every program at Curevo addresses the interconnected elements of a woman's physical and emotional well-being.</p>
+            </div>
+
+            <div class="pillars-card-grid">
+                <!-- Pillar 1 -->
+                <div class="pillar-interactive-card" data-reveal="fade-up" data-delay="100">
+                    <div class="pillar-img-wrap">
+                        <img src="images/download (7).webp" alt="Preventive Diagnostics" class="pillar-card-img">
+                        <span class="pillar-number-badge">01</span>
+                    </div>
+                    <div class="pillar-card-top">
+                        <div class="pillar-card-icon-wrap">
+                            <i class="ri-stethoscope-line"></i>
+                        </div>
+                        <h3 class="pillar-card-title">Preventive Diagnostics</h3>
+                    </div>
+                    <p class="pillar-card-desc">Advanced early-detection screenings, genetic profiling, and routine pelvic health checkups designed for total peace of mind.</p>
+                    <ul class="pillar-items-list">
+                        <li><i class="ri-check-line"></i> 3D Ultrasound & Mammography</li>
+                        <li><i class="ri-check-line"></i> Comprehensive Blood Panels</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-interactive-card" data-reveal="fade-up" data-delay="200">
+                    <div class="pillar-img-wrap">
+                        <img src="images/download (8).webp" alt="Maternal & Fertility Care" class="pillar-card-img">
+                        <span class="pillar-number-badge">02</span>
+                    </div>
+                    <div class="pillar-card-top">
+                        <div class="pillar-card-icon-wrap">
+                            <i class="ri-heart-3-line"></i>
+                        </div>
+                        <h3 class="pillar-card-title">Maternal & Fertility</h3>
+                    </div>
+                    <p class="pillar-card-desc">End-to-end guidance from pre-conception counseling through pregnancy trimesters and gentle postpartum recovery.</p>
+                    <ul class="pillar-items-list">
+                        <li><i class="ri-check-line"></i> Fetal Medicine Consultation</li>
+                        <li><i class="ri-check-line"></i> Postpartum Physical Rehabilitation</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-interactive-card" data-reveal="fade-up" data-delay="300">
+                    <div class="pillar-img-wrap">
+                        <img src="images/download (9).webp" alt="Hormonal & Mental Harmony" class="pillar-card-img">
+                        <span class="pillar-number-badge">03</span>
+                    </div>
+                    <div class="pillar-card-top">
+                        <div class="pillar-card-icon-wrap">
+                            <i class="ri-mental-health-line"></i>
+                        </div>
+                        <h3 class="pillar-card-title">Hormonal & Mental</h3>
+                    </div>
+                    <p class="pillar-card-desc">Expert endocrine therapy and supportive clinical counseling for PCOS, thyroid health, and menopause management.</p>
+                    <ul class="pillar-items-list">
+                        <li><i class="ri-check-line"></i> Bioidentical Hormone Therapy</li>
+                        <li><i class="ri-check-line"></i> Stress & Sleep Modulation</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="pillar-interactive-card" data-reveal="fade-up" data-delay="400">
+                    <div class="pillar-img-wrap">
+                        <img src="images/download (10).webp" alt="Active Longevity & Vitality" class="pillar-card-img">
+                        <span class="pillar-number-badge">04</span>
+                    </div>
+                    <div class="pillar-card-top">
+                        <div class="pillar-card-icon-wrap">
+                            <i class="ri-leaf-line"></i>
+                        </div>
+                        <h3 class="pillar-card-title">Active Longevity</h3>
+                    </div>
+                    <p class="pillar-card-desc">Targeted nutritional therapies, pelvic floor physio, and longevity regimens crafted to help you feel energized at every age.</p>
+                    <ul class="pillar-items-list">
+                        <li><i class="ri-check-line"></i> Bone Density & Joint Care</li>
+                        <li><i class="ri-check-line"></i> Personalized Metabolic Plans</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: CLINICAL MILESTONES & IMPACT METRICS
+         ========================================================================== -->
+    <section class="about-metrics-section" id="impact">
+        <div class="about-container">
+            <div class="metrics-inner-card" data-reveal="fade-up">
+                <div class="metrics-header-row">
+                    <div class="metrics-header-left">
+                        <div class="trust-badge">
+                            <i class="ri-bar-chart-box-line"></i>
+                            <span>REAL MEASURABLE IMPACT</span>
+                        </div>
+                        <h2 class="metrics-title">Over a decade of caring for women</h2>
+                    </div>
+                    <p class="metrics-lead-text">
+                        Every number represents a patient whose confidence, peace of mind, and vitality were restored with precision medical guidance.
+                    </p>
+                </div>
+
+                <div class="metrics-counter-grid">
+                    <div class="metric-box" data-reveal="fade-up" data-delay="100">
+                        <div class="metric-top-bar">
+                            <img src="images/download (2).webp" alt="Patients" class="metric-thumb-icon">
+                            <span class="metric-trend-pill"><i class="ri-arrow-up-line"></i> +28% YoY</span>
+                        </div>
+                        <div class="metric-number-wrap">
+                            <span class="metric-val" data-counter="50">50</span>
+                            <span class="metric-suffix">k+</span>
+                        </div>
+                        <span class="metric-label">Women Patients Treated</span>
+                        <p class="metric-detail">Across diverse specialties and preventative health wellness.</p>
+                    </div>
+
+                    <div class="metric-box" data-reveal="fade-up" data-delay="200">
+                        <div class="metric-top-bar">
+                            <img src="images/download (3).webp" alt="Specialists" class="metric-thumb-icon">
+                            <span class="metric-trend-pill"><i class="ri-shield-check-line"></i> Certified</span>
+                        </div>
+                        <div class="metric-number-wrap">
+                            <span class="metric-val" data-counter="15">15</span>
+                            <span class="metric-suffix">+</span>
+                        </div>
+                        <span class="metric-label">Board-Certified Specialists</span>
+                        <p class="metric-detail">Dedicated female health clinicians and surgeons.</p>
+                    </div>
+
+                    <div class="metric-box" data-reveal="fade-up" data-delay="300">
+                        <div class="metric-top-bar">
+                            <img src="images/download (4).webp" alt="Outcomes" class="metric-thumb-icon">
+                            <span class="metric-trend-pill"><i class="ri-star-fill"></i> 4.9 / 5.0</span>
+                        </div>
+                        <div class="metric-number-wrap">
+                            <span class="metric-val" data-counter="99">99</span>
+                            <span class="metric-suffix">.4%</span>
+                        </div>
+                        <span class="metric-label">Positive Patient Outcomes</span>
+                        <p class="metric-detail">Verified satisfaction and recovery tracking.</p>
+                    </div>
+
+                    <div class="metric-box" data-reveal="fade-up" data-delay="400">
+                        <div class="metric-top-bar">
+                            <img src="images/download (5).webp" alt="Support" class="metric-thumb-icon">
+                            <span class="metric-trend-pill live-pill"><span class="live-dot-mini"></span> Active</span>
+                        </div>
+                        <div class="metric-number-wrap">
+                            <span class="metric-val" data-counter="24">24</span>
+                            <span class="metric-suffix">/7</span>
+                        </div>
+                        <span class="metric-label">Emergency & Virtual Support</span>
+                        <p class="metric-detail">Round-the-clock patient assistance when you need it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: MEDICAL DIRECTORS & CLINICAL LEADERSHIP
+         ========================================================================== -->
+    <section class="about-leadership-section" id="team">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-user-star-line"></i>
+                    <span>LEADERSHIP & EXPERTISE</span>
+                </div>
+                <h2 class="section-main-title">Led by visionary healthcare specialists</h2>
+                <p class="section-sub-title">Our leadership team brings decades of international clinical experience, research breakthroughs, and patient advocacy.</p>
+            </div>
+
+            <div class="leadership-grid">
+                <!-- Leader 1 -->
+                <div class="leader-card" data-reveal="fade-up" data-delay="100">
+                    <div class="leader-img-box">
+                        <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Maya Sharma" class="leader-img">
+                        <div class="leader-social-overlay">
+                            <a href="404.html" class="leader-social-btn" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                            <a href="404.html" class="leader-social-btn" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Dr. Maya Sharma, MD</h3>
+                        <span class="leader-role">Chief Medical Director & Neuro Specialist</span>
+                        <p class="leader-bio">Specializing in hormonal neurology, migraine patterns, and holistic preventative medicine with 16+ years of clinical leadership.</p>
+                    </div>
+                </div>
+
+                <!-- Leader 2 -->
+                <div class="leader-card" data-reveal="fade-up" data-delay="200">
+                    <div class="leader-img-box">
+                        <img src="images/On duty.webp" alt="Dr. Sarah Jenkins" class="leader-img">
+                        <div class="leader-social-overlay">
+                            <a href="404.html" class="leader-social-btn" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                            <a href="404.html" class="leader-social-btn" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Dr. Sarah Jenkins, OB-GYN</h3>
+                        <span class="leader-role">Head of Maternal & Prenatal Health</span>
+                        <p class="leader-bio">Dedicated advocate for gentle childbirth, high-risk pregnancy management, and fertility planning with international acclaim.</p>
+                    </div>
+                </div>
+
+                <!-- Leader 3 -->
+                <div class="leader-card" data-reveal="fade-up" data-delay="300">
+                    <div class="leader-img-box">
+                        <img src="images/Cewek cantik pakai gaun steril operasi di rumah sakit.webp" alt="Dr. Elena Vance" class="leader-img">
+                        <div class="leader-social-overlay">
+                            <a href="404.html" class="leader-social-btn" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+                            <a href="404.html" class="leader-social-btn" aria-label="Twitter"><i class="ri-twitter-x-fill"></i></a>
+                        </div>
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Dr. Elena Vance, PhD</h3>
+                        <span class="leader-role">Director of Advanced Diagnostics & Imaging</span>
+                        <p class="leader-bio">Pioneering precision ultrasound protocols and non-invasive screening technologies for early intervention.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: SANCTUARY ENVIRONMENT & PATIENT EXPERIENCE
+         ========================================================================== -->
+    <section class="about-sanctuary-section" id="sanctuary">
+        <div class="about-container">
+            <div class="sanctuary-grid">
+                <!-- Left Details -->
+                <div class="sanctuary-content-col" data-reveal="fade-up">
+                    <div class="trust-badge">
+                        <i class="ri-home-heart-line"></i>
+                        <span>OUR ENVIRONMENT</span>
+                    </div>
+                    <h2 class="section-main-title text-left">A clinic designed to feel like a restorative sanctuary</h2>
+                    <p class="sanctuary-desc">
+                        We intentionally designed every corner of Curevo with calming biophilic aesthetics, soothing ambient acoustics, and private consultation lounges to eliminate clinical anxiety.
+                    </p>
+
+                    <div class="sanctuary-features-list">
+                        <div class="sanctuary-feature-card">
+                            <div class="sanctuary-feature-thumb">
+                                <img src="images/h1.webp" alt="Biophilic Suites" class="feat-thumb-img">
+                            </div>
+                            <div class="sanctuary-feature-text">
+                                <h4>Biophilic Wellness Suites</h4>
+                                <p>Natural illumination, living greenery, and non-toxic calming spaces.</p>
+                            </div>
+                        </div>
+
+                        <div class="sanctuary-feature-card">
+                            <div class="sanctuary-feature-thumb">
+                                <img src="images/h2.webp" alt="Private Lounges" class="feat-thumb-img">
+                            </div>
+                            <div class="sanctuary-feature-text">
+                                <h4>Private Dedicated Lounges</h4>
+                                <p>Complete confidentiality with private waiting and recovery quarters.</p>
+                            </div>
+                        </div>
+
+                        <div class="sanctuary-feature-card">
+                            <div class="sanctuary-feature-thumb">
+                                <img src="images/h3.webp" alt="In-House Labs" class="feat-thumb-img">
+                            </div>
+                            <div class="sanctuary-feature-text">
+                                <h4>In-House Precision Labs</h4>
+                                <p>Same-day diagnostic testing so you never have to wait anxiously for answers.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Visual Collage -->
+                <div class="sanctuary-visual-col" data-reveal="fade-up" data-delay="150">
+                    <div class="sanctuary-collage">
+                        <div class="sanctuary-img-top">
+                            <img src="images/6900839ca4b6271ab5789e76_hero cta (2).webp" alt="Sanctuary Lounge" class="sanctuary-img">
+                        </div>
+                        <div class="sanctuary-img-bottom-row">
+                            <div class="sanctuary-mini-img-wrap">
+                                <img src="images/Download Set of Medical Equipment with Red First Aid Kit for free.webp" alt="Sanctuary Diagnostic Tech" class="sanctuary-mini-img">
+                            </div>
+                            <div class="sanctuary-info-badge-box">
+                                <div class="badge-icon-circle"><i class="ri-shield-check-fill"></i></div>
+                                <h4>ISO 9001:2015</h4>
+                                <p>Highest medical safety standards & certified clinical hygiene.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: CALL TO ACTION BANNER (BOOKING / SANCTUARY VISIT)
+         ========================================================================== -->
+    <section class="about-cta-section" id="aboutCta">
+        <div class="about-container">
+            <div class="about-cta-card" data-reveal="fade-up">
+                <div class="cta-bg-layer">
+                    <img src="images/case6.webp" alt="Curevo Women's Care" class="cta-card-bg-img">
+                    <div class="cta-card-overlay"></div>
+                </div>
+                <div class="cta-glow-blob"></div>
+                <div class="about-cta-inner">
+                    <div class="trust-badge">
+                        <i class="ri-heart-pulse-fill"></i>
+                        <span>BEGIN YOUR WELLNESS JOURNEY</span>
+                    </div>
+                    <h2 class="about-cta-heading">Ready to experience healthcare designed around you?</h2>
+                    <p class="about-cta-sub">
+                        Our specialized doctors are here to listen, support, and provide customized health solutions for your peace of mind.
+                    </p>
+                    
+                    <div class="about-cta-buttons-row">
+                        <a href="404.html" class="btn-appointment about-cta-primary">
+                            <span class="btn-text">Book an appointment</span>
+                            <span class="btn-arrow-circle">
+                                <i class="ri-arrow-right-line"></i>
+                            </span>
+                        </a>
+                        <a href="404.html" class="about-cta-secondary">
+                            <span>View All Services</span>
+                            <i class="ri-arrow-right-up-line"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER SECTION (Matching Index Page Exactly)
+         ========================================================================== -->
+    <footer class="main-footer" id="contact">
+        <!-- Subtle Background Glow / Texture Layer -->
+        <div class="footer-bg-glow"></div>
+
+        <div class="footer-container">
+            <!-- 4-Column Grid -->
+            <div class="footer-grid">
+                
+                <!-- Column 1: Brand Logo, Mission, Address & Working Hours -->
+                <div class="footer-col footer-col-brand" data-reveal="fade-up" data-delay="50">
+                    <a href="index.html" class="footer-logo-link" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="footer-logo-img">
+                    </a>
+                    
+                    <p class="footer-mission-text">
+                        We support discovery across healthcare, biotechnology, & sciences.
+                    </p>
+
+                    <div class="footer-address-badge">
+                        <i class="ri-map-pin-2-fill address-icon"></i>
+                        <span>MMR complex, salem, tamilnadu</span>
+                    </div>
+
+                    <!-- Working Hours Glass Card -->
+                    <div class="footer-hours-box">
+                        <h4 class="hours-title">Working Hours:</h4>
+                        <div class="hours-card">
+                            <div class="hours-row">
+                                <span class="hours-day">Monday - Friday:-</span>
+                                <span class="hours-time">10:00 - 05:00</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-day">Saturday:-</span>
+                                <span class="hours-time">10:00 - 04:00</span>
+                            </div>
+                            <div class="hours-row closed-row">
+                                <span class="hours-day">Sunday:-</span>
+                                <span class="hours-time closed-badge">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col footer-col-links" data-reveal="fade-up" data-delay="100">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="index.html" class="footer-nav-link"><span class="link-dash">-</span> Home</a></li>
+                        <li><a href="about.html" class="footer-nav-link"><span class="link-dash">-</span> About</a></li>
+                        <li><a href="service.html" class="footer-nav-link"><span class="link-dash">-</span> Service</a></li>
+                        <li><a href="blog.html" class="footer-nav-link"><span class="link-dash">-</span> Blog</a></li>
+                        <li><a href="contact.html" class="footer-nav-link"><span class="link-dash">-</span> Contact</a></li>
+                        <li><a href="login.html" class="footer-nav-link"><span class="link-dash">-</span> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div class="footer-col footer-col-services" data-reveal="fade-up" data-delay="150">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Diagnostic Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Laboratory Analysis</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Industrial Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Clinical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Chemical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Preventive Checkups</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Follow Us On Social -->
+                <div class="footer-col footer-col-social" data-reveal="fade-up" data-delay="200">
+                    <h3 class="footer-heading">Follow Us On Social</h3>
+                    <p class="social-intro-text">
+                        Connect with us online for updates, breakthroughs, & lab highlights.
+                    </p>
+
+                    <!-- Circular Social Buttons -->
+                    <div class="footer-social-row">
+                        <a href="404.html" class="social-circle-btn pinterest-btn" aria-label="Pinterest">
+                            <i class="ri-pinterest-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn twitter-btn" aria-label="Twitter X">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn facebook-btn" aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn instagram-btn" aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Legal Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-left">
+                    <p>&copy; 2026 Curevo Women's Health Center. All rights reserved. &bull; MMR complex, salem, tamilnadu</p>
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="404.html" class="legal-link">Privacy Policy</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Terms of Service</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>

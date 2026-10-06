@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Journal & Medical Insights — Curevo Women's Health Center</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/TextPlugin.min.js"></script>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Immediate Scroll & 404 Position Restorer -->
+    <script>
+        (function() {
+            if ('scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+            }
+            function restoreScrollPosition() {
+                var isReturningFrom404 = sessionStorage.getItem('curevo_returning_from_404') === '1';
+                if (isReturningFrom404) {
+                    var savedPos = sessionStorage.getItem('curevo_scroll_pos');
+                    if (savedPos !== null) {
+                        var targetY = parseInt(savedPos, 10);
+                        if (!isNaN(targetY) && targetY >= 0) {
+                            window.scrollTo({ top: targetY, left: 0, behavior: 'instant' });
+                            document.querySelectorAll('[data-reveal]').forEach(function(el) {
+                                var rect = el.getBoundingClientRect();
+                                if (rect.top < window.innerHeight + 500) {
+                                    el.classList.add('revealed');
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                }
+            }
+
+            restoreScrollPosition();
+
+            document.addEventListener('DOMContentLoaded', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+                setTimeout(restoreScrollPosition, 150);
+                setTimeout(restoreScrollPosition, 300);
+            });
+
+            window.addEventListener('load', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 100);
+                setTimeout(function() {
+                    restoreScrollPosition();
+                    setTimeout(function() {
+                        sessionStorage.removeItem('curevo_returning_from_404');
+                        sessionStorage.removeItem('curevo_scroll_pos');
+                        sessionStorage.removeItem('curevo_from_url');
+                    }, 600);
+                }, 300);
+            });
+
+            window.addEventListener('pageshow', function() {
+                restoreScrollPosition();
+                setTimeout(restoreScrollPosition, 50);
+            });
+        })();
+    </script>
+</head>
+<body>
+    <!-- Interactive Ambient Glow Layers -->
+    <div class="ambient-glow ambient-glow-1"></div>
+    <div class="ambient-glow ambient-glow-2"></div>
+    <div class="ambient-glow ambient-glow-3"></div>
+
+    <!-- Top Navigation Header -->
+    <header class="header-container" id="mainHeader">
+        <nav class="nav-glass-capsule">
+            <!-- Brand Logo -->
+            <a href="index.html" class="brand-logo" aria-label="Curevo Home">
+                <img src="images/logo.webp" alt="Curevo Women's Health Center" class="header-logo-img">
+            </a>
+
+            <!-- Navigation Links (Full Screen on Mobile) -->
+            <div class="nav-menu" id="navMenu">
+                <!-- Mobile Menu Header with Logo & Close Button -->
+                <div class="mobile-menu-header">
+                    <a href="index.html" class="mobile-menu-logo" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="mobile-logo-img">
+                    </a>
+                    <button class="mobile-close-btn" id="mobileCloseBtn" aria-label="Close menu">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+
+                <ul class="nav-links-list">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="service.html" class="nav-link">Service</a></li>
+                    <li class="nav-item"><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="login.html" class="nav-link login-link">Login</a></li>
+                </ul>
+
+                <!-- Mobile Menu Bottom CTA & Location Info -->
+                <div class="mobile-menu-footer">
+                    <a href="404.html" class="mobile-cta-btn">
+                        <span>Book an appointment</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=MMR+Complex,+Omalur+Main+Road,+Salem,+Tamil+Nadu" target="_blank" rel="noopener noreferrer" class="mobile-loc-text mobile-loc-link">
+                        <i class="ri-map-pin-2-fill"></i> MMR complex, salem, tamilnadu
+                    </a>
+                </div>
+            </div>
+
+            <!-- Header Action CTA -->
+            <div class="nav-actions">
+                <a href="404.html" class="btn-appointment" aria-label="Book an appointment">
+                    <span class="btn-text">Book an appointment</span>
+                    <span class="btn-arrow-circle">
+                        <i class="ri-arrow-right-line"></i>
+                    </span>
+                </a>
+                
+                <!-- Mobile Hamburger Toggle -->
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================================================
+         MAIN HERO SLIDER SECTION (2 Sliding Hero with h2.webp and h1.webp)
+         ========================================================================== -->
+    <main class="hero-wrapper blog-hero-wrapper" id="home">
+        <!-- 3D Parallax Canvas Background Layer -->
+        <div class="slider-viewport" id="sliderViewport">
+
+            <!-- SLIDE 1 (Background: h2.webp) -->
+            <div class="hero-slide active" data-slide="0">
+                <div class="slide-bg-wrapper">
+                    <img src="images/h2.webp" alt="The Curevo Clinical Journal" class="slide-bg-img">
+                    <div class="slide-overlay"></div>
+                    <div class="vignette-overlay"></div>
+                </div>
+
+                <div class="slide-container">
+                    <!-- Left Hero Content -->
+                    <div class="hero-left-content">
+                        <div class="hero-tag-badge">
+                            <span class="pulse-dot"></span>
+                            <span class="tag-text">THE CUREVO CLINICAL JOURNAL &bull; ISSUE 10</span>
+                        </div>
+                        
+                        <h1 class="hero-heading">
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-1">Evidence based,</span>
+                            </span>
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-2">
+                                    <em class="italic-highlight">Empowered</em>
+                                    <span class="heading-word">healing</span>
+                                </span>
+                            </span>
+                        </h1>
+
+                        <div class="hero-stats-row">
+                            <div class="stat-pill">
+                                <span class="stat-num">50+</span>
+                                <span class="stat-label">Peer-Reviewed Guides</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">12+</span>
+                                <span class="stat-label">Specialist Contributors</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Content -->
+                    <div class="hero-right-content">
+                        <p class="hero-description">
+                            Explore research-backed clinical breakthroughs, physician commentaries, and proactive wellness protocols curated by Salem's leading women's health clinicians.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SLIDE 2 (Background: h1.webp) -->
+            <div class="hero-slide" data-slide="1">
+                <div class="slide-bg-wrapper">
+                    <img src="images/h1.webp" alt="Physician Commentary & Guidance" class="slide-bg-img">
+                    <div class="slide-overlay"></div>
+                    <div class="vignette-overlay"></div>
+                </div>
+
+                <div class="slide-container">
+                    <!-- Left Hero Content -->
+                    <div class="hero-left-content">
+                        <div class="hero-tag-badge">
+                            <span class="pulse-dot"></span>
+                            <span class="tag-text">PHYSICIAN COMMENTARY &amp; DISPATCHES</span>
+                        </div>
+                        
+                        <h1 class="hero-heading">
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-1">Compassionate care,</span>
+                            </span>
+                            <span class="heading-line-mask">
+                                <span class="heading-line line-2">
+                                    <em class="italic-highlight">Lifelong</em>
+                                    <span class="heading-word">vitality</span>
+                                </span>
+                            </span>
+                        </h1>
+
+                        <div class="hero-stats-row">
+                            <div class="stat-pill">
+                                <span class="stat-num">99.6%</span>
+                                <span class="stat-label">Diagnostic Precision</span>
+                            </div>
+                            <div class="stat-pill">
+                                <span class="stat-num">Weekly</span>
+                                <span class="stat-label">Clinical Editions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Content -->
+                    <div class="hero-right-content">
+                        <p class="hero-description">
+                            From high-definition 4D fetal imaging to endocrine hormonal balance and postpartum core recovery, discover medical guidance tailored to every season.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- HERO BOTTOM CONTROLS & PAGINATION -->
+        <div class="hero-footer-bar">
+            <!-- Slide Progress Indicators (2 Slides) -->
+            <div class="slider-indicators">
+                <div class="indicator-track active" data-slide-to="0">
+                    <span class="indicator-fill"></span>
+                    <span class="indicator-number">01</span>
+                </div>
+                <div class="indicator-track" data-slide-to="1">
+                    <span class="indicator-fill"></span>
+                    <span class="indicator-number">02</span>
+                </div>
+            </div>
+
+            <!-- Slide Navigation Buttons -->
+            <div class="slider-nav-arrows">
+                <button class="nav-arrow-btn prev-btn" id="prevSlideBtn" aria-label="Previous Slide">
+                    <i class="ri-arrow-left-line"></i>
+                </button>
+                <button class="nav-arrow-btn next-btn" id="nextSlideBtn" aria-label="Next Slide">
+                    <i class="ri-arrow-right-line"></i>
+                </button>
+            </div>
+
+            <!-- Floating Reference Badge -->
+            <div class="reference-badge">
+                <span class="badge-icon"><i class="ri-article-fill"></i></span>
+                <span class="badge-text">Clinical Journal &amp; Insights</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================================================
+         SECTION 2: INTERACTIVE TOPIC SPECTRUM & CATEGORY NAVIGATOR
+         ========================================================================== -->
+    <section class="blog-topics-section" id="blogTopics">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-compass-3-line"></i>
+                    <span>EXPLORE CLINICAL DISCIPLINES</span>
+                </div>
+                <h2 class="section-main-title">Curated medical knowledge by specialty</h2>
+                <p class="section-sub-title">Filter peer-reviewed publications, treatment explanations, and hormonal diagnostics tailored to your specific stage of life.</p>
+            </div>
+
+            <!-- Topic Tabs Navigation -->
+            <div class="blog-topic-tabs" data-reveal="fade-up" data-delay="100">
+                <button class="topic-tab-btn active" data-filter="all">
+                    <i class="ri-apps-fill"></i> All Articles
+                </button>
+                <button class="topic-tab-btn" data-filter="maternal">
+                    <i class="ri-heart-pulse-fill"></i> Maternity &amp; Fetal
+                </button>
+                <button class="topic-tab-btn" data-filter="hormones">
+                    <i class="ri-pulse-fill"></i> PCOS &amp; Hormones
+                </button>
+                <button class="topic-tab-btn" data-filter="gynecology">
+                    <i class="ri-shield-cross-fill"></i> Preventive Gynecology
+                </button>
+                <button class="topic-tab-btn" data-filter="longevity">
+                    <i class="ri-leaf-fill"></i> Longevity &amp; Menopause
+                </button>
+                <button class="topic-tab-btn" data-filter="pelvic">
+                    <i class="ri-heart-add-fill"></i> Pelvic &amp; Postnatal
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: CURATED CLINICAL EDITORIAL MATRIX (Interactive Cards)
+         ========================================================================== -->
+    <section class="blog-editorial-section" id="editorialMatrix">
+        <div class="about-container">
+            <div class="editorial-cards-grid" id="articlesGrid">
+
+                <!-- Article 1: Maternal Ultrasound -->
+                <article class="editorial-card" data-category="maternal" data-reveal="fade-up" data-delay="100">
+                    <div class="card-media-wrap">
+                        <img src="images/download (8).webp" alt="4D Volumetric Ultrasound Diagnostics" class="card-media-img">
+                        <span class="card-topic-tag"><i class="ri-heart-pulse-fill"></i> MATERNITY</span>
+                        <button type="button" class="btn-card-bookmark" aria-label="Bookmark Article"><i class="ri-bookmark-line"></i></button>
+                    </div>
+                    <div class="card-content-wrap">
+                        <div class="card-meta-line">
+                            <span class="card-read-time"><i class="ri-time-line"></i> 5 Min Read</span>
+                            <span class="card-date-stamp">&bull; Oct 01, 2026</span>
+                        </div>
+                        <h3 class="card-article-title">4D Volumetric Ultrasound: Decoding Fetal Biomarkers &amp; Placental Vitality</h3>
+                        <p class="card-excerpt">
+                            Explore how micro-vascular acoustic mapping allows early detection of growth restriction and enhances emotional maternal bonding before birth.
+                        </p>
+                        <div class="card-footer-row">
+                            <div class="author-micro-box">
+                                <img src="images/d2.webp" alt="Dr. Sarah Jenkins" class="author-micro-avatar">
+                                <div class="author-micro-meta">
+                                    <strong>Dr. Sarah Jenkins</strong>
+                                    <span>Head of Obstetrics</span>
+                                </div>
+                            </div>
+                            <span class="blog-discipline-symbol" aria-hidden="true">
+                                <i class="ri-heart-pulse-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2: PCOS & Insulin -->
+                <article class="editorial-card" data-category="hormones" data-reveal="fade-up" data-delay="150">
+                    <div class="card-media-wrap">
+                        <img src="images/download (9).webp" alt="PCOS Endocrine Balance" class="card-media-img">
+                        <span class="card-topic-tag"><i class="ri-pulse-fill"></i> ENDOCRINOLOGY</span>
+                        <button type="button" class="btn-card-bookmark" aria-label="Bookmark Article"><i class="ri-bookmark-line"></i></button>
+                    </div>
+                    <div class="card-content-wrap">
+                        <div class="card-meta-line">
+                            <span class="card-read-time"><i class="ri-time-line"></i> 7 Min Read</span>
+                            <span class="card-date-stamp">&bull; Sep 28, 2026</span>
+                        </div>
+                        <h3 class="card-article-title">Overcoming Insulin Resistance in PCOS: A 3-Stage Endocrine Protocol</h3>
+                        <p class="card-excerpt">
+                            A physician’s breakdown of androgen regulation, myo-inositol bio-mechanisms, and precision glycemic management to restore natural ovulatory cycles.
+                        </p>
+                        <div class="card-footer-row">
+                            <div class="author-micro-box">
+                                <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Maya Sharma" class="author-micro-avatar">
+                                <div class="author-micro-meta">
+                                    <strong>Dr. Maya Sharma</strong>
+                                    <span>Endocrine Lead</span>
+                                </div>
+                            </div>
+                            <span class="blog-discipline-symbol" aria-hidden="true">
+                                <i class="ri-pulse-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3: Preventive Pap & HPV -->
+                <article class="editorial-card" data-category="gynecology" data-reveal="fade-up" data-delay="200">
+                    <div class="card-media-wrap">
+                        <img src="images/download (7).webp" alt="Liquid-Based Pap Cytology" class="card-media-img">
+                        <span class="card-topic-tag"><i class="ri-shield-check-fill"></i> PREVENTIVE CARE</span>
+                        <button type="button" class="btn-card-bookmark" aria-label="Bookmark Article"><i class="ri-bookmark-line"></i></button>
+                    </div>
+                    <div class="card-content-wrap">
+                        <div class="card-meta-line">
+                            <span class="card-read-time"><i class="ri-time-line"></i> 4 Min Read</span>
+                            <span class="card-date-stamp">&bull; Sep 24, 2026</span>
+                        </div>
+                        <h3 class="card-article-title">Beyond Pap Smears: Liquid-Based Cytology and Genotyping Advances</h3>
+                        <p class="card-excerpt">
+                            Why dual co-testing with high-risk HPV DNA testing reduces false negatives by 45% and how early detection ensures complete peace of mind.
+                        </p>
+                        <div class="card-footer-row">
+                            <div class="author-micro-box">
+                                <img src="images/h3.webp" alt="Dr. Priya Sharma" class="author-micro-avatar">
+                                <div class="author-micro-meta">
+                                    <strong>Dr. Priya Sharma</strong>
+                                    <span>Senior Gynecologist</span>
+                                </div>
+                            </div>
+                            <span class="blog-discipline-symbol" aria-hidden="true">
+                                <i class="ri-shield-check-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4: Longevity & Bone Density -->
+                <article class="editorial-card" data-category="longevity" data-reveal="fade-up" data-delay="100">
+                    <div class="card-media-wrap">
+                        <img src="images/Витамины и пищевые добавки для всей семьи.webp" alt="Peri-Menopause and DEXA Scans" class="card-media-img">
+                        <span class="card-topic-tag"><i class="ri-leaf-fill"></i> LONGEVITY</span>
+                        <button type="button" class="btn-card-bookmark" aria-label="Bookmark Article"><i class="ri-bookmark-line"></i></button>
+                    </div>
+                    <div class="card-content-wrap">
+                        <div class="card-meta-line">
+                            <span class="card-read-time"><i class="ri-time-line"></i> 6 Min Read</span>
+                            <span class="card-date-stamp">&bull; Sep 18, 2026</span>
+                        </div>
+                        <h3 class="card-article-title">Peri-Menopause &amp; Bone Density: The Clinical Power of Early DEXA Scans</h3>
+                        <p class="card-excerpt">
+                            Understanding estrogen decline, osteoclast activity, bio-identical hormonal therapy options, and target micronutrient matrices for skeletal strength.
+                        </p>
+                        <div class="card-footer-row">
+                            <div class="author-micro-box">
+                                <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Maya Sharma" class="author-micro-avatar">
+                                <div class="author-micro-meta">
+                                    <strong>Dr. Maya Sharma</strong>
+                                    <span>Endocrine Lead</span>
+                                </div>
+                            </div>
+                            <span class="blog-discipline-symbol" aria-hidden="true">
+                                <i class="ri-leaf-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 5: Pelvic Rehabilitation -->
+                <article class="editorial-card" data-category="pelvic" data-reveal="fade-up" data-delay="150">
+                    <div class="card-media-wrap">
+                        <img src="images/Supportive Care at Norman Women’s Center.webp" alt="Pelvic Floor Rehabilitation" class="card-media-img">
+                        <span class="card-topic-tag"><i class="ri-heart-add-fill"></i> PELVIC HEALTH</span>
+                        <button type="button" class="btn-card-bookmark" aria-label="Bookmark Article"><i class="ri-bookmark-line"></i></button>
+                    </div>
+                    <div class="card-content-wrap">
+                        <div class="card-meta-line">
+                            <span class="card-read-time"><i class="ri-time-line"></i> 5 Min Read</span>
+                            <span class="card-date-stamp">&bull; Sep 12, 2026</span>
+                        </div>
+                        <h3 class="card-article-title">Postpartum Diastasis Recti &amp; Pelvic Floor Restorative Therapies</h3>
+                        <p class="card-excerpt">
+                            Non-invasive neuromuscular rehabilitation techniques to rebuild core integrity, alleviate lower back pain, and eliminate urinary stress incontinence.
+                        </p>
+                        <div class="card-footer-row">
+                            <div class="author-micro-box">
+                                <img src="images/d1.webp" alt="Dr. Ananya Rao" class="author-micro-avatar">
+                                <div class="author-micro-meta">
+                                    <strong>Dr. Ananya Rao</strong>
+                                    <span>Physiotherapy Lead</span>
+                                </div>
+                            </div>
+                            <span class="blog-discipline-symbol" aria-hidden="true">
+                                <i class="ri-heart-add-fill"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 6: Maternal Thyroid -->
+                <article class="editorial-card" data-category="maternal" data-reveal="fade-up" data-delay="200">
+                    <div class="card-media-wrap">
+                        <img src="images/case1.webp" alt="Maternal Thyroid Health" class="card-media-img">
+                        <span class="card-topic-tag"><i class="ri-heart-pulse-fill"></i> MATERNITY</span>
+                        <button type="button" class="btn-card-bookmark" aria-label="Bookmark Article"><i class="ri-bookmark-line"></i></button>
+                    </div>
+                    <div class="card-content-wrap">
+                        <div class="card-meta-line">
+                            <span class="card-read-time"><i class="ri-time-line"></i> 6 Min Read</span>
+                            <span class="card-date-stamp">&bull; Sep 05, 2026</span>
+                        </div>
+                        <h3 class="card-article-title">Managing Subclinical Thyroid Dysregulation Across Trimesters</h3>
+                        <p class="card-excerpt">
+                            Why maintaining TSH under 2.5 mIU/L during early gestation is critical for neuro-cognitive embryonic formation and preventing fatigue.
+                        </p>
+                        <div class="card-footer-row">
+                            <div class="author-micro-box">
+                                <img src="images/d2.webp" alt="Dr. Sarah Jenkins" class="author-micro-avatar">
+                                <div class="author-micro-meta">
+                                    <strong>Dr. Sarah Jenkins</strong>
+                                    <span>Head of Obstetrics</span>
+                                </div>
+                            </div>
+                            <span class="blog-discipline-symbol" aria-hidden="true">
+                                <i class="ri-microscope-line"></i>
+                            </span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Empty Search State Placeholder -->
+            <div class="blog-empty-search" id="blogEmptyState" style="display: none;">
+                <i class="ri-file-search-line empty-icon"></i>
+                <h3>No publications found</h3>
+                <p>Try searching with another medical term or click below to reset filters.</p>
+                <button type="button" class="btn-reset-filters" id="btnResetFilters">Reset All Filters</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: DOWNLOADABLE CLINICAL PROTOCOLS & PATIENT GUIDES
+         ========================================================================== -->
+    <section class="blog-guides-section" id="guideHub">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-download-cloud-2-fill"></i>
+                    <span>FREE CLINICAL DOWNLOADS</span>
+                </div>
+                <h2 class="section-main-title">Physician-authored health roadmaps</h2>
+                <p class="section-sub-title">Download comprehensive clinical protocols and dietary frameworks to support your daily wellness between appointments.</p>
+            </div>
+
+            <div class="guides-grid">
+                <!-- Guide 1 -->
+                <div class="guide-card" data-reveal="fade-up" data-delay="100">
+                    <div class="guide-card-media">
+                        <img src="images/Clinical Documentation Training & Resources _ CoDoc Academy.webp" alt="First Trimester Guide" class="guide-img">
+                        <span class="guide-type-pill"><i class="ri-file-pdf-fill"></i> PDF &bull; 24 Pages</span>
+                    </div>
+                    <div class="guide-card-info">
+                        <div class="guide-verified-badge"><i class="ri-shield-check-fill"></i> NABH Certified Protocol</div>
+                        <h3 class="guide-title">Complete 40-Week Trimester Nutrition &amp; Diagnostic Roadmap</h3>
+                        <p class="guide-desc">Week-by-week scan checklists, micronutrient supplementation guidelines, and natural morning sickness remedies.</p>
+                        <div class="guide-footer-row">
+                            <span class="guide-doc-name">By Dr. Sarah Jenkins</span>
+                            <a href="404.html" class="btn-guide-download">
+                                <i class="ri-download-2-line"></i>
+                                <span>Download PDF</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guide 2 -->
+                <div class="guide-card" data-reveal="fade-up" data-delay="200">
+                    <div class="guide-card-media">
+                        <img src="images/case3.webp" alt="PCOS Nutrition Blueprint" class="guide-img">
+                        <span class="guide-type-pill"><i class="ri-file-pdf-fill"></i> PDF &bull; 18 Pages</span>
+                    </div>
+                    <div class="guide-card-info">
+                        <div class="guide-verified-badge"><i class="ri-shield-check-fill"></i> Endocrine Society Verified</div>
+                        <h3 class="guide-title">The PCOS Hormone Balancing Diet &amp; Exercise Blueprint</h3>
+                        <p class="guide-desc">Anti-inflammatory grocery lists, blood-sugar stabilizing meal templates, and gentle zone-2 metabolic training routines.</p>
+                        <div class="guide-footer-row">
+                            <span class="guide-doc-name">By Dr. Maya Sharma</span>
+                            <a href="404.html" class="btn-guide-download">
+                                <i class="ri-download-2-line"></i>
+                                <span>Download PDF</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guide 3 -->
+                <div class="guide-card" data-reveal="fade-up" data-delay="300">
+                    <div class="guide-card-media">
+                        <img src="images/case5.webp" alt="Well-Woman Screening Checklist" class="guide-img">
+                        <span class="guide-type-pill"><i class="ri-file-pdf-fill"></i> PDF &bull; 12 Pages</span>
+                    </div>
+                    <div class="guide-card-info">
+                        <div class="guide-verified-badge"><i class="ri-shield-check-fill"></i> Preventive Gynecology</div>
+                        <h3 class="guide-title">Well-Woman 360° Preventive Screening Checklist by Age</h3>
+                        <p class="guide-desc">Clear diagnostic timelines for Pap smears, mammograms, DEXA bone scans, thyroid screens, and pelvic assessments.</p>
+                        <div class="guide-footer-row">
+                            <span class="guide-doc-name">By Dr. Priya Sharma</span>
+                            <a href="404.html" class="btn-guide-download">
+                                <i class="ri-download-2-line"></i>
+                                <span>Download PDF</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: DOCTOR ROUNDS & MULTIMEDIA MEDICAL INSIGHTS
+         ========================================================================== -->
+    <section class="blog-multimedia-section" id="doctorInsights">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-mic-fill"></i>
+                    <span>AUDIO ROUNDS &amp; VIDEO DISCUSSIONS</span>
+                </div>
+                <h2 class="section-main-title">Physician rounds in 20 minutes or less</h2>
+                <p class="section-sub-title">Listen to in-depth case conversations and diagnostic breakdowns with our attending gynecologists and surgeons.</p>
+            </div>
+
+            <div class="multimedia-grid">
+                <!-- Media Card 1 -->
+                <div class="media-lecture-card" data-reveal="fade-up" data-delay="100">
+                    <div class="media-lecture-top">
+                        <span class="media-tag"><i class="ri-headphone-fill"></i> PODCAST EPISODE #14</span>
+                        <span class="media-duration">22 Mins</span>
+                    </div>
+                    <h3 class="media-title">Demystifying Endometriosis: Modern Diagnostic Pathways &amp; Nerve Preservation</h3>
+                    <p class="media-desc">Dr. Priya Sharma explains why ultrasound acoustic mapping is replacing exploratory laparoscopy for non-invasive pelvic staging.</p>
+                    
+                    <!-- Sound Wave Visualizer Bars -->
+                    <div class="soundwave-bar">
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                    </div>
+
+                    <div class="media-card-footer">
+                        <div class="media-speaker">
+                            <img src="images/h3.webp" alt="Dr. Priya Sharma" class="speaker-avatar">
+                            <span>Dr. Priya Sharma, MD</span>
+                        </div>
+                        <a href="404.html" class="btn-media-play" aria-label="Listen Episode">
+                            <i class="ri-play-fill"></i>
+                            <span>Listen Episode</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Media Card 2 -->
+                <div class="media-lecture-card highlight-media" data-reveal="fade-up" data-delay="200">
+                    <div class="media-lecture-top">
+                        <span class="media-tag highlight-tag"><i class="ri-video-fill"></i> VIDEO MASTERCLASS</span>
+                        <span class="media-duration">28 Mins</span>
+                    </div>
+                    <h3 class="media-title">Natural Birth Preparation: Fetal Positioning, Perineal Massage &amp; Gentle Labor</h3>
+                    <p class="media-desc">Dr. Sarah Jenkins shares evidence-based techniques to reduce birth trauma, manage labor sensations, and empower maternal breathing.</p>
+                    
+                    <div class="soundwave-bar">
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                    </div>
+
+                    <div class="media-card-footer">
+                        <div class="media-speaker">
+                            <img src="images/d2.webp" alt="Dr. Sarah Jenkins" class="speaker-avatar">
+                            <span>Dr. Sarah Jenkins, OB-GYN</span>
+                        </div>
+                        <a href="404.html" class="btn-media-play btn-media-featured" aria-label="Watch Video Masterclass">
+                            <i class="ri-play-fill"></i>
+                            <span>Watch Class</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Media Card 3 -->
+                <div class="media-lecture-card" data-reveal="fade-up" data-delay="300">
+                    <div class="media-lecture-top">
+                        <span class="media-tag"><i class="ri-headphone-fill"></i> PODCAST EPISODE #16</span>
+                        <span class="media-duration">19 Mins</span>
+                    </div>
+                    <h3 class="media-title">Hormonal Harmony After 40: Navigating Perimenopause with Bio-Identicals</h3>
+                    <p class="media-desc">Dr. Maya Sharma dispels outdated hormone therapy myths and explains individualized micronized progesterone protocols.</p>
+                    
+                    <div class="soundwave-bar">
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                        <span class="wave-bar"></span>
+                    </div>
+
+                    <div class="media-card-footer">
+                        <div class="media-speaker">
+                            <img src="images/Indian Neurosurgeon _ Women in Medicine Inspiration.webp" alt="Dr. Maya Sharma" class="speaker-avatar">
+                            <span>Dr. Maya Sharma, MD</span>
+                        </div>
+                        <a href="404.html" class="btn-media-play" aria-label="Listen Episode">
+                            <i class="ri-play-fill"></i>
+                            <span>Listen Episode</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: PATIENT HEALING JOURNEYS & CLINICAL CHRONICLES
+         ========================================================================== -->
+    <section class="blog-stories-section" id="patientVoices">
+        <div class="about-container">
+            <div class="section-center-header" data-reveal="fade-up">
+                <div class="trust-badge">
+                    <i class="ri-hearts-fill"></i>
+                    <span>PATIENT CHRONICLES</span>
+                </div>
+                <h2 class="section-main-title">Real journeys, transformative recoveries</h2>
+                <p class="section-sub-title">Personal stories from women who partnered with our clinical specialists to overcome complex diagnoses and embrace motherhood.</p>
+            </div>
+
+            <div class="stories-grid">
+                <!-- Story 1 -->
+                <div class="story-chronicle-card" data-reveal="fade-up" data-delay="100">
+                    <div class="story-quote-mark"><i class="ri-double-quotes-l"></i></div>
+                    <p class="story-text">
+                        "After three years of failed cycles and irregular periods, Dr. Maya Sharma took the time to test my fasting insulin and DHEA. Within five months of targeted dietary adjustments and ovulation monitoring, we conceived our healthy baby boy."
+                    </p>
+                    <div class="story-divider"></div>
+                    <div class="story-patient-row">
+                        <img src="images/ou1.webp" alt="Priya M." class="story-avatar">
+                        <div class="story-patient-meta">
+                            <strong>Priya &amp; Baby Aarav</strong>
+                            <span>PCOS Recovery &amp; Maternity Journey &bull; Salem</span>
+                        </div>
+                    </div>
+                    <div class="story-doc-tag">
+                        <i class="ri-stethoscope-line"></i> Attending: Dr. Maya Sharma
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="story-chronicle-card highlight-story" data-reveal="fade-up" data-delay="200">
+                    <div class="story-quote-mark"><i class="ri-double-quotes-l"></i></div>
+                    <p class="story-text">
+                        "When I was diagnosed with marginal placenta previa at 24 weeks, the panic was overwhelming. Dr. Sarah Jenkins’ unhurried reassurance, precise 4D scans, and constant availability made me feel secure through every single day until our safe natural delivery."
+                    </p>
+                    <div class="story-divider"></div>
+                    <div class="story-patient-row">
+                        <img src="images/ou2.webp" alt="Anitha R." class="story-avatar">
+                        <div class="story-patient-meta">
+                            <strong>Anitha &amp; Baby Meera</strong>
+                            <span>High-Risk Fetal Care &bull; Erode</span>
+                        </div>
+                    </div>
+                    <div class="story-doc-tag">
+                        <i class="ri-stethoscope-line"></i> Attending: Dr. Sarah Jenkins
+                    </div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="story-chronicle-card" data-reveal="fade-up" data-delay="300">
+                    <div class="story-quote-mark"><i class="ri-double-quotes-l"></i></div>
+                    <p class="story-text">
+                        "Severe postpartum core weakness and back pain made picking up my toddler agonizing. Dr. Ananya’s ultrasound-guided pelvic floor physical therapy completely restored my core strength and allowed me to return to running without discomfort."
+                    </p>
+                    <div class="story-divider"></div>
+                    <div class="story-patient-row">
+                        <img src="images/ou3.webp" alt="Kavitha S." class="story-avatar">
+                        <div class="story-patient-meta">
+                            <strong>Kavitha S.</strong>
+                            <span>Postnatal Core Recovery &bull; Salem</span>
+                        </div>
+                    </div>
+                    <div class="story-doc-tag">
+                        <i class="ri-stethoscope-line"></i> Attending: Dr. Ananya Rao
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: INTERACTIVE MYTH VS. FACT & CLINICAL NEWSLETTER
+         ========================================================================== -->
+    <section class="blog-clarity-section" id="mythVsFact">
+        <div class="about-container">
+            <div class="clarity-layout-grid">
+                <!-- Left: Interactive Myth vs Fact Accordion -->
+                <div class="myth-fact-col" data-reveal="fade-up">
+                    <div class="trust-badge">
+                        <i class="ri-question-mark"></i>
+                        <span>SCIENTIFIC CLARITY</span>
+                    </div>
+                    <h2 class="clarity-heading">Separating medical facts from women's health myths</h2>
+                    <p class="clarity-sub">Click on any misconception below to reveal peer-reviewed clinical clarifications from our medical team.</p>
+
+                    <div class="myth-accordion-list">
+                        <!-- Myth Item 1 -->
+                        <div class="myth-card-item active">
+                            <button class="myth-toggle-btn" aria-expanded="true">
+                                <span class="myth-badge"><i class="ri-close-circle-fill"></i> MYTH 01</span>
+                                <span class="myth-question">"Having PCOS means you will never be able to conceive naturally."</span>
+                                <i class="ri-arrow-down-s-line myth-chevron"></i>
+                            </button>
+                            <div class="myth-answer-box">
+                                <div class="fact-stamp"><i class="ri-checkbox-circle-fill"></i> THE CLINICAL FACT</div>
+                                <p>With individualized ovulatory restoration protocols, glycemic optimization, and nutritional support, over 85% of women with PCOS achieve healthy natural pregnancies without invasive reproductive surgeries.</p>
+                            </div>
+                        </div>
+
+                        <!-- Myth Item 2 -->
+                        <div class="myth-card-item">
+                            <button class="myth-toggle-btn" aria-expanded="false">
+                                <span class="myth-badge"><i class="ri-close-circle-fill"></i> MYTH 02</span>
+                                <span class="myth-question">"You only need to visit a gynecologist if you experience pain or symptoms."</span>
+                                <i class="ri-arrow-down-s-line myth-chevron"></i>
+                            </button>
+                            <div class="myth-answer-box">
+                                <div class="fact-stamp"><i class="ri-checkbox-circle-fill"></i> THE CLINICAL FACT</div>
+                                <p>Cervical dysplasia, early ovarian cysts, and high-risk HPV infections are almost entirely asymptomatic in their initial stages. Routine annual liquid-based screenings prevent complications years before symptoms appear.</p>
+                            </div>
+                        </div>
+
+                        <!-- Myth Item 3 -->
+                        <div class="myth-card-item">
+                            <button class="myth-toggle-btn" aria-expanded="false">
+                                <span class="myth-badge"><i class="ri-close-circle-fill"></i> MYTH 03</span>
+                                <span class="myth-question">"Hormonal hot flashes and chronic fatigue are inevitable parts of aging that must simply be tolerated."</span>
+                                <i class="ri-arrow-down-s-line myth-chevron"></i>
+                            </button>
+                            <div class="myth-answer-box">
+                                <div class="fact-stamp"><i class="ri-checkbox-circle-fill"></i> THE CLINICAL FACT</div>
+                                <p>Modern bio-identical hormone replacement therapy (BHRT) and targeted adrenal-thyroid balancing provide safe, tailored relief that preserves bone density, cognitive focus, and restful sleep throughout menopause.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Clinical Digest Newsletter Subscription Box -->
+                <div class="newsletter-col" data-reveal="fade-up" data-delay="200">
+                    <div class="newsletter-card-glass">
+                        <div class="news-glow-blob"></div>
+                        <div class="news-header-icon">
+                            <i class="ri-mail-star-fill"></i>
+                        </div>
+                        <h3 class="news-card-title">Join The Curevo Weekly Clinical Digest</h3>
+                        <p class="news-card-text">
+                            Receive doctor-written wellness analyses, trimester guides, hormonal nutrition recipes, and clinic announcements delivered directly to your inbox every Thursday.
+                        </p>
+                        
+                        <form class="news-form" id="journalNewsletterForm" onsubmit="event.preventDefault(); handleNewsletterSubscribe();">
+                            <div class="news-input-wrap">
+                                <i class="ri-mail-line news-icon"></i>
+                                <input type="email" id="subscriberEmail" class="news-input" placeholder="Enter your email address..." required aria-label="Email address">
+                            </div>
+                            <button type="submit" class="btn-news-submit" id="btnNewsletterSubmit">
+                                <span>Subscribe to Digest</span>
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </form>
+
+                        <div class="news-trust-points">
+                            <span><i class="ri-lock-line"></i> 100% Confidential</span>
+                            <span><i class="ri-check-line"></i> Zero Spam</span>
+                            <span><i class="ri-close-line"></i> Unsubscribe Anytime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: SANCTUARY CARE & CONSULTATION CTA BANNER
+         ========================================================================== -->
+    <section class="blog-cta-section" id="blogCta">
+        <div class="about-container">
+            <div class="about-cta-card" data-reveal="fade-up">
+                <div class="cta-bg-layer">
+                    <img src="images/6900839ca4b6271ab5789e76_hero cta (2).webp" alt="Curevo Health Center Sanctuary" class="cta-card-bg-img">
+                    <div class="cta-card-overlay"></div>
+                </div>
+                <div class="cta-glow-blob"></div>
+                <div class="about-cta-inner">
+                    <div class="trust-badge">
+                        <i class="ri-calendar-check-fill"></i>
+                        <span>SCHEDULE YOUR CLINICAL VISIT</span>
+                    </div>
+                    <h2 class="about-cta-heading">Empower your health journey with unhurried clinical expertise.</h2>
+                    <p class="about-cta-sub">
+                        Have questions about any article or diagnosis? Meet with our female medical specialists for unhurried 45-minute consultations in our comforting Salem sanctuary.
+                    </p>
+                    
+                    <div class="about-cta-buttons-row">
+                        <a href="404.html" class="btn-appointment about-cta-primary">
+                            <span class="btn-text">Book an appointment</span>
+                            <span class="btn-arrow-circle">
+                                <i class="ri-arrow-right-line"></i>
+                            </span>
+                        </a>
+                        <a href="404.html" class="about-cta-secondary">
+                            <i class="ri-phone-fill"></i>
+                            <span>Call 24/7 Helpline</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         FOOTER SECTION (Stackly/Curevo Medical Luxury Footer)
+         ========================================================================== -->
+    <footer class="main-footer" id="contact">
+        <!-- Subtle Background Glow / Texture Layer -->
+        <div class="footer-bg-glow"></div>
+
+        <div class="footer-container">
+            <!-- 4-Column Grid -->
+            <div class="footer-grid">
+                
+                <!-- Column 1: Brand Logo, Mission, Address & Working Hours -->
+                <div class="footer-col footer-col-brand" data-reveal="fade-up" data-delay="50">
+                    <a href="index.html" class="footer-logo-link" aria-label="Curevo Home">
+                        <img src="images/logo.webp" alt="Curevo Women's Health Center" class="footer-logo-img">
+                    </a>
+                    
+                    <p class="footer-mission-text">
+                        We support discovery across healthcare, biotechnology, & sciences.
+                    </p>
+
+                    <div class="footer-address-badge">
+                        <i class="ri-map-pin-2-fill address-icon"></i>
+                        <span>MMR complex, salem, tamilnadu</span>
+                    </div>
+
+                    <!-- Working Hours Glass Card -->
+                    <div class="footer-hours-box">
+                        <h4 class="hours-title">Working Hours:</h4>
+                        <div class="hours-card">
+                            <div class="hours-row">
+                                <span class="hours-day">Monday - Friday:-</span>
+                                <span class="hours-time">10:00 - 05:00</span>
+                            </div>
+                            <div class="hours-row">
+                                <span class="hours-day">Saturday:-</span>
+                                <span class="hours-time">10:00 - 04:00</span>
+                            </div>
+                            <div class="hours-row closed-row">
+                                <span class="hours-day">Sunday:-</span>
+                                <span class="hours-time closed-badge">Closed</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="footer-col footer-col-links" data-reveal="fade-up" data-delay="100">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="index.html" class="footer-nav-link"><span class="link-dash">-</span> Home</a></li>
+                        <li><a href="about.html" class="footer-nav-link"><span class="link-dash">-</span> About</a></li>
+                        <li><a href="service.html" class="footer-nav-link"><span class="link-dash">-</span> Service</a></li>
+                        <li><a href="blog.html" class="footer-nav-link"><span class="link-dash">-</span> Blog</a></li>
+                        <li><a href="contact.html" class="footer-nav-link"><span class="link-dash">-</span> Contact</a></li>
+                        <li><a href="login.html" class="footer-nav-link"><span class="link-dash">-</span> Login</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div class="footer-col footer-col-services" data-reveal="fade-up" data-delay="150">
+                    <h3 class="footer-heading">Our Services</h3>
+                    <ul class="footer-nav-list">
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Diagnostic Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Laboratory Analysis</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Industrial Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Clinical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Chemical Testing</a></li>
+                        <li><a href="404.html" class="footer-nav-link"><span class="link-dash">-</span> Preventive Checkups</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Follow Us On Social -->
+                <div class="footer-col footer-col-social" data-reveal="fade-up" data-delay="200">
+                    <h3 class="footer-heading">Follow Us On Social</h3>
+                    <p class="social-intro-text">
+                        Connect with us online for updates, breakthroughs, &amp; lab highlights.
+                    </p>
+
+                    <!-- Circular Social Buttons -->
+                    <div class="footer-social-row">
+                        <a href="404.html" class="social-circle-btn pinterest-btn" aria-label="Pinterest">
+                            <i class="ri-pinterest-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn twitter-btn" aria-label="Twitter X">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn facebook-btn" aria-label="Facebook">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="404.html" class="social-circle-btn instagram-btn" aria-label="Instagram">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Legal Bar -->
+            <div class="footer-bottom-bar">
+                <div class="footer-bottom-left">
+                    <p>&copy; 2026 Curevo Women's Health Center. All rights reserved. &bull; MMR complex, salem, tamilnadu</p>
+                </div>
+                <div class="footer-bottom-right">
+                    <a href="404.html" class="legal-link">Privacy Policy</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Terms of Service</a>
+                    <span class="legal-divider">&bull;</span>
+                    <a href="404.html" class="legal-link">Cookie Settings</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
